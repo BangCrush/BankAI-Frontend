@@ -24,6 +24,8 @@ module.exports = {
         "gray-900": "#4D4D4D",
         "gray-800": "#E1E1E1",
         "gray-700": "#BFBFBF",
+        "gray-input": "#F8F8FA",
+        "gray-placeholder": "#CCCCCC",
         "white-100": "#E1E9E5",
       },
     },
