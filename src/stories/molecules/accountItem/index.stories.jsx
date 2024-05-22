@@ -5,7 +5,7 @@ import accountItem from ".";
 
 export default {
   component: accountItem,
-  title: "atoms/accountItem",
+  title: "molecules/accountItem",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };

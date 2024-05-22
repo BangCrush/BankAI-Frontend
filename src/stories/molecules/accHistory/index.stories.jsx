@@ -1,11 +1,11 @@
 import store from "../../../lib/store";
 
 import { Provider } from "react-redux";
-import mainCarousel from ".";
+import accHistory from ".";
 
 export default {
-  component: mainCarousel,
-  title: "atoms/mainCarousel",
+  component: accHistory,
+  title: "molecules/accHistory",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
@@ -13,10 +13,11 @@ export default {
 export const Default = {};
 Default.args = {
   data: {
-    prodName: "하나저축계좌",
-    prodType: "입출금",
-    accCode: "123-4576-345",
-    accBalance: "234,140원"
-  }
+    hisDate: "05.14",
+    hisAmount: "234,140원",
+    balance: "34,345,300원",
+    hisType: "#계좌이체",
+    target: "임태규"
+  },
+  sub: false
 };
-
