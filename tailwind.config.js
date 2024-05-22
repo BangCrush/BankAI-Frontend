@@ -22,6 +22,7 @@ module.exports = {
         custom:
           "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;",
       },
+      borderWidth:px0_1000,
       colors: {
         "main-color": "#8785F6",
         "sub-color": "#C9C8FF",
@@ -32,6 +33,7 @@ module.exports = {
         "gray-border": "#E9E9E9",
         "gray-input": "#F8F8FA",
         "gray-placeholder": "#CCCCCC",
+        "gray-600": "E9E9E9",
         "white-100": "#E1E9E5",
       },
     },
