@@ -1,4 +1,4 @@
-import store from "../../../lib/store";
+import store from "libs/store";
 
 import { Provider } from "react-redux";
 import Input from "./index";
@@ -11,5 +11,4 @@ export default {
 };
 
 export const Default = {};
-Default.args = { placeholder:"중복체크"}
-
+Default.args = { placeholder: "중복체크" };
