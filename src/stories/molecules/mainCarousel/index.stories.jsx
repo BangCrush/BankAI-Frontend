@@ -1,4 +1,4 @@
-import store from "../../../lib/store";
+import store from "libs/store";
 
 import { Provider } from "react-redux";
 import mainCarousel from ".";
@@ -16,7 +16,6 @@ Default.args = {
     prodName: "하나저축계좌",
     prodType: "입출금",
     accCode: "123-4576-345",
-    accBalance: "234,140원"
-  }
+    accBalance: "234,140원",
+  },
 };
-

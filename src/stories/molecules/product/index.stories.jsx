@@ -1,4 +1,4 @@
-import store from "../../../lib/store";
+import store from "libs/store";
 
 import { Provider } from "react-redux";
 import Product from "./index";

@@ -1,14 +1,14 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import MediumButton from "./index";
+import SearchBar from "./index";
 
 export default {
-  component: MediumButton,
-  title: "atoms/mediumButton",
+  component: SearchBar,
+  title: "molecules/searchBar",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = {};
-Default.args = { text: "조회하기", sub: false };
+Default.args = { placeholder: "어떤 상품을 찾으세요?" };
