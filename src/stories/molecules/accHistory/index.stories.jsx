@@ -1,4 +1,4 @@
-import store from "../../../lib/store";
+import store from "libs/store";
 
 import { Provider } from "react-redux";
 import accHistory from ".";
@@ -19,5 +19,5 @@ Default.args = {
     hisType: "#계좌이체",
     target: "임태규"
   },
-  sub: false
+  inOrOut: true
 };
