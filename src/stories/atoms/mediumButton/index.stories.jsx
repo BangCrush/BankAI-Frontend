@@ -11,5 +11,4 @@ export default {
 };
 
 export const Default = {};
-Default.args = { text:"조회하기"}
-
+Default.args = { text: "조회하기", sub: false };
