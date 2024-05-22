@@ -1,7 +1,9 @@
-const LongButton = () => {
+const LongButton = ({ text, active }) => {
   return (
-    <button className="text-white bg-main-color px-35 py-10 rounded-16 my-10 w-full max-w-240">
-      dd
+    <button
+      className={`text-white font-semibold py-18 rounded-12 w-full ${active ? "bg-main-color" : "bg-sub-color"}`}
+    >
+      {text}
     </button>
   );
 };
