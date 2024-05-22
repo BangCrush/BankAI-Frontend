@@ -1,4 +1,4 @@
-import store from "../../../lib/store";
+import store from "libs/store";
 
 import { Provider } from "react-redux";
 import LongButton from ".";
@@ -11,5 +11,4 @@ export default {
 };
 
 export const Default = {};
-Default.args = { text:"로그인", active: false}
-
+Default.args = { text: "로그인", active: false };
