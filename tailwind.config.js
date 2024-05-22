@@ -18,6 +18,7 @@ module.exports = {
       lineHeight: px0_100,
       padding: px0_1000,
       margin: px0_1000,
+      borderWidth:px0_1000,
       colors: {
         "main-color": "#8785F6",
         "sub-color": "#C9C8FF",
@@ -28,6 +29,7 @@ module.exports = {
         "gray-border": "#E9E9E9",
         "gray-input": "#F8F8FA",
         "gray-placeholder": "#CCCCCC",
+        "gray-600": "E9E9E9",
         "white-100": "#E1E9E5",
       },
     },
