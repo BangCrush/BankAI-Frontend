@@ -1,10 +1,10 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import mainCarousel from ".";
+import MainCarousel from ".";
 
 export default {
-  component: mainCarousel,
+  component: MainCarousel,
   title: "molecules/mainCarousel",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
