@@ -1,6 +1,6 @@
 import MediumButton from '../../atoms/mediumButton'
 
-const mainCarousel = ({data}) => {
+const MainCarousel = ({data}) => {
   return (
     <div className="border-1 border-solid border-gray-600 rounded-20 px-20 py-12 max-w-285 max-y-193">
       <p className="text-black-900 text-13 font-semibold mb-10">{data.prodName}</p>
@@ -14,4 +14,4 @@ const mainCarousel = ({data}) => {
   );
 };
 
-export default mainCarousel;
+export default MainCarousel;

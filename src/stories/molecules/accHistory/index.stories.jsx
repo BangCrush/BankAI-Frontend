@@ -1,10 +1,10 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import accHistory from ".";
+import AccHistory from ".";
 
 export default {
-  component: accHistory,
+  component: AccHistory,
   title: "molecules/accHistory",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],

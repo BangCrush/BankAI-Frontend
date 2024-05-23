@@ -1,10 +1,10 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import accountItem from ".";
+import AccountItem from ".";
 
 export default {
-  component: accountItem,
+  component: AccountItem,
   title: "molecules/accountItem",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
