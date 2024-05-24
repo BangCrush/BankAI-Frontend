@@ -1,4 +1,4 @@
-import MediumButton from '../../atoms/mediumButton'
+import MediumButton from 'stories/atoms/mediumButton'
 
 const MainCarousel = ({data}) => {
   return (

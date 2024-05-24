@@ -33,7 +33,7 @@ module.exports = {
         "gray-border": "#E9E9E9",
         "gray-input": "#F8F8FA",
         "gray-placeholder": "#CCCCCC",
-        "gray-600": "E9E9E9",
+        "gray-menu": "#EBEBEB",
         "white-100": "#E1E9E5",
       },
     },
