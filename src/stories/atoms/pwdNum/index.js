@@ -1,10 +1,19 @@
+import { Backspace } from "@mui/icons-material";
 
-const PwdNum = ({ text, sub }) => {
+const PwdNum = ({ num }) => {
   return (
     <button
-      className={`text-50 text-nowrap min-w-90 min-h-90 max-w-115`}
+      className={`text-20 text-nowrap min-w-110 min-h-80`}
     >
-      <p className="inline">{text}</p>
+      {num>-1 && (
+        <p className="inline">{num}</p>
+      )}
+      {num===-2 && (
+        <p className="inline text-14">전체삭제</p>
+      )}
+      {num===-1 && (
+        <Backspace/>
+      )}
     </button>
   );
 };
