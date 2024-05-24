@@ -3,13 +3,9 @@ run-name: ${{ github.actor }}'s code is Deploying❕❗🚀
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-    types: [closed]
 
 jobs:
   deploy:
-    if: (github.event_name == 'pull_request' && github.event.action == 'closed') || github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Get Github Actions IP
@@ -30,7 +26,7 @@ jobs:
       - name: SSH Commands
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.AWS_SSH_HOST }}
+          host: ${{ secrets.AWS_FE_SSH_HOST }}
           username: ${{ secrets.AWS_SSH_USERNAME }}
           key: ${{ secrets.AWS_SSH_KEY }}
           script_stop: true
