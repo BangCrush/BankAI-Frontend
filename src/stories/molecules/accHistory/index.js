@@ -1,6 +1,6 @@
 const AccHistory = ({data, inOrOut}) => {
   return (
-    <div className="border-gray-800 border-solid border-1 max-w-360 px-19 py-24">
+    <div className="border-gray-800 border-solid border-1 px-19 py-24">
       <div className="grid grid-cols-8">
         <div className="text-10 col-span-1">
           <p className="mt-2">{data.hisDate}</p>
