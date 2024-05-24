@@ -4,7 +4,7 @@ const ProdItem = ({ title, img }) => {
     <div className="flex flex-col justify-center items-center">
       <div className="flex justify-center items-center w-60 h-60 rounded-10 bg-gray-menu shadow-custom mb-6">
         {img ? (
-          <img className="w-40 h-50" alt={title} src={`/assets/${img}.svg`} />
+          <img className="w-50 h-55" alt={title} src={`/assets/${img}.svg`} />
         ) : (
           <div>Image not found</div>
         )}
