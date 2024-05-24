@@ -1,15 +1,15 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import PwdNum from "./index";
+import PwdLine from "./index";
 
 export default {
-  component: PwdNum,
-  title: "atoms/pwdNum",
+  component: PwdLine,
+  title: "molecules/pwdLine",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = {};
-Default.args = { num:9}
+Default.args = { numbers:["9","8","7"]}
 

@@ -1,15 +1,18 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import PwdNum from "./index";
+import PwdKeyboard from ".";
 
 export default {
-  component: PwdNum,
-  title: "atoms/pwdNum",
+  component: PwdKeyboard,
+  title: "organisms/pwdKeyboard",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = {};
-Default.args = { num:9}
+
+
+
+
 
