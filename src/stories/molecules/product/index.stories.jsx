@@ -16,4 +16,5 @@ Default.args = {
   promotion: "월급 받고 이자 차곡",
   period: "1년",
   rate: 5.85,
+  isLast: false,
 };
