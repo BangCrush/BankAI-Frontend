@@ -22,10 +22,11 @@ module.exports = {
         custom:
           "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;",
       },
-      borderWidth:px0_1000,
+      borderWidth: px0_1000,
       colors: {
         "main-color": "#8785F6",
         "sub-color": "#C9C8FF",
+        "main-bg": "#F5F5F5",
         "black-900": "#333333",
         "gray-900": "#4D4D4D",
         "gray-800": "#E1E1E1",
