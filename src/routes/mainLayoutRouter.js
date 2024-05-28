@@ -1,4 +1,4 @@
-import ProductPage from "stories/pages/product/ProductPage";
+import ProductPage from "stories/pages/productPage";
 
 export const MAIN_LAYOUT_ROUTES_URL = {
   productMain: {
