@@ -1,8 +1,8 @@
 import { Backspace } from "@mui/icons-material";
 
-const PwdNum = ({ num }) => {
+const PwdNum = ({ onClick,num }) => {
   return (
-    <button
+    <button onClick={() =>onClick(num)}
       className={`text-20 text-nowrap min-w-110 min-h-80`}
     >
       {num>-1 && (
