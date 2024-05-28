@@ -11,4 +11,9 @@ export default {
 };
 
 export const Default = {};
-Default.args = { assets: 153000, date: new Date().toLocaleString() };
+Default.args = {
+  data:{
+    assets: 123502000
+  },
+  date: new Date().toLocaleString(),
+};
