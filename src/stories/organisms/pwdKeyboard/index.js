@@ -6,7 +6,7 @@ const PwdKeyboard = () => {
     numbers = numbers.sort(() => Math.random() - 0.5);
   return (
     <div
-      className={`p-20`}
+      className={`p-20 mx-auto`}
     >
         <PwdLine numbers={[numbers[0],numbers[1],numbers[2]]} />
         <PwdLine numbers={[numbers[3],numbers[4],numbers[5]]} />
