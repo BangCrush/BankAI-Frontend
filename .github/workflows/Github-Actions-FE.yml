@@ -39,7 +39,8 @@ jobs:
             fuser -k 3000/tcp || true
             fuser -k 6006/tcp || true
             nohup npm start > service.out 2> service.err < /dev/null &
-            nohup npm run storybook > storybook.out 2> storybook.err < /dev/null &
+            npm run build-storybook
+            nohup npx serve storybook-static -p 6006 > storybook.out 2> storybook.err < /dev/null &
 
       - name: Remove Github Actions IP From Security Group
         run: |

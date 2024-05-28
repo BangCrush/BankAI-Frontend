@@ -1,12 +1,12 @@
 import PwdNum from "stories/atoms/pwdNum";
 
-const PwdLine = ({ numbers }) => {
+const PwdLine = ({ onClick,numbers }) => {
   return (
     <div
       className={`flex w-330`}
     >
       {numbers.map((num) => (
-        <PwdNum num={num} />
+        <PwdNum onClick={onClick} num={num} />
       ))}
     </div>
   );

@@ -1,12 +1,11 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import PwdKeyboard from ".";
-import { useState } from "react";
+import PwdDots from ".";
 
 export default {
-  component: PwdKeyboard,
-  title: "organisms/pwdKeyboard",
+  component: PwdDots,
+  title: "molecules/pwdDots",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
@@ -14,12 +13,4 @@ export default {
 export const Default = {};
 Default.args = {
   input: "12",
-  setInput: () => {
-    console.log("setInput");
-  },
 };
-
-
-
-
-

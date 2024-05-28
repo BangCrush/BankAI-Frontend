@@ -1,25 +1,17 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import PwdKeyboard from ".";
-import { useState } from "react";
+import Warning from ".";
 
 export default {
-  component: PwdKeyboard,
-  title: "organisms/pwdKeyboard",
+  component: Warning,
+  title: "molecules/warning",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = {};
 Default.args = {
-  input: "12",
-  setInput: () => {
-    console.log("setInput");
-  },
+  title: "대출이 어렵습니다.",
+  subtitle: "연소득 금액이 부족합니다.",
 };
-
-
-
-
-
