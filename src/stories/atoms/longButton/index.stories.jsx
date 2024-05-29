@@ -11,4 +11,4 @@ export default {
 };
 
 export const Default = {};
-Default.args = { text: "로그인", active: false };
+Default.args = { text: "로그인", active: false, onclick: () => {} };
