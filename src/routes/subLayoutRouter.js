@@ -1,4 +1,5 @@
 import LoginPage from "stories/pages/loginPage";
+import AccHistoryPage from "stories/pages/accHistoryPage";
 
 export const SUB_LAYOUT_ROUTES_URL = {
   productMain: {

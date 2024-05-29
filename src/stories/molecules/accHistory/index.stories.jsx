@@ -13,11 +13,10 @@ export default {
 export const Default = {};
 Default.args = {
   data: {
-    hisDate: "05.14",
-    hisAmount: "234,140원",
-    balance: "34,345,300원",
-    hisType: "#계좌이체",
-    target: "임태규"
-  },
-  inOrOut: true
+    hisDateTime: "2024-05-29T12:34:56",
+    hisType: "계좌이체",
+    target: "임태규",
+    hisAmount: 450000,
+    balance: 54410400
+  }
 };
