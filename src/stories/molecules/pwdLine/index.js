@@ -5,8 +5,8 @@ const PwdLine = ({ onClick,numbers }) => {
     <div
       className={`flex w-330`}
     >
-      {numbers.map((num) => (
-        <PwdNum onClick={onClick} num={num} />
+      {numbers.map((num,index) => (
+        <PwdNum key={index} onClick={onClick} num={num} />
       ))}
     </div>
   );
