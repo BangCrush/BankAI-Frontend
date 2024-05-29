@@ -1,14 +1,13 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import LongButton from ".";
+import InherentInput from "./index";
 
 export default {
-  component: LongButton,
-  title: "atoms/longButton",
+  component: InherentInput,
+  title: "atoms/inherentInput",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = {};
-Default.args = { text: "로그인", active: false, onclick: () => {} };
