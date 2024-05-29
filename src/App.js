@@ -4,6 +4,7 @@ import MainLayout from "stories/templates/MainLayout";
 import "App.css";
 import SubLayout from "stories/templates/SubLayout";
 import { SUB_LAYOUT_ROUTES_URL } from "routes/subLayoutRouter";
+import AccHistoryPage from "stories/pages/accHistoryPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             );
           })}
         </Route>
+        <Route path="/accHistory" element={<AccHistoryPage/>}></Route>
       </Routes>
     </BrowserRouter>
   );
