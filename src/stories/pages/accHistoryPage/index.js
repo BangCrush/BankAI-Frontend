@@ -53,13 +53,16 @@ const data = [
   }
 ]
 
+const accCode = "3333-19-341345";
+const accBalance = 1234400;
+
 const AccHistoryPage = () => {
   return (
     <div>
       <BlueHeaderBar text={"홍길동님의 통장"}></BlueHeaderBar>
       <div className="w-full pt-6 pb-19 px-227 bg-sub-color text-center">
-        <p className="text-12 mb-14 underline text-gray-950">3333-19-1603492</p>
-        <p className="text-26 font-extrabold mb-14">139,626원</p>
+        <p className="text-12 mb-14 underline text-gray-950">{accCode}</p>
+        <p className="text-26 font-extrabold mb-14">{accBalance.toLocaleString()}원</p>
         <button className="py-12 px-55 bg-main-color rounded-12 text-14 font-extrabold text-white">이체하기</button>
       </div>
       {
