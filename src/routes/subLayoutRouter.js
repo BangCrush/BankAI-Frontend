@@ -1,4 +1,4 @@
-import IdentifyPage from "stories/pages/IdentifyPage";
+import IdentifyPage from "stories/pages/IdentifyPage/index";
 import LoginPage from "stories/pages/loginPage";
 
 export const SUB_LAYOUT_ROUTES_URL = {
