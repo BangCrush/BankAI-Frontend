@@ -1,18 +1,14 @@
 import { Close } from "@mui/icons-material";
 import { Modal, Slide } from "@mui/material";
 import { useState } from "react";
-function BottomSheet({ page }) {
-  const [open, setOpen] = useState(true);
+function BottomSheet({ open,setOpen, page }) {
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(page);
-  return (
-    <div>
-      <button onClick={handleOpen}>✔</button>
+  return (      
       <Modal
         open={open}
         onClose={handleClose}
@@ -28,7 +24,6 @@ function BottomSheet({ page }) {
           </div>
         </Slide>
       </Modal>
-    </div>
   );
 }
 
