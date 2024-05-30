@@ -49,14 +49,14 @@ const MainPage = () => {
           <img src="/assets/toktok1.svg" />
           <div className="flex flex-col">
             <p className="text-13 font-extrabold">은행에서도 보험 상품을 판매한다고?</p>
-            <p className="text-9">내게 맞는 보험 찾기 ></p>
+            <p className="text-9">내게 맞는 보험 찾기 {">"}</p>
           </div>
         </div>
         <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-10 px-14">
           <img src="/assets/toktok2.svg" />
           <div className="flex flex-col">
             <p className="text-13 font-extrabold">신용대출을 받을 때 꼭 알아야할 유의사항</p>
-            <p className="text-9">내게 맞는 대출 찾기 ></p>
+            <p className="text-9">내게 맞는 대출 찾기 {">"}</p>
           </div>
         </div>
       </div>
