@@ -5,6 +5,7 @@ import "App.css";
 import SubLayout from "stories/templates/SubLayout";
 import { SUB_LAYOUT_ROUTES_URL } from "routes/subLayoutRouter";
 import AccHistoryPage from "stories/pages/accHistoryPage";
+import { NO_LAYOUT_ROUTES_URL } from "routes/noLayoutRouter";
 
 function App() {
   return (
@@ -32,7 +33,18 @@ function App() {
             );
           })}
         </Route>
-        <Route path="/accHistory" element={<AccHistoryPage/>}></Route>
+        <Route path="/">
+          {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
+            return (
+              <Route
+                key={route.name}
+                path={route.path()}
+                element={<route.component />}
+              />
+            );
+          })}
+        </Route>
+        <Route path="/accHistory" element={<AccHistoryPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
