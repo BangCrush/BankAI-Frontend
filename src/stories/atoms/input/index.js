@@ -1,9 +1,11 @@
+import React from "react";
+
 const Input = ({ placeholder, onChange, value, msg, type }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-grow">
       <input
         placeholder={placeholder}
-        className="rounded-10 bg-gray-input px-12 py-15 w-full placeholder:text-gray-placeholder text-14"
+        className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-full placeholder:text-gray-placeholder text-14 flex-auto"
         onChange={onChange}
         value={value}
         type={type ? "password" : "text"}
