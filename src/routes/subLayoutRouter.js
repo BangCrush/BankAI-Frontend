@@ -1,4 +1,5 @@
 import IdentifyPage from "stories/pages/IdentifyPage/index";
+import JoinPage from "stories/pages/joinPage";
 import LoginPage from "stories/pages/loginPage";
 
 export const SUB_LAYOUT_ROUTES_URL = {
@@ -11,5 +12,10 @@ export const SUB_LAYOUT_ROUTES_URL = {
     name: "본인인증 페이지",
     path: () => "/identify",
     component: IdentifyPage,
+  },
+  JoinPage: {
+    name: "회원가입 페이지",
+    path: () => "/join",
+    component: JoinPage,
   },
 };
