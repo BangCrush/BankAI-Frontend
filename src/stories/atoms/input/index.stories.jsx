@@ -13,4 +13,5 @@ export default {
 export const Default = {};
 Default.args = {
   placeholder: "중복체크",
+  msg: "아이디가 중복됩니다.",
 };
