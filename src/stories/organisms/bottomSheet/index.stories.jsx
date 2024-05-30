@@ -2,8 +2,8 @@ import store from "libs/store";
 
 import { Provider } from "react-redux";
 import BottomSheet from ".";
-import PwdPage from "stories/pages/pwdPage";
 import { useState } from "react";
+import LoanCheckPage from "stories/pages/loanCheckPage";
 
 export default {
   component: BottomSheet,
@@ -41,5 +41,5 @@ export const Default =(args)=> {
     )
 };
 Default.args={
-    page:<PwdPage/>
+    page:<LoanCheckPage prodName={"일반신용대출"} loanAmount={100000} loanRate={3.5}/>
 }
