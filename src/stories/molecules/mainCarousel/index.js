@@ -2,15 +2,30 @@ import MediumButton from "stories/atoms/mediumButton";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const MainCarousel = ({ data }) => {
+  const LeftArrow = (props)=>{
+    const {className,style,onClick} = props;
+    return (
+      <ArrowBackIosNewIcon onClick={onClick} className={className} style={{...style,color:"#C8C8C8", fontSize:"2rem", left:"-50px"}}/>
+    )
+  }
+  const RightArrow = (props)=>{
+    const {className,style,onClick} = props;
+    return (
+      <ArrowForwardIosIcon onClick={onClick} className={className} style={{...style,color:"#C8C8C8", fontSize:"2rem",right:"-50px"}}/>
+    )
+  }
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
+    prevArrow: <LeftArrow/>,
+    nextArrow: <RightArrow/>
   };
 
   return (
