@@ -26,6 +26,7 @@ module.exports = {
       colors: {
         "main-color": "#8785F6",
         "sub-color": "#C9C8FF",
+        "err-color": "#D10000",
         "main-bg": "#F5F5F5",
         "black-900": "#333333",
         "gray-900": "#4D4D4D",
