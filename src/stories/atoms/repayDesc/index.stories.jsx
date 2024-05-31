@@ -5,7 +5,7 @@ import RepayDesc from ".";
 
 export default {
   component: RepayDesc,
-  title: "/",
+  title: "atoms/repayDesc",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
