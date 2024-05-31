@@ -1,10 +1,10 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import ProdDetail from ".";
+import ProdDetailPage from ".";
 
 export default {
-  component: ProdDetail,
+  component: ProdDetailPage,
   title: "page/prodDetail",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],

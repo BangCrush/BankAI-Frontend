@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 const ProdBenefit = ({ data }) => {
-
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
     const value = parseInt(e.target.value, 10);
     if (isNaN(value)) {
-        setInputValue("");
-        return;
+      setInputValue("");
+      return;
     }
     const rate = (data.prodRate * 10) / 1000;
     let finalAmount;
@@ -16,17 +15,16 @@ const ProdBenefit = ({ data }) => {
     if (data.prodAcc === "SIMPLE") {
       finalAmount = value * (1 + rate);
     } else if (data.prodAcc === "COMPOUND") {
-      finalAmount = value * Math.pow((1 + rate / 12), 12);
+      finalAmount = value * Math.pow(1 + rate / 12, 12);
     }
 
     setInputValue(Number(finalAmount.toFixed()).toLocaleString());
-
   };
 
   return (
     <div className="p-40">
       <div className="py-17">
-        <p className="text-16 font-extrabold">나의 예상 혜택</p>
+        <p className="text-16 font-semibold">나의 예상 혜택</p>
         <div className="my-20 py-16 px-10 bg-gray-200 rounded-12">
           <div className="p-10 grid grid-cols-2">
             <div className="text-14 text-gray-950">만기금액</div>
@@ -41,7 +39,7 @@ const ProdBenefit = ({ data }) => {
             </div>
           </div>
         </div>
-        <p className="mb-20 text-16 font-extrabold">
+        <p className="mb-20 text-16 font-semibold">
           한 달에{" "}
           <input
             type="text"
@@ -51,7 +49,7 @@ const ProdBenefit = ({ data }) => {
           />
           {data.prodType === "SAVINGS" ? "원 씩" : "원을"}
         </p>
-        <p className="text-16 font-extrabold">
+        <p className="text-16 font-semibold">
           <span className="text-main-color">12개월</span> 동안 저축하기
         </p>
       </div>
