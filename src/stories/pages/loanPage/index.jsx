@@ -22,7 +22,7 @@ const LoanPage = () => {
     prodRepay: "BULLET",
     prodCaution: "",
     prodAcc: "",
-    prodpromo: "",
+    prodPromo: "",
     prodTerms: "",
   };
 

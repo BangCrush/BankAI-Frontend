@@ -9,4 +9,19 @@ const savings = {
   accTrsfLimit: 300000,
 };
 
-export { savings };
+const accList = [
+  {
+    accCode: "203938462618",
+    accBalance: 0,
+    prodName: "string",
+    prodType: "CHECKING",
+  },
+  {
+    accCode: "113938462618",
+    accBalance: 0,
+    prodName: "string",
+    prodType: "CHECKING",
+  },
+];
+
+export { savings, accList };
