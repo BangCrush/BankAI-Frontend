@@ -1,7 +1,9 @@
+import DepositPage from "stories/pages/savingsPage";
 import IdentifyPage from "stories/pages/IdentifyPage/index";
 import JoinPage from "stories/pages/joinPage";
 import LoginPage from "stories/pages/loginPage";
 import TransferPage from "stories/pages/transferPage";
+import SavingsPage from "stories/pages/savingsPage";
 
 export const SUB_LAYOUT_ROUTES_URL = {
   LoginPage: {
@@ -23,5 +25,10 @@ export const SUB_LAYOUT_ROUTES_URL = {
     name: "계좌이체 페이지",
     path: () => "/transfer",
     component: TransferPage,
+  },
+  SavingsPage: {
+    name: "적금가입 페이지",
+    path: () => "/savings",
+    component: SavingsPage,
   },
 };

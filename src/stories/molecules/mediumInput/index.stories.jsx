@@ -13,6 +13,6 @@ export default {
 export const Default = {};
 Default.args = {
   placeholder: "최소 100만원",
-  text: "을",
+  text: "만원 을",
   active: false,
 };
