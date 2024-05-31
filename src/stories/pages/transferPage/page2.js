@@ -39,7 +39,7 @@ const Page2 = ({
   return (
     <div>
       <HeaderBar text={"이체"}></HeaderBar>
-      <div className="pt-24 pb-50 relative">
+      <div className="pt-24 pb-50">
         <p className="text-20">
           <span className="font-extrabold">내 보통예금 계좌</span>에서
         </p>
