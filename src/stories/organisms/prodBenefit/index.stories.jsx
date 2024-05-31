@@ -5,7 +5,7 @@ import ProdBenefit from ".";
 
 export default {
   component: ProdBenefit,
-  title: "organisms/ProdBenefit",
+  title: "organisms/prodBenefit",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
