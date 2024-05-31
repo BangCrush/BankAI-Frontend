@@ -23,7 +23,7 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
         <InherentInput onChange={handleInherent} />
         <Input placeholder={"홍길동"} value={registForm.userName} />
       </div>
-      <div className="flex flex-col justify-center items-center fixed left-0 bottom-0 w-full px-40 mb-50">
+      <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton text={"다음"} active={!!inherent} onClick={moveNextPage} />
       </div>
     </div>

@@ -9,7 +9,7 @@ const LoginPage = () => {
         <Input placeholder={"아이디"} />
         <Input placeholder={"비밀번호"} />
       </div>
-      <div className="flex flex-col justify-center items-center mt-10 fixed left-0 bottom-0 w-full px-40 mb-50">
+      <div className="flex flex-col justify-center items-center mt-10 absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton text={"로그인"} active={false} />
         <div className="mt-10">아이디 찾기/비밀번호 찾기/회원가입</div>
       </div>

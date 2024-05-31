@@ -10,13 +10,13 @@ const Page2 = ({ moveNextPage, setTransferForm }) => {
   const handleInputChange = (event) => {
     const value = event.target.value;
     setAmount(value);
-    if (!(/^\d+$/.test(value))) {
+    if (!/^\d+$/.test(value)) {
       setErrorMessage("숫자만 입력해주세요");
-    } else{
+    } else {
       setErrorMessage("");
     }
     setInputWidth(value.length * 15);
-    if(value.length === 0) setInputWidth(190);
+    if (value.length === 0) setInputWidth(190);
   };
 
   return (
@@ -40,13 +40,19 @@ const Page2 = ({ moveNextPage, setTransferForm }) => {
           style={{ width: `${inputWidth}px` }}
         />
         <span className="font-extrabold text-24 here">
-            {" "}
-            {amount ? `원` : ""}
-          </span>
-        { !!amount ? <p className="ml-10 check-valid text-13 text-err-color">{errorMessage}</p> : "" }
+          {" "}
+          {amount ? `원` : ""}
+        </span>
+        {!!amount ? (
+          <p className="ml-10 check-valid text-13 text-err-color">
+            {errorMessage}
+          </p>
+        ) : (
+          ""
+        )}
 
-        <div className="flex flex-col justify-center items-center mt-10 fixed left-0 bottom-0 w-full px-40 mb-50">
-          <LongButton text={"다음"} active={!!amount & errorMessage === "" } />
+        <div className="flex flex-col justify-center items-center mt-10 absolute left-0 bottom-0 w-full px-40 mb-50">
+          <LongButton text={"다음"} active={!!amount & (errorMessage === "")} />
         </div>
       </div>
     </div>

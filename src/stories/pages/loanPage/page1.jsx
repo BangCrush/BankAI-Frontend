@@ -40,7 +40,7 @@ const Page1 = ({ moveNextPage, mock }) => {
             </span>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center fixed left-0 bottom-0 w-full px-40 mb-50">
+        <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
           <LongButton text={"다음"} active={true} onClick={moveNextPage} />
         </div>
       </div>
