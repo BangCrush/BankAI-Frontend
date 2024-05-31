@@ -1,8 +1,4 @@
-import HeaderBar from "stories/molecules/headerBar";
-import LongButton from "stories/atoms/longButton";
-import BottomSheet from "stories/organisms/bottomSheet";
 import { useState } from "react";
-import TransferCheckPage from "../transferCheckPage";
 import PwdPage from "../pwdPage";
 
 const Page3 = ({

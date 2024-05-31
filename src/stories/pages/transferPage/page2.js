@@ -2,8 +2,8 @@ import HeaderBar from "stories/molecules/headerBar";
 import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
 import { useState } from "react";
-import TransferCheckPage from "../transferCheckPage";
-
+import TransferCheckPage from "../bottomPages/transferCheckPage";
+import TransferWarningPage from "../bottomPages/transferWarningPage";
 const Page2 = ({
   moveNextPage,
   transferForm,
@@ -78,8 +78,8 @@ const Page2 = ({
             open={open}
             setOpen={setOpen}
             page={
-              false ? (
-                <HeaderBar></HeaderBar>
+              true ? (
+                <TransferWarningPage></TransferWarningPage>
               ) : (
                 <TransferCheckPage
                   name={accInfo.userName}

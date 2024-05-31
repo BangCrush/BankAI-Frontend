@@ -3,6 +3,7 @@ import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
 import { useState } from "react";
+import TransferWarningPage from "../bottomPages/transferWarningPage";
 
 const Page1 = ({
   moveNextPage,
@@ -16,7 +17,7 @@ const Page1 = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 
-  const status = 200;
+  const status = 202;
 
   const handleInputAcc = (e) => {
     const newAcc = e.target.value;
@@ -70,7 +71,7 @@ const Page1 = ({
       <BottomSheet
         open={open}
         setOpen={setOpen}
-        page={<HeaderBar></HeaderBar>}
+        page={<TransferWarningPage></TransferWarningPage>}
       />
     </div>
   );
