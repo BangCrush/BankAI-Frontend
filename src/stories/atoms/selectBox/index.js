@@ -1,8 +1,10 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 
-const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
+const SelectBox = ({ text, selectedOption, setSelectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const options = Array.from({ length: 28 }, (_, i) => `${i + 1}`);
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -15,7 +17,6 @@ const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="text-14">{text}</div>
       <div className="relative">
         <div
           className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-full text-14 cursor-pointer flex justify-between"
