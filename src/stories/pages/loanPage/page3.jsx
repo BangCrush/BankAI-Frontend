@@ -7,12 +7,15 @@ import HeaderBar from "stories/molecules/headerBar";
 const Page3 = ({ moveNextPage, mock }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
+  const options = Array.from({ length: 28 }, (_, i) => `${i + 1}`);
+
   return (
     <div className="px-40 pt-30 w-full flex flex-col flex-1">
       <HeaderBar text={"대출가입"} />
       <Title text1={"자동 납부일을 선택해주세요"} />
       <div className="mt-35">
         <SelectBox
+          options={options}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />

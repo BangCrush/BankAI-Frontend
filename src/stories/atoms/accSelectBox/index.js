@@ -1,9 +1,11 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { accList } from "mocks/mockData";
 import { useState } from "react";
 
-const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
+const AccSelectBox = ({ text, selectedOption, setSelectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const options = accList;
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -11,6 +13,13 @@ const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
   const handleOptionSelect = (item) => {
     setSelectedOption(item);
     setIsOpen(false);
+  };
+
+  const renderSelectedOption = () => {
+    if (selectedOption) {
+      return `${selectedOption.accCode}`;
+    }
+    return "옵션을 선택하세요";
   };
 
   return (
@@ -22,9 +31,11 @@ const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
           onClick={handleToggle}
         >
           <span
-            className={`{${selectedOption}? "text-black-900": "text-gray-placeholder"}`}
+            className={
+              selectedOption ? "text-black-900" : "text-gray-placeholder"
+            }
           >
-            {selectedOption ? selectedOption : "옵션을 선택하세요"}
+            {renderSelectedOption()}
           </span>
           <KeyboardArrowDownIcon className="text-superSubColor" />
         </div>
@@ -33,11 +44,11 @@ const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
           <div className="absolute top-full left-0 z-10 w-full rounded-12 border mt-1 bg-white p-3 gray-border">
             {options.map((item, index) => (
               <div
-                key={`${item}+${index}`}
+                key={`${item.accCode}+${index}`}
                 className="px-10 py-10 cursor-pointer hover:bg-gray-200 bg-white text-15"
                 onClick={() => handleOptionSelect(item)}
               >
-                {item}
+                {item.accCode}
               </div>
             ))}
           </div>
@@ -47,4 +58,4 @@ const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
   );
 };
 
-export default SelectBox;
+export default AccSelectBox;
