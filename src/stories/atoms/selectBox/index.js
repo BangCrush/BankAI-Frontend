@@ -1,10 +1,8 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 
-const SelectBox = ({ text, selectedOption, setSelectedOption }) => {
+const SelectBox = ({ text, options, selectedOption, setSelectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const options = Array.from({ length: 28 }, (_, i) => `${i + 1}`);
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);

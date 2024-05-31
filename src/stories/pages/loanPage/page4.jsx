@@ -3,7 +3,7 @@ import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page1 = ({ moveNextPage, mock }) => {
+const Page4 = ({ moveNextPage, mock }) => {
   return (
     <div className="flex flex-col bg-main-bg min-h-screen">
       <div className="px-40 pt-30 bg-white">
@@ -48,4 +48,4 @@ const Page1 = ({ moveNextPage, mock }) => {
   );
 };
 
-export default Page1;
+export default Page4;

@@ -7,6 +7,7 @@ import HeaderBar from "stories/molecules/headerBar";
 
 const Page3 = ({ moveNextPage, depositForm, setDepositForm }) => {
   const [selectedDay, setSelectedDay] = useState(null);
+  const options = Array.from({ length: 28 }, (_, i) => `${i + 1}`);
 
   return (
     <div>
@@ -14,6 +15,7 @@ const Page3 = ({ moveNextPage, depositForm, setDepositForm }) => {
       <Title text1={"자동 이체일을 선택해주세요"} />
       <div className="mt-25">
         <SelectBox
+          options={options}
           selectedOption={selectedDay}
           setSelectedOption={setSelectedDay}
         />

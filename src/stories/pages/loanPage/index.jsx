@@ -1,10 +1,23 @@
 import React, { useState } from "react";
-import Page1 from "./page1";
-import Page2 from "./page2";
+import Page4 from "./page4";
+import Page5 from "./page5";
+import Page6 from "./page6";
 import Page3 from "./page3";
 
 const LoanPage = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(3);
+
+  const [loanForm, setLoanForm] = useState({
+    prodCode: "10002",
+    accountPwd: "",
+    amount: 0,
+    atDate: 0,
+    outAccount: null,
+    jobName: null,
+    companyName: null,
+    companyAddr: null,
+    companyPhone: null,
+  });
   //repay
   //BULLET - 만기일시상환
   //EQUAL_INSTALLMENT - 원리금균등상환
@@ -32,9 +45,16 @@ const LoanPage = () => {
 
   return (
     <div>
-      {page === 1 && <Page1 moveNextPage={moveNextPage} mock={mock} />}
-      {page === 2 && <Page2 moveNextPage={moveNextPage} mock={mock} />}
-      {page === 3 && <Page3 mock={mock} />}
+      {page === 3 && (
+        <Page3
+          moveNextPage={moveNextPage}
+          loanForm={loanForm}
+          setLoanForm={setLoanForm}
+        />
+      )}
+      {page === 4 && <Page4 moveNextPage={moveNextPage} mock={mock} />}
+      {page === 5 && <Page5 moveNextPage={moveNextPage} mock={mock} />}
+      {page === 6 && <Page6 mock={mock} />}
     </div>
   );
 };
