@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import HeaderBar from "stories/molecules/headerBar";
 import ErrorIcon from "@mui/icons-material/Error";
-import { repaymentMapping } from "constants/products";
+import { repayDescription, repaymentMapping } from "constants/products";
+import RepayDesc from "stories/atoms/repayDesc";
 
 const Page2 = ({ moveNextPage, mock }) => {
   const [dept, setDept] = useState("");
+  const [showRepayDesc, setShowRepayDesc] = useState(false);
 
   const handleInputChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -13,7 +15,7 @@ const Page2 = ({ moveNextPage, mock }) => {
   };
 
   const calculateBullet = (rate) => {
-    const monthlyRate = (rate * 10) / 12 / 10;
+    const monthlyRate = (rate * 10) / 12 / 100;
     return Math.round(dept * monthlyRate).toLocaleString();
   };
 
@@ -23,6 +25,11 @@ const Page2 = ({ moveNextPage, mock }) => {
       (dept * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -12)),
     ).toLocaleString();
   };
+
+  const handleRepayDescToggle = () => {
+    setShowRepayDesc(!showRepayDesc);
+  };
+
   return (
     <div className="flex flex-col bg-main-bg min-h-screen">
       <div className="px-40 pt-30 bg-white">
@@ -66,13 +73,22 @@ const Page2 = ({ moveNextPage, mock }) => {
         <div className="bg-white rounded-12 border border-gray-border shadow-custom p-14 text-15">
           <div className="flex w-full p-10 space-x-7">
             <div className="font-medium text-black-900">상환방식</div>
-            <div className="flex items-center space-x-2 cursor-pointer">
+            <div
+              className="flex items-center space-x-2 cursor-pointer"
+              onClick={handleRepayDescToggle}
+            >
               <span className="underline">
                 {repaymentMapping[mock.prodRepay]}{" "}
               </span>
               <ErrorIcon sx={{ fontSize: 20, color: "#BFBFBF" }} />
             </div>
           </div>
+          {showRepayDesc && (
+            <RepayDesc
+              text1={repayDescription[mock.prodRepay].text1}
+              text2={repayDescription[mock.prodRepay].text2}
+            />
+          )}
           <div className="flex w-full p-10 space-x-7">
             <div className="font-medium text-black-900">대출기간</div>
             <span>{mock.joinPeriod}</span>
