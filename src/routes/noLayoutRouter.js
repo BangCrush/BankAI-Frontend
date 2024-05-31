@@ -1,4 +1,5 @@
 import LoanPage from "stories/pages/loanPage";
+import ProdDetailPage from "stories/pages/prodDetail";
 import ZipCodePage from "stories/pages/zipcodePage";
 
 export const NO_LAYOUT_ROUTES_URL = {
@@ -11,5 +12,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "대출가입 페이지",
     path: () => "/loan",
     component: LoanPage,
+  },
+  ProdDetailPage: {
+    name: "상품상세 페이지",
+    path: () => "/productDetail",
+    component: ProdDetailPage,
   },
 };
