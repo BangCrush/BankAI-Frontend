@@ -2,15 +2,27 @@ import React, { useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import HeaderBar from "stories/molecules/headerBar";
 import ErrorIcon from "@mui/icons-material/Error";
+import { repaymentMapping } from "constants/products";
 
 const Page2 = ({ moveNextPage, mock }) => {
   const [dept, setDept] = useState("");
 
   const handleInputChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 입력받도록 함
+    const value = e.target.value.replace(/[^0-9]/g, "");
     setDept(value);
   };
 
+  const calculateBullet = (rate) => {
+    const monthlyRate = (rate * 10) / 12 / 10;
+    return Math.round(dept * monthlyRate).toLocaleString();
+  };
+
+  const calculateEqualInstallment = (rate) => {
+    const monthlyRate = (((rate * 10) / 12) * 1) / 1000;
+    return Math.round(
+      (dept * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -12)),
+    ).toLocaleString();
+  };
   return (
     <div className="flex flex-col bg-main-bg min-h-screen">
       <div className="px-40 pt-30 bg-white">
@@ -32,14 +44,20 @@ const Page2 = ({ moveNextPage, mock }) => {
           </div>
           <div className="flex w-full p-10 justify-end">
             <span className="text-gray-900 font-medium">
-              {dept.toLocaleString()}원
+              {dept && parseInt(dept, 10).toLocaleString()}원
             </span>
           </div>
           {dept && (
             <div className="flex px-10 space-x-2">
               <ErrorIcon sx={{ fontSize: 20, color: "#4D4D4D" }} />
               <div>
-                매월 예상 상환 금액은 {Math.ceil(dept / 12).toLocaleString()}원
+                매월 예상 상환 금액은{" "}
+                <span className="font-bold text-main-color">
+                  {mock.prodRepay === "BULLET"
+                    ? calculateBullet(mock.prodRateMthd)
+                    : calculateEqualInstallment(mock.prodRateMthd)}
+                  원
+                </span>
                 입니다.
               </div>
             </div>
@@ -48,7 +66,12 @@ const Page2 = ({ moveNextPage, mock }) => {
         <div className="bg-white rounded-12 border border-gray-border shadow-custom p-14 text-15">
           <div className="flex w-full p-10 space-x-7">
             <div className="font-medium text-black-900">상환방식</div>
-            <span>{mock.prodRepay}</span>
+            <div className="flex items-center space-x-2 cursor-pointer">
+              <span className="underline">
+                {repaymentMapping[mock.prodRepay]}{" "}
+              </span>
+              <ErrorIcon sx={{ fontSize: 20, color: "#BFBFBF" }} />
+            </div>
           </div>
           <div className="flex w-full p-10 space-x-7">
             <div className="font-medium text-black-900">대출기간</div>

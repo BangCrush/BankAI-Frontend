@@ -18,7 +18,7 @@ const LoanPage = () => {
     prodMax: 100350000,
     joinMember: "",
     prodLimit: "",
-    prodRateMthd: 0.035,
+    prodRateMthd: 3.5,
     prodRepay: "EQUAL_INSTALLMENT",
     prodCaution: "",
     prodAcc: "",
