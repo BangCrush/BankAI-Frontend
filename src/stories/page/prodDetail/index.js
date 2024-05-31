@@ -1,20 +1,34 @@
 import HeaderBar from 'stories/molecules/headerBar';
 import ProdDetailItem from 'stories/molecules/prodDetailItem';
+import ProdBenefit from 'stories/organisms/prodBenefit';
+import React from 'react';
 
 const ProdDetail = ({data}) => {
+  const prodTypeKo = {
+    SAVINGS : "적금",
+    DEPOSIT: "예금",
+    LOAN: "대출"
+  }
+
+  const convertString = (str) => {
+    return str.split('^').map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {index < str.split('^').length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+  
   return (
     <div className='w-full font-sans'>
-      <HeaderBar text={data.prodType}></HeaderBar>
+      <HeaderBar text={prodTypeKo[data.prodType]}></HeaderBar>
       <div className='bg-main-color px-30 py-35 text-20 font-extrabold text-white'>
-        <p>오늘의 금리는?</p>
-        <p className='mb-40'>{data.prodPromo}</p>
+        <p className='mb-40'>{convertString(data.prodPromo)}</p>
         <p className='mb-40'>{data.prodName}</p>
         <p className='my-10'>연(세전, 1년)</p>
         <p>최고 {data.prodRate}%</p>
       </div>
-      <div className='bg-yellow-700 h-200'>
-
-      </div>
+      <ProdBenefit data={data}></ProdBenefit>
       <div className='bg-gray-200 px-40 pt-30 pb-62'>
         <div className='py-17'>
           <div className='beforesign mb-16'>
