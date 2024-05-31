@@ -3,7 +3,8 @@ import store from "libs/store";
 import { Provider } from "react-redux";
 import BottomSheet from ".";
 import { useState } from "react";
-import LoanCheckPage from "stories/pages/loanCheckPage";
+import LoanCheckPage from "stories/pages/bottomPages/loanCheckPage";
+import TransferWarningPage from "stories/pages/bottomPages/transferWarningPage";
 
 export default {
   component: BottomSheet,
@@ -41,5 +42,5 @@ export const Default =(args)=> {
     )
 };
 Default.args={
-    page:<LoanCheckPage prodName={"일반신용대출"} loanAmount={100000} loanRate={3.5}/>
+    page:<TransferWarningPage/>
 }
