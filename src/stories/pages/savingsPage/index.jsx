@@ -9,11 +9,12 @@ const SavingsPage = () => {
 
   const [depositForm, setDepositForm] = useImmer({
     prodCode: "DEPOSIT",
+    prodName: "펫사랑 적금",
     amount: 100000,
+    userTrsfLimit: 300000,
     outAccount: "2492384239874",
-    autoTransferte: 14,
-    accountPwd: 1234,
-    accTrsfLimit: 300000,
+    atDate: 14,
+    accountPwd: null,
   });
 
   const moveNextPage = () => {
