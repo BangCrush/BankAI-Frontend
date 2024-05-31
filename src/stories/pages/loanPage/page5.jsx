@@ -5,7 +5,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { repayDescription, repaymentMapping } from "constants/products";
 import RepayDesc from "stories/atoms/repayDesc";
 
-const Page2 = ({ moveNextPage, mock }) => {
+const Page5 = ({ moveNextPage, mock }) => {
   const [dept, setDept] = useState("");
   const [showRepayDesc, setShowRepayDesc] = useState(false);
 
@@ -105,4 +105,4 @@ const Page2 = ({ moveNextPage, mock }) => {
   );
 };
 
-export default Page2;
+export default Page5;
