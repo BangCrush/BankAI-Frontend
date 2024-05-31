@@ -19,7 +19,7 @@ const LoanPage = () => {
     joinMember: "",
     prodLimit: "",
     prodRateMthd: 3.5,
-    prodRepay: "EQUAL_INSTALLMENT",
+    prodRepay: "BULLET",
     prodCaution: "",
     prodAcc: "",
     prodpromo: "",
