@@ -16,7 +16,7 @@ function BottomSheet({ open,setOpen, page }) {
         closeAfterTransition
       >
         <Slide direction="up" in={open} mountOnEnter unmountOnExit>
-          <div className="bg-white w-full border-none rounded-t-20 pb-40 absolute bottom-0 outline-none">
+          <div className="bg-white w-640 border-none rounded-t-20 pb-40 absolute bottom-0 outline-none">
             <div className="flex justify-between p-20">
               <Close onClick={() => setOpen(false)} />
             </div>
