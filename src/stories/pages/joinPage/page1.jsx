@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
@@ -11,8 +11,18 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   const { validText, isValid } = useValid(registForm);
   const [error, setError] = useState(false);
   const [code, setCode] = useState(null);
+  const [emailMsg, setEmailMsg] = useState("");
 
-  const { mutate: checkEmail, emailOk, emailCode } = usePostEmailSend();
+  const { mutate: sendEmail, emailOk, emailCode } = usePostEmailSend();
+  const { mutate: checkEmail, ok } = usePostEmailCheck();
+
+  useEffect(() => {
+    if (ok !== null) {
+      setEmailMsg(ok ? "사용 가능한 이메일 입니다" : "중복된 이메일입니다.");
+    } else {
+      setEmailMsg(validText.userEmail);
+    }
+  }, [ok, validText.userEmail]);
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
@@ -33,7 +43,8 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
       isValid.isUserNameEn &&
       isValid.isUserPhone &&
       isValid.isUserEmail &&
-      isValid.isUserInherentNumber
+      isValid.isUserInherentNumber &&
+      ok
     ) {
       moveNextPage();
     } else {
@@ -45,6 +56,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   // console.log("dd", emailOk);
   const handleEmailCheck = () => {
     checkEmail(registForm.userEmail);
+    // sendEmail(registForm.userEmail);
   };
 
   return (
@@ -75,13 +87,23 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
           <Input
             placeholder={"banksi@gmail.com"}
             onChange={handleChange("userEmail")}
-            msg={validText.userEmail}
+            validate={ok ? true : false}
+            msg={
+              ok !== null
+                ? ok
+                  ? "사용가능한 이메일입니다."
+                  : "중복된 이메일입니다."
+                : validText.userEmail
+            }
           />
           <span className="mb-10" onClick={handleEmailCheck}>
-            <ShortButton text={"중복체크"} />
+            <ShortButton
+              text={"중복체크"}
+              active={validText.userEmail ? false : true}
+            />
           </span>
         </div>
-        {emailOk && (
+        {ok && (
           <Input
             placeholder={"1234"}
             onChange={() => setCode}
@@ -97,7 +119,8 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
             isValid.isUserNameEn &&
             isValid.isUserPhone &&
             isValid.isUserEmail &&
-            isValid.isUserInherentNumber
+            isValid.isUserInherentNumber &&
+            ok
           }
           onClick={handleClick}
         />
