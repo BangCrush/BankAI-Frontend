@@ -2,37 +2,45 @@ import MediumButton from "stories/atoms/mediumButton";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const MainCarousel = ({ data }) => {
-  const LeftArrow = (props)=>{
-    const {className,style,onClick} = props;
+  const LeftArrow = (props) => {
+    const { className, style, onClick } = props;
     return (
-      <ArrowBackIosNewIcon onClick={onClick} className={className} style={{...style,color:"#C8C8C8", fontSize:"2rem", left:"-50px"}}/>
-    )
-  }
-  const RightArrow = (props)=>{
-    const {className,style,onClick} = props;
+      <ArrowBackIosNewIcon
+        onClick={onClick}
+        className={className}
+        style={{ ...style, color: "#C8C8C8", fontSize: "2rem", left: "-50px" }}
+      />
+    );
+  };
+  const RightArrow = (props) => {
+    const { className, style, onClick } = props;
     return (
-      <ArrowForwardIosIcon onClick={onClick} className={className} style={{...style,color:"#C8C8C8", fontSize:"2rem",right:"-50px"}}/>
-    )
-  }
+      <ArrowForwardIosIcon
+        onClick={onClick}
+        className={className}
+        style={{ ...style, color: "#C8C8C8", fontSize: "2rem", right: "-50px" }}
+      />
+    );
+  };
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    prevArrow: <LeftArrow/>,
-    nextArrow: <RightArrow/>
+    prevArrow: <LeftArrow />,
+    nextArrow: <RightArrow />,
   };
 
   return (
     <Slider className="shadow-custom w-490 mx-auto rounded-20" {...settings}>
       {data.map((a, i) => {
         return (
-          <div className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-12 max-y-215">
+          <div className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215">
             <p className="text-black-900 text-16 font-semibold mb-10">
               {data[i].prodName}
             </p>
