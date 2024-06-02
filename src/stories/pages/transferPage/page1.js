@@ -47,7 +47,7 @@ const Page1 = ({
   return (
     <div>
       <HeaderBar text={"이체"}></HeaderBar>
-      <div className="pt-24 pb-50 relative">
+      <div className="pt-24 pb-50">
         <p className="text-20 font-extrabold mb-24">
           어떤 계좌로 돈을 보낼까요?
         </p>
