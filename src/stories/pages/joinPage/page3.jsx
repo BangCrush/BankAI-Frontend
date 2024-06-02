@@ -21,6 +21,7 @@ const Page3 = ({ registForm, setRegistForm }) => {
 
   const handleClick = () => {
     if (isValid.isUserPassword && isValid.isUserRePassword) {
+      window.location.href = "/login";
       alert("후에 서버통신 해야된다!");
       // 서버에 보내기
       // signUp({
