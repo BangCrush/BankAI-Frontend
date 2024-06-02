@@ -8,21 +8,6 @@ import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
 
 const MainPage = () => {
-  const data = [
-    {
-      accCode: "04-123425-786", // 계좌번호
-      accBalance: 12342400, // 계좌잔액
-      prodName: "자유 입출금 계좌", // 계좌(상품)이름
-      prodType: "예금",
-    },
-    {
-      accCode: "987-3455-1243", // 계좌번호
-      accBalance: 12130000, // 계좌잔액
-      prodName: "뱅크시보통예금", // 계좌(상품)이름
-      prodType: "예금",
-    },
-  ];
-
   const data2 = {
     assets: 12123000,
   };
@@ -35,7 +20,7 @@ const MainPage = () => {
         <p className="text-18 font-extrabold">양삼식님</p>
       </div>
       <div className="mb-40">
-        <MainCarousel data={data}></MainCarousel>
+        {allAccount && <MainCarousel data={allAccount}></MainCarousel>}
       </div>
       <div className="mb-30">
         <ProdContainer
