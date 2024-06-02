@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
@@ -37,7 +37,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
 
   const handleClick = () => {
     if (
-      isValid.isUserName &&
+      isValid.isUserNameKr &&
       isValid.isUserNameEn &&
       isValid.isUserPhone &&
       isValid.isUserEmail &&
@@ -50,13 +50,12 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
     }
   };
 
-  // console.log(emailCode);
-  // console.log("dd", emailOk);
   const handleEmailCheck = () => {
     checkEmail(registForm.userEmail);
-    if (ok) {
-      sendEmail(registForm.userEmail);
-    }
+  };
+
+  const handleEmailSend = () => {
+    sendEmail(registForm.userEmail);
   };
 
   return (
@@ -66,8 +65,8 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
       <div className="mt-35 flex flex-col space-y-4">
         <Input
           placeholder={"홍길동"}
-          onChange={handleChange("userName")}
-          msg={validText.userName}
+          onChange={handleChange("userNameKr")}
+          msg={validText.userNameKr}
         />
         <Input
           placeholder={"HONG GILL DONG"}
@@ -118,7 +117,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
               }
             />
 
-            <span className="mt-2" onClick={handleEmailCheck}>
+            <span className="mt-2" onClick={handleEmailSend}>
               <ShortButton
                 text={"메일전송"}
                 active={validText.userEmail ? false : true}
@@ -131,7 +130,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
         <LongButton
           text={"다음"}
           active={
-            isValid.isUserName &&
+            isValid.isUserNameKr &&
             isValid.isUserNameEn &&
             isValid.isUserPhone &&
             isValid.isUserEmail &&

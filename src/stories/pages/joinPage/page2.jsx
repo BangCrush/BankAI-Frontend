@@ -5,17 +5,15 @@ import ShortButton from "stories/atoms/shortButton";
 import Title from "stories/atoms/title";
 
 const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
-  const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState(null);
-  const [addressDetail, setAddressDetail] = useState("");
 
-  const handleAddressDetail = (e) => {
-    const userAddrDetail = e.target.value;
-    setAddressDetail(userAddrDetail);
+  const handleChange = (field) => (e) => {
+    const value = e.target.value;
     setRegistForm((draft) => {
-      draft.userAddrDetail = userAddrDetail;
+      draft[field] = value;
     });
   };
+
   const onPopup = () => {
     const url = "zipcode";
     window.open(url, "_blank", "width=500, height=480");
@@ -24,9 +22,8 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data.address) {
-        setAddress(event.data.address);
         setRegistForm((draft) => {
-          draft.userAddr = event.data.userAddr;
+          draft.userAddr = event.data.address;
         });
       }
       if (event.data.zonecode) {
@@ -58,13 +55,21 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
           </span>
         </div>
 
-        <Input placeholder={"주소"} value={address || ""} readonly={true} />
-        <Input placeholder={"상세주소"} onChange={handleAddressDetail} />
+        <Input
+          placeholder={"주소"}
+          value={registForm.userAddr || ""}
+          readonly={true}
+          onChange={handleChange("userAddr")}
+        />
+        <Input
+          placeholder={"상세주소"}
+          onChange={handleChange("userAddrDetail")}
+        />
       </div>
       <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
           text={"다음"}
-          active={!!address && !!addressDetail}
+          active={!!registForm.userAddr && !!registForm.userAddrDetail}
           onClick={moveNextPage}
         />
       </div>

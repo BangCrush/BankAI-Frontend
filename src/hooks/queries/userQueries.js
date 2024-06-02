@@ -1,10 +1,15 @@
-import { postEmailCheck, postEmailSend, postIdCheck } from "api/userApi";
+import {
+  postEmailCheck,
+  postEmailSend,
+  postIdCheck,
+  postRegister,
+} from "api/userApi";
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 
 // 아이디 중복 체크
 export const usePostIdCheck = () => {
-  const [ok, setOk] = useState(false);
+  const [ok, setOk] = useState(null);
   const mutation = useMutation((id) => postIdCheck(id), {
     onSuccess: (res) => {
       if (res.data.check) {
@@ -13,15 +18,11 @@ export const usePostIdCheck = () => {
         setOk(true);
       }
     },
-    onError: () => {
-      setOk(false);
-    },
   });
 
   return { mutate: mutation.mutate, ok };
 };
 
-// 아이디 중복 체크
 export const usePostEmailCheck = () => {
   const [ok, setOk] = useState(null);
   const mutation = useMutation((email) => postEmailCheck(email), {
@@ -53,4 +54,14 @@ export const usePostEmailSend = () => {
   });
 
   return { mutate: mutation.mutate, emailOk, emailCode };
+};
+
+export const usePostRegister = () => {
+  const mutation = useMutation((params) => postRegister(params), {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
+
+  return { mutate: mutation.mutate };
 };

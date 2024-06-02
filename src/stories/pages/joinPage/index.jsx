@@ -10,7 +10,7 @@ const JoinPage = () => {
     userId: "",
     userPwd: "",
     userRePwd: "",
-    userName: "",
+    userNameKr: "",
     userNameEn: "",
     userInherentNumber: "",
     userPhone: "",
