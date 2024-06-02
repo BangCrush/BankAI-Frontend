@@ -1,15 +1,12 @@
 import { usePostIdCheck, usePostRegister } from "hooks/queries/userQueries";
 import useValid from "hooks/useValid";
-import React, { useState } from "react";
+import React from "react";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import ShortButton from "stories/atoms/shortButton";
 import Title from "stories/atoms/title";
 
 const Page3 = ({ registForm, setRegistForm }) => {
-  // 서버통신 코드 로직
-  // const { mutate: signUp } = useMutation(postSignUp);
-  // server
   const { mutate: checkId, ok } = usePostIdCheck();
   const { mutate: register } = usePostRegister();
 
@@ -31,7 +28,7 @@ const Page3 = ({ registForm, setRegistForm }) => {
       const { userRePwd, ...formDataToSend } = registForm;
 
       register(formDataToSend);
-      // window.location.href = "/login";
+      window.location.href = "/login";
     }
   };
 

@@ -5,6 +5,7 @@ const USER_API = {
   EMAIL_CHECK: () => "/register/check-email",
   EMAIL_SEND: (email) => `/register/authenticate?email=${email}`,
   REGISTER: () => "/register",
+  LOGIN: () => "/login",
 };
 
 export const postIdCheck = async (id) => {
@@ -27,4 +28,9 @@ export const postEmailSend = async (email) => {
 export const postRegister = async (params) => {
   const res = await $axios.post(USER_API.REGISTER(), params);
   return res.message;
+};
+
+export const postLogin = async (params) => {
+  const res = await $axios.post(USER_API.LOGIN(), params);
+  return res.data;
 };
