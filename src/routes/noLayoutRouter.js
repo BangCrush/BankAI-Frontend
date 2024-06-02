@@ -15,7 +15,7 @@ export const NO_LAYOUT_ROUTES_URL = {
   },
   ProdDetailPage: {
     name: "상품상세 페이지",
-    path: () => "/productDetail",
+    path: () => "/product/:id",
     component: ProdDetailPage,
   },
 };

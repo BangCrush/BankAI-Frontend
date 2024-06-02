@@ -1,9 +1,9 @@
-const ProdDetailItem = ({title, content}) => {
+const ProdDetailItem = ({ title, content }) => {
   return (
     <div className="max-w-560">
-      <p className="text-14 font-semibold">{title}</p>
-      <p className="text-12">{content}</p>
-    </div>    
+      <p className="text-16 font-semibold">{title}</p>
+      <p className="text-13">{content}</p>
+    </div>
   );
 };
 

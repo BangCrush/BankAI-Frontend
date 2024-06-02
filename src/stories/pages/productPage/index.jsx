@@ -15,7 +15,6 @@ const ProductPage = () => {
     return <div>Error loading data</div>;
   }
 
-  console.log(allProducts);
   return (
     <>
       <div className="mb-24">
