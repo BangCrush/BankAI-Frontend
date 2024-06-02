@@ -48,7 +48,11 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
       <div className="pl-10">주소지를 입력해주세요.</div>
       <div className="mt-35 flex flex-col space-y-4">
         <div className="flex items-center justify-between space-x-3">
-          <Input placeholder={"우편번호"} value={zipcode || ""} />
+          <Input
+            placeholder={"우편번호"}
+            value={zipcode || ""}
+            readonly={true}
+          />
           <span onClick={onPopup}>
             <ShortButton text={"찾기"} active={true} />
           </span>
