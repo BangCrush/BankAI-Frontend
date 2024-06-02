@@ -6,12 +6,31 @@ import { useMutation, useQuery } from "react-query";
 export const usePostIdCheck = () => {
   const [ok, setOk] = useState(false);
   const mutation = useMutation((id) => postIdCheck(id), {
-    onSuccess: () => {
-      console.log("성공");
-      setOk(true);
+    onSuccess: (res) => {
+      if (res.data.check) {
+        setOk(false);
+      } else {
+        setOk(true);
+      }
     },
     onError: () => {
       setOk(false);
+    },
+  });
+
+  return { mutate: mutation.mutate, ok };
+};
+
+// 아이디 중복 체크
+export const usePostEmailCheck = () => {
+  const [ok, setOk] = useState(null);
+  const mutation = useMutation((email) => postEmailCheck(email), {
+    onSuccess: (res) => {
+      if (res.data.check) {
+        setOk(false);
+      } else {
+        setOk(true);
+      }
     },
   });
 
@@ -24,11 +43,12 @@ export const usePostEmailSend = () => {
   const [emailCode, setEmailCode] = useState(null);
   const mutation = useMutation((email) => postEmailSend(email), {
     onSuccess: (res) => {
-      setEmailOk(true);
-      setEmailCode(res.data);
-    },
-    onError: () => {
-      setEmailOk(false);
+      if (res.data.check) {
+        setEmailOk(false);
+      } else {
+        setEmailOk(true);
+        setEmailCode(res.data);
+      }
     },
   });
 

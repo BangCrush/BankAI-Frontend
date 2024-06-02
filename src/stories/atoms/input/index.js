@@ -1,6 +1,14 @@
 import React from "react";
 
-const Input = ({ placeholder, onChange, value, msg, type, readonly }) => {
+const Input = ({
+  placeholder,
+  onChange,
+  value,
+  msg,
+  type,
+  readonly,
+  validate,
+}) => {
   return (
     <div className="flex flex-col flex-grow">
       <input
@@ -11,7 +19,11 @@ const Input = ({ placeholder, onChange, value, msg, type, readonly }) => {
         type={type ? "password" : "text"}
         readOnly={readonly ? true : false}
       ></input>
-      <div className="text-13 text-err-color p-5">{msg}</div>
+      <div
+        className={`text-13 ${validate ? "text-main-color " : "text-err-color "} ${msg ? "p-5" : ""}`}
+      >
+        {msg}
+      </div>
     </div>
   );
 };
