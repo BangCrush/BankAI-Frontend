@@ -1,3 +1,10 @@
+const productTypeMapping = {
+  CHECKING: "입출금",
+  DEPOSIT: "예금",
+  SAVINGS: "적금",
+  LOAN: "대출",
+};
+
 const repaymentMapping = {
   BULLET: "만기일시상환",
   EQUAL_INSTALLMENT: "원금균등상환",
@@ -18,4 +25,4 @@ const repayDescription = {
   },
 };
 
-export { repaymentMapping, repayDescription };
+export { repaymentMapping, repayDescription, productTypeMapping };
