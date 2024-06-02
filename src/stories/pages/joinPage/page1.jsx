@@ -11,24 +11,22 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   const { validText, isValid } = useValid(registForm);
   const [error, setError] = useState(false);
   const [code, setCode] = useState(null);
-  const [emailMsg, setEmailMsg] = useState("");
 
   const { mutate: sendEmail, emailOk, emailCode } = usePostEmailSend();
   const { mutate: checkEmail, ok } = usePostEmailCheck();
-
-  useEffect(() => {
-    if (ok !== null) {
-      setEmailMsg(ok ? "사용 가능한 이메일 입니다" : "중복된 이메일입니다.");
-    } else {
-      setEmailMsg(validText.userEmail);
-    }
-  }, [ok, validText.userEmail]);
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
     setRegistForm((draft) => {
       draft[field] = value;
     });
+  };
+
+  const handleCode = (e) => {
+    setCode(e.target.value);
+    if (code === emailCode) {
+      setCode(true);
+    }
   };
 
   const handleInherentNumber = (value) => {
@@ -56,7 +54,9 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   // console.log("dd", emailOk);
   const handleEmailCheck = () => {
     checkEmail(registForm.userEmail);
-    // sendEmail(registForm.userEmail);
+    if (ok) {
+      sendEmail(registForm.userEmail);
+    }
   };
 
   return (
@@ -83,7 +83,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
           onChange={handleChange("userPhone")}
           msg={validText.userPhone}
         />
-        <div className="flex items-center justify-between space-x-3">
+        <div className="flex justify-between space-x-3">
           <Input
             placeholder={"banksi@gmail.com"}
             onChange={handleChange("userEmail")}
@@ -96,7 +96,7 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
                 : validText.userEmail
             }
           />
-          <span className="mb-10" onClick={handleEmailCheck}>
+          <span className="mt-2" onClick={handleEmailCheck}>
             <ShortButton
               text={"중복체크"}
               active={validText.userEmail ? false : true}
@@ -104,11 +104,27 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
           </span>
         </div>
         {ok && (
-          <Input
-            placeholder={"1234"}
-            onChange={() => setCode}
-            msg={validText.userPhone}
-          />
+          <div className="flex justify-between space-x-3">
+            <Input
+              placeholder={"메일로 전송된 코드를 입력해주세요"}
+              onChange={handleCode}
+              validate={code === emailCode ? true : false}
+              msg={
+                code !== null
+                  ? code === emailCode
+                    ? "인증되었습니다."
+                    : "잘못 입력하였습니다."
+                  : ""
+              }
+            />
+
+            <span className="mt-2" onClick={handleEmailCheck}>
+              <ShortButton
+                text={"메일전송"}
+                active={validText.userEmail ? false : true}
+              />
+            </span>
+          </div>
         )}
       </div>
       <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
@@ -120,7 +136,8 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
             isValid.isUserPhone &&
             isValid.isUserEmail &&
             isValid.isUserInherentNumber &&
-            ok
+            ok &&
+            code === emailCode
           }
           onClick={handleClick}
         />
