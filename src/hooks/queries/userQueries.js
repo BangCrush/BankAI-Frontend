@@ -2,6 +2,7 @@ import {
   postEmailCheck,
   postEmailSend,
   postIdCheck,
+  postLogin,
   postRegister,
 } from "api/userApi";
 import { useState } from "react";
@@ -64,4 +65,19 @@ export const usePostRegister = () => {
   });
 
   return { mutate: mutation.mutate };
+};
+
+export const usePostLogin = () => {
+  const [msg, setMsg] = useState(null);
+  const mutation = useMutation((params) => postLogin(params), {
+    onSuccess: (res) => {
+      console.log(res);
+      if (res.status === 202) {
+        setMsg(res.message);
+      } else {
+      }
+    },
+  });
+
+  return { mutate: mutation.mutate, msg };
 };
