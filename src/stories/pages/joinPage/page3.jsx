@@ -1,7 +1,6 @@
 import { usePostIdCheck, usePostRegister } from "hooks/queries/userQueries";
 import useValid from "hooks/useValid";
 import React, { useState } from "react";
-import { useMutation } from "react-query";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import ShortButton from "stories/atoms/shortButton";
@@ -15,7 +14,6 @@ const Page3 = ({ registForm, setRegistForm }) => {
   const { mutate: register } = usePostRegister();
 
   const { validText, isValid } = useValid(registForm);
-  const [error, setError] = useState(false);
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
@@ -34,12 +32,6 @@ const Page3 = ({ registForm, setRegistForm }) => {
 
       register(formDataToSend);
       // window.location.href = "/login";
-    } else {
-      setError(
-        !isValid.isUserId ||
-          !isValid.isUserPassword ||
-          !isValid.isUserRePassword,
-      );
     }
   };
 

@@ -25,6 +25,6 @@ export const postEmailSend = async (email) => {
 };
 
 export const postRegister = async (params) => {
-  const res = await $axios.post(USER_API.REGISTER(), { params });
+  const res = await $axios.post(USER_API.REGISTER(), params);
   return res.message;
 };
