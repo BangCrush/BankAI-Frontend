@@ -6,6 +6,7 @@ const USER_API = {
   EMAIL_SEND: (email) => `/register/authenticate?email=${email}`,
   REGISTER: () => "/register",
   LOGIN: () => "/login",
+  MY_INFO: () => "/users/user-info",
 };
 
 export const postIdCheck = async (id) => {
@@ -32,5 +33,14 @@ export const postRegister = async (params) => {
 
 export const postLogin = async (params) => {
   const res = await $axios.post(USER_API.LOGIN(), params);
+  return res.data;
+};
+
+export const getMyInfo = async (params) => {
+  const res = await $axios.get(USER_API.MY_INFO(), {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1zaWNsb3ZlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTczNDc4NjF9.y5em2qX-ziuBU34AKcZDN01LiuRTBP_Y3JZpAwYcgr4`,
+    },
+  });
   return res.data;
 };
