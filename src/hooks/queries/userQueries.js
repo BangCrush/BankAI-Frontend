@@ -1,4 +1,5 @@
 import {
+  getMyInfo,
   postEmailCheck,
   postEmailSend,
   postIdCheck,
@@ -7,7 +8,7 @@ import {
 } from "api/userApi";
 import { $axios } from "libs/axios";
 import { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 // 아이디 중복 체크
 export const usePostIdCheck = () => {
@@ -71,6 +72,7 @@ export const usePostRegister = () => {
 export const usePostLogin = () => {
   const [msg, setMsg] = useState(null);
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+  const [token, setToken] = useState(null);
 
   const mutation = useMutation((params) => postLogin(params), {
     onSuccess: (res) => {
@@ -83,6 +85,15 @@ export const usePostLogin = () => {
           res.data.refreshTokenExpirationTime - 60 * 60 * 1000; // 1시간 전
         $axios.defaults.headers.common["Authorization"] =
           `Bearer ${accessToken}`;
+        setToken(accessToken);
+
+        setTimeout(() => {
+          console.log(
+            "Authorization header:",
+            $axios.defaults.headers.common["Authorization"],
+          );
+          alert($axios.defaults.headers.common["Authorization"]);
+        }, 0);
 
         const now = Date.now();
         if (now >= expirationTime) {
@@ -98,5 +109,13 @@ export const usePostLogin = () => {
     },
   });
 
-  return { mutate: mutation.mutate, msg, isLoginSuccess };
+  return { mutate: mutation.mutate, msg, isLoginSuccess, token };
+};
+
+export const useGetMyInfo = () => {
+  return useQuery({
+    queryKey: ["getAllProducts"],
+    queryFn: () => getMyInfo(),
+    select: (res) => res.data,
+  });
 };

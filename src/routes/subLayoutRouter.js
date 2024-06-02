@@ -1,4 +1,3 @@
-import DepositPage from "stories/pages/savingsPage";
 import IdentifyPage from "stories/pages/IdentifyPage/index";
 import JoinPage from "stories/pages/joinPage";
 import LoginPage from "stories/pages/loginPage";

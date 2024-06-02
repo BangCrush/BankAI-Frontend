@@ -1,3 +1,7 @@
+import { useGetAllAccount } from "hooks/queries/accountQueries";
+import { useGetAllProduct } from "hooks/queries/productQueries";
+import { usePostLogin } from "hooks/queries/userQueries";
+import { $axios } from "libs/axios";
 import React from "react";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
@@ -23,6 +27,8 @@ const MainPage = () => {
     assets: 12123000,
   };
 
+  const { data: allAccount, isLoading, error } = useGetAllAccount();
+  console.log(allAccount);
   return (
     <div className="pb-20">
       <div className="ml-20 mb-14">
@@ -34,7 +40,9 @@ const MainPage = () => {
       <div className="mb-30">
         <ProdContainer
           title={"마이메뉴"}
-          data={["입출금", "예금", "적금", "대출"]}
+          data={["전체 계좌", "상품", "내 정보"]}
+          imgs={[0, 1, 4]}
+          urls={["/account", "/product", "/myInfo"]}
         ></ProdContainer>
       </div>
       <div className="mb-30">
