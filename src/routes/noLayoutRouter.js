@@ -1,4 +1,5 @@
 import LoanPage from "stories/pages/loanPage";
+import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetail";
 import ZipCodePage from "stories/pages/zipcodePage";
 
@@ -17,5 +18,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "상품상세 페이지",
     path: () => "/product/:id",
     component: ProdDetailPage,
+  },
+  MyInfoPage: {
+    name: "내 정보 페이지",
+    path: () => "myInfo",
+    component: MyPage,
   },
 };

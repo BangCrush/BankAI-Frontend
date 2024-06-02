@@ -1,4 +1,7 @@
-import { useGetAllAccount } from "hooks/queries/accountQueries";
+import {
+  useGetAllAccount,
+  useGetSumAccount,
+} from "hooks/queries/accountQueries";
 import { useGetAllProduct } from "hooks/queries/productQueries";
 import { usePostLogin } from "hooks/queries/userQueries";
 import { $axios } from "libs/axios";
@@ -8,12 +11,10 @@ import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
 
 const MainPage = () => {
-  const data2 = {
-    assets: 12123000,
-  };
+  const { data: allAccount } = useGetAllAccount();
+  const { data: sumAccount } = useGetSumAccount();
 
-  const { data: allAccount, isLoading, error } = useGetAllAccount();
-  console.log(allAccount);
+  console.log(sumAccount);
   return (
     <div className="pb-20">
       <div className="ml-20 mb-14">
@@ -31,10 +32,12 @@ const MainPage = () => {
         ></ProdContainer>
       </div>
       <div className="mb-30">
-        <TotalAcc
-          data={data2}
-          date={new Date().toLocaleTimeString()}
-        ></TotalAcc>
+        {sumAccount && (
+          <TotalAcc
+            data={sumAccount}
+            date={new Date().toLocaleTimeString()}
+          ></TotalAcc>
+        )}
       </div>
       <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-3">
         <p className="text-17 font-semibold">금융 상식 톡톡</p>

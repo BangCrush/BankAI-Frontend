@@ -6,7 +6,7 @@ const TotalAcc = ({ data, date }) => {
         <span className="text-13">{date} 기준</span>
       </div>
       <div className="text-18 font-semibold text-white">
-        {data.assets.toLocaleString()}원
+        {data.toLocaleString()}원
       </div>
     </div>
   );
