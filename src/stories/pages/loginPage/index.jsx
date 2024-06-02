@@ -1,4 +1,5 @@
 import { usePostLogin } from "hooks/queries/userQueries";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
@@ -11,12 +12,17 @@ const LoginPage = () => {
     userPwd: "",
   });
 
-  const { mutate: login, msg } = usePostLogin();
+  const { mutate: login, msg, isLoginSuccess } = usePostLogin();
 
   const handleLogin = () => {
-    console.log("DD", msg);
     login(loginForm);
   };
+
+  useEffect(() => {
+    if (isLoginSuccess) {
+      window.location.href = "/product";
+    }
+  }, [isLoginSuccess]);
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
@@ -45,6 +51,7 @@ const LoginPage = () => {
           text={"로그인"}
           active={!!loginForm.userId && !!loginForm.userPwd}
           onClick={handleLogin}
+          disabled={msg !== null}
         />
         <div className="mt-10">
           아이디 찾기 | 비밀번호 찾기 | <Link to={"/join"}>회원가입</Link>

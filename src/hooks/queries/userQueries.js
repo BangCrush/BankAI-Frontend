@@ -5,6 +5,7 @@ import {
   postLogin,
   postRegister,
 } from "api/userApi";
+import { $axios } from "libs/axios";
 import { useState } from "react";
 import { useMutation } from "react-query";
 
@@ -69,15 +70,33 @@ export const usePostRegister = () => {
 
 export const usePostLogin = () => {
   const [msg, setMsg] = useState(null);
+  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+
   const mutation = useMutation((params) => postLogin(params), {
     onSuccess: (res) => {
       console.log(res);
       if (res.status === 202) {
         setMsg(res.message);
       } else {
+        const accessToken = res.data.accessToken;
+        const expirationTime =
+          res.data.refreshTokenExpirationTime - 60 * 60 * 1000; // 1시간 전
+        $axios.defaults.headers.common["Authorization"] =
+          `Bearer ${accessToken}`;
+
+        const now = Date.now();
+        if (now >= expirationTime) {
+          // 리프레시 토큰으로 새로운 액세스 토큰 요청
+          // const newAccessToken = refreshResponse.data.accessToken;
+          // 새로운 액세스 토큰 설정
+          // $axios.defaults.headers.common[
+          //   "Authorization"
+          // ] = `Bearer ${newAccessToken}`;
+        }
+        setIsLoginSuccess(true);
       }
     },
   });
 
-  return { mutate: mutation.mutate, msg };
+  return { mutate: mutation.mutate, msg, isLoginSuccess };
 };
