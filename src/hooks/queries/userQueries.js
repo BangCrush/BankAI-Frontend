@@ -1,4 +1,4 @@
-import { postIdCheck } from "api/userApi";
+import { postEmailCheck, postEmailSend, postIdCheck } from "api/userApi";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 
@@ -16,4 +16,21 @@ export const usePostIdCheck = () => {
   });
 
   return { mutate: mutation.mutate, ok };
+};
+
+// 이메일 전송
+export const usePostEmailSend = () => {
+  const [emailOk, setEmailOk] = useState(null);
+  const [emailCode, setEmailCode] = useState(null);
+  const mutation = useMutation((email) => postEmailSend(email), {
+    onSuccess: (res) => {
+      setEmailOk(true);
+      setEmailCode(res.data);
+    },
+    onError: () => {
+      setEmailOk(false);
+    },
+  });
+
+  return { mutate: mutation.mutate, emailOk, emailCode };
 };

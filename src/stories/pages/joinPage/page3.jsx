@@ -1,5 +1,4 @@
-import { getIdCheck, postIdCheck } from "api/userApi";
-import { useGetIdCheck, usePostIdCheck } from "hooks/queries/userQueries";
+import { usePostIdCheck } from "hooks/queries/userQueries";
 import useValid from "hooks/useValid";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
