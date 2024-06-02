@@ -4,7 +4,7 @@ const useValid = (changeValue) => {
   const [validText, setValidText] = useState({
     userPwd: "",
     userRePwd: "",
-    userName: "",
+    userNameKr: "",
     userNameEn: "",
     userInherentNumber: "",
     userPhone: "",
@@ -14,7 +14,7 @@ const useValid = (changeValue) => {
   const [isValid, setIsValid] = useState({
     isUserPassword: false,
     isUserRePassword: false,
-    isUserName: false,
+    isUserNameKr: false,
     isUserNameEn: false,
     isUserInherentNumber: false,
     isUserPhone: false,
@@ -28,7 +28,7 @@ const useValid = (changeValue) => {
   };
 
   // 비밀번호 형식 유효성 체크
-  // 6자 이상 18자 이하, 대소문자, 특수문자, 숫자 하나이상 포함
+  // 8자 이상 18자 이하, 대소문자, 특수문자, 숫자 하나이상 포함
   const validatePassword = (password) => {
     const exp =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
@@ -64,8 +64,8 @@ const useValid = (changeValue) => {
   useEffect(() => {
     setValidText({
       ...validText,
-      userName: changeValue.userName
-        ? validateName(changeValue.userName)
+      userNameKr: changeValue.userNameKr
+        ? validateName(changeValue.userNameKr)
           ? ""
           : "특수문자와 숫자를 제외한 실명을 입력해주세요."
         : "",
@@ -102,7 +102,7 @@ const useValid = (changeValue) => {
     });
 
     setIsValid({
-      isUserName: validateName(changeValue.userName),
+      isUserNameKr: validateName(changeValue.userNameKr),
       isUserNameEn: validateNameEn(changeValue.userNameEn),
       isUserPhone: validatePhone(changeValue.userPhone),
       isUserEmail: validateEmail(changeValue.userEmail),

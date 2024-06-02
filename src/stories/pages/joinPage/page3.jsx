@@ -1,4 +1,4 @@
-import { usePostIdCheck } from "hooks/queries/userQueries";
+import { usePostIdCheck, usePostRegister } from "hooks/queries/userQueries";
 import useValid from "hooks/useValid";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
@@ -12,6 +12,7 @@ const Page3 = ({ registForm, setRegistForm }) => {
   // const { mutate: signUp } = useMutation(postSignUp);
   // server
   const { mutate: checkId, ok } = usePostIdCheck();
+  const { mutate: register } = usePostRegister();
 
   const { validText, isValid } = useValid(registForm);
   const [error, setError] = useState(false);
@@ -29,20 +30,10 @@ const Page3 = ({ registForm, setRegistForm }) => {
 
   const handleClick = () => {
     if (isValid.isUserPassword && isValid.isUserRePassword) {
-      window.location.href = "/login";
-      alert("후에 서버통신 해야된다!");
-      // 서버에 보내기
-      // signUp({
-      //   userId: registForm.userId,
-      //   userPwd: registForm.userPwd,
-      //   userName: registForm.userName,
-      //   userNameEn: registForm.userNameEn,
-      //   userInherentNumber: registForm.userInherentNumber,
-      //   userPhone: registForm.userPhone,
-      //   userAddr: registForm.userAddr,
-      //   userAddrDetail: registForm.userAddrDetail,
-      //   userEmail: registForm.userEmail,
-      // });
+      const { userRePwd, ...formDataToSend } = registForm;
+
+      register(formDataToSend);
+      // window.location.href = "/login";
     } else {
       setError(
         !isValid.isUserId ||
@@ -57,14 +48,24 @@ const Page3 = ({ registForm, setRegistForm }) => {
       <Title text1={"회원가입"} text2={""} />
       <div className="pl-10">아이디/패스워드를 설정해주세요.</div>
       <div className="mt-35 flex flex-col space-y-4">
-        <div className="flex items-center justify-between space-x-3">
+        <div className="flex justify-between space-x-3">
           <Input
             placeholder={"아이디"}
             onChange={handleChange("userId")}
-            msg={validText.userId}
+            validate={ok ? true : false}
+            msg={
+              ok !== null
+                ? ok
+                  ? "사용가능한 아이디입니다."
+                  : "중복된 아이디입니다."
+                : ""
+            }
           />
-          <span className="mb-10" onClick={handleId}>
-            <ShortButton text={"중복체크"} />
+          <span className="mt-2" onClick={handleId}>
+            <ShortButton
+              text={"중복체크"}
+              active={registForm.userId ? true : false}
+            />
           </span>
         </div>
 
