@@ -4,10 +4,15 @@ import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import useValid from "hooks/useValid";
 import InherentInput from "stories/atoms/inherentInput";
+import { usePostEmailCheck, usePostEmailSend } from "hooks/queries/userQueries";
+import ShortButton from "stories/atoms/shortButton";
 
 const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   const { validText, isValid } = useValid(registForm);
   const [error, setError] = useState(false);
+  const [code, setCode] = useState(null);
+
+  const { mutate: checkEmail, emailOk, emailCode } = usePostEmailSend();
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
@@ -36,6 +41,12 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
     }
   };
 
+  // console.log(emailCode);
+  // console.log("dd", emailOk);
+  const handleEmailCheck = () => {
+    checkEmail(registForm.userEmail);
+  };
+
   return (
     <div>
       <Title text1={"회원가입"} text2={""} />
@@ -60,11 +71,23 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
           onChange={handleChange("userPhone")}
           msg={validText.userPhone}
         />
-        <Input
-          placeholder={"banksi@gmail.com"}
-          onChange={handleChange("userEmail")}
-          msg={validText.userEmail}
-        />
+        <div className="flex items-center justify-between space-x-3">
+          <Input
+            placeholder={"banksi@gmail.com"}
+            onChange={handleChange("userEmail")}
+            msg={validText.userEmail}
+          />
+          <span className="mb-10" onClick={handleEmailCheck}>
+            <ShortButton text={"중복체크"} />
+          </span>
+        </div>
+        {emailOk && (
+          <Input
+            placeholder={"1234"}
+            onChange={() => setCode}
+            msg={validText.userPhone}
+          />
+        )}
       </div>
       <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
