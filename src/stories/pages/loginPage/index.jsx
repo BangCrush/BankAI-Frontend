@@ -12,7 +12,7 @@ const LoginPage = () => {
     userPwd: "",
   });
 
-  const { mutate: login, msg, isLoginSuccess } = usePostLogin();
+  const { mutate: login, msg, isLoginSuccess, token } = usePostLogin();
 
   const handleLogin = () => {
     login(loginForm);
@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isLoginSuccess) {
-      window.location.href = "/product";
+      window.location.href = "/main";
     }
   }, [isLoginSuccess]);
 
@@ -51,7 +51,6 @@ const LoginPage = () => {
           text={"로그인"}
           active={!!loginForm.userId && !!loginForm.userPwd}
           onClick={handleLogin}
-          disabled={msg !== null}
         />
         <div className="mt-10">
           아이디 찾기 | 비밀번호 찾기 | <Link to={"/join"}>회원가입</Link>
