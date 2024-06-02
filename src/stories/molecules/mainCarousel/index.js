@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { productTypeMapping } from "constants/products";
 
 const MainCarousel = ({ data }) => {
   const LeftArrow = (props) => {
@@ -28,7 +29,7 @@ const MainCarousel = ({ data }) => {
   };
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -45,7 +46,7 @@ const MainCarousel = ({ data }) => {
               {data[i].prodName}
             </p>
             <p className="text-gray-900 text-12 mb-10">
-              {data[i].prodType} {data[i].accCode}
+              {productTypeMapping[data[i].prodType]} {data[i].accCode}
             </p>
             <p className="text-black-900 text-26 font-extrabold mb-30">
               {data[i].accBalance.toLocaleString()}원
