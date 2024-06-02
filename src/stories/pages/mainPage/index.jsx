@@ -28,35 +28,39 @@ const MainPage = () => {
       <div className="ml-20 mb-14">
         <p className="text-18 font-extrabold">양삼식님</p>
       </div>
-      <div className="mb-50">
+      <div className="mb-40">
         <MainCarousel data={data}></MainCarousel>
       </div>
-      <div className="mb-25">
+      <div className="mb-30">
         <ProdContainer
           title={"마이메뉴"}
           data={["입출금", "예금", "적금", "대출"]}
         ></ProdContainer>
       </div>
-      <div className="mb-19">
+      <div className="mb-30">
         <TotalAcc
           data={data2}
           date={new Date().toLocaleTimeString()}
         ></TotalAcc>
       </div>
       <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-3">
-        <p className="text-13 font-extrabold">금융 상식 톡톡</p>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-10 px-14">
+        <p className="text-17 font-semibold">금융 상식 톡톡</p>
+        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-14 px-18">
           <img src="/assets/toktok1.svg" />
-          <div className="flex flex-col">
-            <p className="text-13 font-extrabold">은행에서도 보험 상품을 판매한다고?</p>
-            <p className="text-9">내게 맞는 보험 찾기 {">"}</p>
+          <div className="flex flex-col space-y-1">
+            <p className="text-16 font-semibold">
+              은행에서도 보험 상품을 판매한다고?
+            </p>
+            <p className="text-12">내게 맞는 보험 찾기 {">"}</p>
           </div>
         </div>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-10 px-14">
+        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-14 px-18">
           <img src="/assets/toktok2.svg" />
-          <div className="flex flex-col">
-            <p className="text-13 font-extrabold">신용대출을 받을 때 꼭 알아야할 유의사항</p>
-            <p className="text-9">내게 맞는 대출 찾기 {">"}</p>
+          <div className="flex flex-col space-y-1">
+            <p className="text-16 font-semibold">
+              신용대출을 받을 때 꼭 알아야할 유의사항
+            </p>
+            <p className="text-12">내게 맞는 대출 찾기 {">"}</p>
           </div>
         </div>
       </div>
