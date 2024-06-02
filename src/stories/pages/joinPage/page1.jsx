@@ -9,7 +9,6 @@ import ShortButton from "stories/atoms/shortButton";
 
 const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
   const { validText, isValid } = useValid(registForm);
-  const [error, setError] = useState(false);
   const [code, setCode] = useState(null);
 
   const { mutate: sendEmail, emailOk, emailCode } = usePostEmailSend();
@@ -45,8 +44,6 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
       ok
     ) {
       moveNextPage();
-    } else {
-      setError(true);
     }
   };
 
