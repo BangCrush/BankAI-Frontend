@@ -6,6 +6,7 @@ import Title from "stories/atoms/title";
 
 const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
   const [address, setAddress] = useState("");
+  const [zipcode, setZipcode] = useState(null);
   const [addressDetail, setAddressDetail] = useState("");
 
   const handleAddressDetail = (e) => {
@@ -28,6 +29,10 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
           draft.userAddr = event.data.userAddr;
         });
       }
+      if (event.data.zonecode) {
+        console.log("zipcode", event.data.zonecode);
+        setZipcode(event.data.zonecode);
+      }
     };
 
     window.addEventListener("message", handleMessage);
@@ -43,9 +48,13 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
       <div className="pl-10">주소지를 입력해주세요.</div>
       <div className="mt-35 flex flex-col space-y-4">
         <div className="flex items-center justify-between space-x-3">
-          <Input placeholder={"우편번호"} />
-          <span className="mb-10" onClick={onPopup}>
-            <ShortButton text={"찾기"} />
+          <Input
+            placeholder={"우편번호"}
+            value={zipcode || ""}
+            readonly={true}
+          />
+          <span onClick={onPopup}>
+            <ShortButton text={"찾기"} active={true} />
           </span>
         </div>
 

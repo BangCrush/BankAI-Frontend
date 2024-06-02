@@ -4,7 +4,8 @@ const ZipCodePage = () => {
   // postMessage() => 주어진 데이터를 다른 창으로 전달하는 역할
   const onCompletePost = (data) => {
     const address = data.address;
-    window.opener.postMessage({ address }, "*");
+    const zonecode = data.zonecode;
+    window.opener.postMessage({ address, zonecode }, "*");
     window.close();
   };
   const postCodeStyle = {
