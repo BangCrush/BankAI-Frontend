@@ -52,7 +52,7 @@ export const postReissue = async ({ accessToken, refreshToken }) => {
     accessToken,
     refreshToken,
   });
-  $axios.defaults.headers.common["Authorization"] = accessToken;
+  $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   return res.data;
 };
 
@@ -64,6 +64,7 @@ export const onLogInSuccess = (res) => {
 export const onSilentRefresh = async () => {
   const refreshToken = Cookies.get("refreshToken");
   const accessToken = Cookies.get("accessToken");
+  $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
   if (refreshToken) {
     try {

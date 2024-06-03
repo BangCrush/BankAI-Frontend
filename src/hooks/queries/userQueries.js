@@ -1,6 +1,5 @@
 import {
   getMyInfo,
-  onLogInSuccess,
   postEmailCheck,
   postEmailSend,
   postIdCheck,
@@ -89,8 +88,6 @@ export const usePostLogin = () => {
           `Bearer ${accessToken}`;
         Cookies.set("refreshToken", refreshToken, { expires: 7 });
         Cookies.set("accessToken", accessToken);
-
-        onLogInSuccess(res);
 
         const now = Date.now();
         if (now >= expirationTime) {
