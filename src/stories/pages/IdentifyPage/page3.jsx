@@ -1,29 +1,30 @@
 import { usePostSms, usePostSmsVerify } from "hooks/queries/userQueries";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import ShortButton from "stories/atoms/shortButton";
 import Title from "stories/atoms/title";
-import HeaderBar from "stories/molecules/headerBar";
 
-const Page3 = ({ identifyForm, setIdentifyForm }) => {
+const Page3 = ({ registForm, setRegistForm }) => {
   const { mutate: sendSms, msg, ok } = usePostSms();
   const { mutate: verifySms, verifyMsg, verifyOk } = usePostSmsVerify();
 
   const [code, setCode] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (field) => (e) => {
     const value = e.target.value;
-    setIdentifyForm((draft) => {
+    setRegistForm((draft) => {
       draft[field] = value;
     });
   };
 
   const handleSmsSend = () => {
-    sendSms(identifyForm.userPhone);
+    sendSms(registForm.userPhone);
   };
   const handleSmsVerify = () => {
-    verifySms(identifyForm.userPhone, code);
+    verifySms(registForm.userPhone, code);
   };
 
   const handleCode = (e) => {
@@ -32,13 +33,12 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
 
   const handleNextStep = () => {
     if (verifyOk && ok) {
-      window.location.href = "/join";
+      navigate("/join", { state: { registForm } });
     }
   };
 
   return (
-    <div>
-      <HeaderBar text={"본인인증"} />
+    <>
       <Title text1={"휴대폰 본인인증을"} text2={"진행해주세요"} />
       <div className="mt-35 flex flex-col space-y-5">
         {ok && (
@@ -59,9 +59,7 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
                   인증되었습니다!
                 </div>
               ) : (
-                <div className="text-13 text-err-color p-5">
-                  잘못입력하였습니다
-                </div>
+                <div className="text-13 text-err-color p-5">{verifyMsg}</div>
               )
             ) : null}
           </div>
@@ -71,7 +69,6 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
           <div className="flex justify-between space-x-3">
             <Input
               placeholder={"01082278983"}
-              value={identifyForm.userPhone}
               onChange={handleChange("userPhone")}
               msg={msg ? msg : null}
               validate={ok ? true : false}
@@ -79,7 +76,7 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
             <span className="mt-2">
               <ShortButton
                 text={"문자전송"}
-                active={!!identifyForm.userPhone}
+                active={!!registForm.userPhone}
                 onClick={handleSmsSend}
               />
             </span>
@@ -97,23 +94,23 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
 
         <Input
           placeholder={"970114"}
-          value={identifyForm.userInherentNumber}
+          value={registForm.userInherentNumber}
           readOnly={true}
         />
         <Input
           placeholder={"홍길동"}
-          value={identifyForm.userName}
+          value={registForm.userNameKr}
           readOnly={true}
         />
       </div>
       <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
           text={"다음"}
-          active={!!identifyForm.userPhone}
+          active={!!registForm.userPhone}
           onClick={handleNextStep}
         />
       </div>
-    </div>
+    </>
   );
 };
 

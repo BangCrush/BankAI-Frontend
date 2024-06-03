@@ -124,12 +124,12 @@ export const usePostSms = () => {
 
   const mutation = useMutation((userPhone) => postSmsSend(userPhone), {
     onSuccess: (res) => {
-      if (res.status) {
-        console.log("인증번호 발송 성공");
-        setOk(true);
-      } else {
+      if (res.status === 202) {
         setMsg(res.message);
         console.log("인증번호 발송 실패");
+      } else {
+        console.log("인증번호 발송 성공");
+        setOk(true);
       }
     },
   });
@@ -145,12 +145,12 @@ export const usePostSmsVerify = () => {
     (userPhone, verificationCode) => postSmsVerify(userPhone, verificationCode),
     {
       onSuccess: (res) => {
-        if (res.status) {
-          console.log("인증번호 일치");
-          setVerifyOk(true);
-        } else {
+        if (res.status === 202) {
           setVerifyMsg(res.message);
           console.log("인증번호 불일치");
+        } else {
+          console.log("인증번호 일치");
+          setVerifyOk(true);
         }
       },
     },
