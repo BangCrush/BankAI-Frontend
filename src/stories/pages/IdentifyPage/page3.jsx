@@ -1,4 +1,4 @@
-import { usePostSms } from "hooks/queries/userQueries";
+import { usePostSms, usePostSmsVerify } from "hooks/queries/userQueries";
 import React, { useState } from "react";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
@@ -8,6 +8,8 @@ import HeaderBar from "stories/molecules/headerBar";
 
 const Page3 = ({ identifyForm, setIdentifyForm }) => {
   const { mutate: sendSms, msg, ok } = usePostSms();
+  const { mutate: verifySms, verifyMsg, verifyOk } = usePostSmsVerify();
+
   const [code, setCode] = useState("");
 
   const handleChange = (field) => (e) => {
@@ -20,9 +22,18 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
   const handleSmsSend = () => {
     sendSms(identifyForm.userPhone);
   };
+  const handleSmsVerify = () => {
+    verifySms(identifyForm.userPhone, code);
+  };
 
   const handleCode = (e) => {
     setCode(e.target.value);
+  };
+
+  const handleNextStep = () => {
+    if (verifyOk && ok) {
+      window.location.href = "/join";
+    }
   };
 
   return (
@@ -30,7 +41,32 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
       <HeaderBar text={"본인인증"} />
       <Title text1={"휴대폰 본인인증을"} text2={"진행해주세요"} />
       <div className="mt-35 flex flex-col space-y-5">
-        {ok && <Input placeholder={"1234"} onChange={handleCode} />}
+        {ok && (
+          <div className="flex flex-col flex-grow">
+            <div className="flex justify-between space-x-3">
+              <Input placeholder={"1234"} onChange={handleCode} />
+              <span className="mt-2">
+                <ShortButton
+                  text={"인증하기"}
+                  active={!!code}
+                  onClick={handleSmsVerify}
+                />
+              </span>
+            </div>
+            {verifyOk !== null ? (
+              verifyOk ? (
+                <div className="text-13 text-main-color p-5">
+                  인증되었습니다!
+                </div>
+              ) : (
+                <div className="text-13 text-err-color p-5">
+                  잘못입력하였습니다
+                </div>
+              )
+            ) : null}
+          </div>
+        )}
+
         <div className="flex flex-col flex-grow">
           <div className="flex justify-between space-x-3">
             <Input
@@ -48,11 +84,15 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
               />
             </span>
           </div>
-          {ok ? (
-            <div className="text-13 text-main-color p-5">전송되었습니다!</div>
-          ) : (
-            <div className="text-13 text-err-color p-5">잘못입력하였습니다</div>
-          )}
+          {ok !== null ? (
+            ok ? (
+              <div className="text-13 text-main-color p-5">전송되었습니다!</div>
+            ) : (
+              <div className="text-13 text-err-color p-5">
+                잘못입력하였습니다
+              </div>
+            )
+          ) : null}
         </div>
 
         <Input
@@ -70,9 +110,7 @@ const Page3 = ({ identifyForm, setIdentifyForm }) => {
         <LongButton
           text={"다음"}
           active={!!identifyForm.userPhone}
-          onClick={() => {
-            alert("본인인증!");
-          }}
+          onClick={handleNextStep}
         />
       </div>
     </div>

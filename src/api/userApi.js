@@ -10,6 +10,7 @@ const USER_API = {
   MY_INFO: () => "/users/user-info",
   REISSUE: () => "/login/reissue",
   SMS_SEND: () => "/register/sms-certification/send",
+  SMS_VERIFY: () => "/register/sms-certification/verify",
 };
 
 export const postIdCheck = async (id) => {
@@ -82,5 +83,12 @@ export const onSilentRefresh = async () => {
 
 export const postSmsSend = async (userPhone) => {
   const res = await $axios.post(USER_API.SMS_SEND(), { userPhone });
+  return res.data;
+};
+export const postSmsVerify = async ({ userPhone, verificationCode }) => {
+  const res = await $axios.post(USER_API.SMS_VERIFY(), {
+    userPhone,
+    verificationCode,
+  });
   return res.data;
 };
