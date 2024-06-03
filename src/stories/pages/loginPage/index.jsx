@@ -12,7 +12,7 @@ const LoginPage = () => {
     userPwd: "",
   });
 
-  const { mutate: login, msg, isLoginSuccess, token } = usePostLogin();
+  const { mutate: login, msg, isLoginSuccess } = usePostLogin();
 
   const handleLogin = () => {
     login(loginForm);
