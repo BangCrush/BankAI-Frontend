@@ -11,7 +11,6 @@ const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: sumAccount } = useGetSumAccount();
 
-  console.log(sumAccount);
   return (
     <div className="pb-20">
       <div className="ml-20 mb-14">

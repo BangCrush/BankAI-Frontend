@@ -38,7 +38,7 @@ export const postLogin = async (params) => {
   return res.data;
 };
 
-export const getMyInfo = async (params) => {
+export const getMyInfo = async () => {
   const res = await $axios.get(USER_API.MY_INFO());
   return res.data;
 };
@@ -63,9 +63,10 @@ export const onSilentRefresh = async () => {
 
   if (refreshToken) {
     try {
-      const response = await postReissue({ accessToken, refreshToken });
-      if (response) {
-        onLogInSuccess(response);
+      const res = await postReissue({ accessToken, refreshToken });
+      if (res) {
+        $axios.defaults.headers.common["Authorization"] =
+          `Bearer ${res.data.accessToken}`;
       }
     } catch (error) {
       if (error.response?.status === 401) {

@@ -14,7 +14,12 @@ const ProdContainer = ({ title, data, imgs, urls }) => {
       </div>
       <div className={`flex justify-between`}>
         {data.map((menu, index) => (
-          <ProdItem title={menu} img={images[imgs[index]]} urls={urls[index]} />
+          <ProdItem
+            key={index}
+            title={menu}
+            img={images[imgs[index]]}
+            urls={urls[index]}
+          />
         ))}
       </div>
     </div>
