@@ -6,6 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useGetProductDetail } from "hooks/queries/productQueries";
 import { productTypeMapping } from "constants/products";
 import BottomStickyButton from "stories/molecules/bottomStickyButton";
+import ProdBenefit2 from "stories/organisms/prodBenefit2";
+import ProdBenefit3 from "stories/organisms/prodBenefit3";
 
 const ProdDetailPage = () => {
   const location = useLocation();
@@ -42,7 +44,15 @@ const ProdDetailPage = () => {
         <p className="my-10">연(세전, 1년)</p>
         <p>최고 {productData.prodRate}%</p>
       </div>
-      <ProdBenefit data={productData}></ProdBenefit>
+      {productData &&
+        (productData.prodType === "CHECKING" ? (
+          <ProdBenefit2 />
+        ) : productData.prodType === "LOAN" ? (
+          <ProdBenefit3 />
+        ) : (
+          <ProdBenefit data={productData} />
+        ))}
+
       <div className="bg-gray-200 px-40 pt-24 pb-62">
         <div className="py-17">
           <div className="beforesign mb-15">
