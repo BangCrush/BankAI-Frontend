@@ -9,6 +9,7 @@ const USER_API = {
   LOGIN: () => "/login",
   MY_INFO: () => "/users/user-info",
   REISSUE: () => "/login/reissue",
+  SMS_SEND: () => "/register/sms-certification/send",
 };
 
 export const postIdCheck = async (id) => {
@@ -77,4 +78,9 @@ export const onSilentRefresh = async () => {
     console.log("No refresh token found");
     window.location.href = "/login";
   }
+};
+
+export const postSmsSend = async (userPhone) => {
+  const res = await $axios.post(USER_API.SMS_SEND(), { userPhone });
+  return res.data;
 };
