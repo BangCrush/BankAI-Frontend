@@ -6,7 +6,6 @@ import ProductList from "stories/organisms/productList";
 
 const ProductPage = () => {
   const { data: allProducts, isLoading, error } = useGetAllProduct();
-  console.log(allProducts);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -23,7 +22,7 @@ const ProductPage = () => {
       <div className="mb-40">
         <ProdButtons />
       </div>
-      <ProductList data={allProducts} />
+      {allProducts && <ProductList data={allProducts} />}
     </>
   );
 };

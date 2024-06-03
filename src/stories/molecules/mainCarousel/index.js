@@ -38,10 +38,17 @@ const MainCarousel = ({ data }) => {
   };
 
   return (
-    <Slider className="shadow-custom w-490 mx-auto rounded-20" {...settings}>
+    <Slider
+      key={"key"}
+      className="shadow-custom w-490 mx-auto rounded-20"
+      {...settings}
+    >
       {data.map((a, i) => {
         return (
-          <div className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215">
+          <div
+            key={i}
+            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215"
+          >
             <p className="text-black-900 text-16 font-semibold mb-10">
               {data[i].prodName}
             </p>
