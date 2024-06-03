@@ -1,12 +1,15 @@
-const AccountItem = ({data, sub}) => {
+const AccountItem = ({ data, sub }) => {
   return (
-    <div className={`max-y-85 p-20 border-1 rounded-20 ${sub ? "bg-white text-black border-gray-800" : "bg-main-color text-white border-main-color"}`}>
-      <p className="text-13 mb-10">{data.prodName}</p>
-      <p className="text-14 font-extrabold">{data.accBalance}</p>
+    <div
+      className={`max-y-85 p-20 border-1 rounded-20 ${sub ? "bg-white text-black border-gray-800" : "bg-main-color text-white border-main-color"}`}
+    >
+      <p className="text-15 mb-10">{data.prodName}</p>
+      <p className="text-20 font-extrabold">
+        {parseInt(data.accBalance, 10).toLocaleString()}{" "}
+        <span className="font-semibold">원</span>
+      </p>
     </div>
   );
 };
 
 export default AccountItem;
-
-
