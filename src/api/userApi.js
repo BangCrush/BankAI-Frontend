@@ -39,11 +39,7 @@ export const postLogin = async (params) => {
 };
 
 export const getMyInfo = async (params) => {
-  const res = await $axios.get(USER_API.MY_INFO(), {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW1zaWNsb3ZlciIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3MTczNDc4NjF9.y5em2qX-ziuBU34AKcZDN01LiuRTBP_Y3JZpAwYcgr4`,
-    },
-  });
+  const res = await $axios.get(USER_API.MY_INFO());
   return res.data;
 };
 
@@ -52,7 +48,6 @@ export const postReissue = async ({ accessToken, refreshToken }) => {
     accessToken,
     refreshToken,
   });
-  $axios.defaults.headers.common["Authorization"] = accessToken;
   return res.data;
 };
 
@@ -64,6 +59,7 @@ export const onLogInSuccess = (res) => {
 export const onSilentRefresh = async () => {
   const refreshToken = Cookies.get("refreshToken");
   const accessToken = Cookies.get("accessToken");
+  $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
   if (refreshToken) {
     try {
