@@ -1,22 +1,31 @@
-const AccHistory = ({data}) => {
-  
+import { historyTypeMapping } from "constants/accounts";
+
+const AccHistory = ({ data }) => {
   const date = new Date(data.hisDateTime);
   const month = date.getMonth() + 1;
   const day = date.getDate();
 
   return (
-    <div className="border-gray-800 border-solid border-1 px-19 py-24">
+    <div className="border-gray-800 border-solid border-b-1 pb-19 py-20 px-20">
       <div className="grid grid-cols-8">
-        <div className="text-10 col-span-1">
+        <div className="text-14 col-span-1">
           <p className="mt-2">{month + "." + day}</p>
         </div>
         <div className="col-span-4">
-          <p className="text-13 font-bold">{data.target}</p>
-          <p className="text-10 text-gray-900">{data.hisType}</p>
+          <p className="text-17 font-semibold">{data.target}</p>
+          <p className="text-14 text-gray-900">
+            #{historyTypeMapping[data.hisType]}
+          </p>
         </div>
-        <div className="col-span-3 text-right">
-          <p className={`text-13 font-extrabold ${data.hisAmount < 0 ? "text-main-color":"text-black"}`}>{data.hisAmount.toLocaleString()}원</p>
-          <p className="text-10">{data.balance.toLocaleString()}원</p>
+        <div className="col-span-3 text-right font-bold">
+          <p
+            className={`text-19  ${data.hisAmount < 0 ? "text-main-color" : "text-black"}`}
+          >
+            {parseInt(data.hisAmount, 10).toLocaleString()}원
+          </p>{" "}
+          <p className="text-16 text-gray-semi">
+            {parseInt(data.balance, 10).toLocaleString()}원
+          </p>
         </div>
       </div>
     </div>
@@ -24,5 +33,3 @@ const AccHistory = ({data}) => {
 };
 
 export default AccHistory;
-
-

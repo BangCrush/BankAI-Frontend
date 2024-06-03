@@ -1,3 +1,5 @@
+import AccHistory from "stories/molecules/accHistory";
+import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
@@ -29,5 +31,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "계좌 목록 페이지",
     path: () => "/account",
     component: AccountPage,
+  },
+  AccHistory: {
+    name: "계좌 목록 페이지",
+    path: () => "/accountHistory",
+    component: AccHistoryPage,
   },
 };

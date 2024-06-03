@@ -1,12 +1,12 @@
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const BlueHeaderBar = ({text}) => {
+const BlueHeaderBar = ({ text }) => {
   return (
-      <div className='w-full h-64 py-23 relative bg-sub-color'>
-        <ArrowBackIosIcon className='absolute left-10'></ArrowBackIosIcon>
-        <p className='text-15 text-center font-extrabold'>{text}</p>
-        <MoreHorizIcon className='absolute right-10 bottom-5 text-main-color'></MoreHorizIcon>
+    <div className="flex justify-between w-full py-30 relative bg-sub-color px-50">
+      <ArrowBackIosIcon className=""></ArrowBackIosIcon>
+      <p className="text-16 text-center font-semibold">{text}</p>
+      <MoreHorizIcon className=" text-main-color"></MoreHorizIcon>
     </div>
   );
 };

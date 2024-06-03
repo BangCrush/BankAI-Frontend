@@ -30,6 +30,7 @@ module.exports = {
         "main-bg": "#F5F5F5",
         "black-900": "#333333",
         "gray-900": "#4D4D4D",
+        "gray-semi": "#6A6A6A",
         "gray-800": "#E1E1E1",
         "gray-700": "#BFBFBF",
         "gray-border": "#E9E9E9",
