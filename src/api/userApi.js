@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { $axios } from "libs/axios";
 
 const USER_API = {
@@ -7,6 +8,7 @@ const USER_API = {
   REGISTER: () => "/register",
   LOGIN: () => "/login",
   MY_INFO: () => "/users/user-info",
+  REISSUE: () => "/login/reissue",
 };
 
 export const postIdCheck = async (id) => {
@@ -43,4 +45,39 @@ export const getMyInfo = async (params) => {
     },
   });
   return res.data;
+};
+
+export const postReissue = async ({ accessToken, refreshToken }) => {
+  const res = await $axios.post(USER_API.REISSUE(), {
+    accessToken,
+    refreshToken,
+  });
+  $axios.defaults.headers.common["Authorization"] = accessToken;
+  return res.data;
+};
+
+export const onLogInSuccess = (res) => {
+  const { accessToken } = res.data;
+  $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+};
+
+export const onSilentRefresh = async () => {
+  const refreshToken = Cookies.get("refreshToken");
+  const accessToken = Cookies.get("accessToken");
+
+  if (refreshToken) {
+    try {
+      const response = await postReissue({ accessToken, refreshToken });
+      if (response) {
+        onLogInSuccess(response);
+      }
+    } catch (error) {
+      if (error.response?.status === 401) {
+        console.log("refresh token 만료");
+      }
+    }
+  } else {
+    console.log("No refresh token found");
+    window.location.href = "/login";
+  }
 };

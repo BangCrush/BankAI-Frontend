@@ -1,11 +1,14 @@
 import {
   getMyInfo,
+  onLogInSuccess,
   postEmailCheck,
   postEmailSend,
   postIdCheck,
   postLogin,
   postRegister,
+  postReissue,
 } from "api/userApi";
+import Cookies from "js-cookie";
 import { $axios } from "libs/axios";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -72,44 +75,40 @@ export const usePostRegister = () => {
 export const usePostLogin = () => {
   const [msg, setMsg] = useState(null);
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
-  const [token, setToken] = useState(null);
 
   const mutation = useMutation((params) => postLogin(params), {
-    onSuccess: (res) => {
-      console.log(res);
+    onSuccess: async (res) => {
       if (res.status === 202) {
         setMsg(res.message);
       } else {
         const accessToken = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
         const expirationTime =
           res.data.refreshTokenExpirationTime - 60 * 60 * 1000; // 1시간 전
         $axios.defaults.headers.common["Authorization"] =
           `Bearer ${accessToken}`;
-        setToken(accessToken);
+        Cookies.set("refreshToken", refreshToken, { expires: 7 });
+        Cookies.set("accessToken", accessToken);
 
-        setTimeout(() => {
-          console.log(
-            "Authorization header:",
-            $axios.defaults.headers.common["Authorization"],
-          );
-          alert($axios.defaults.headers.common["Authorization"]);
-        }, 0);
+        onLogInSuccess(res);
 
         const now = Date.now();
         if (now >= expirationTime) {
-          // 리프레시 토큰으로 새로운 액세스 토큰 요청
-          // const newAccessToken = refreshResponse.data.accessToken;
-          // 새로운 액세스 토큰 설정
-          // $axios.defaults.headers.common[
-          //   "Authorization"
-          // ] = `Bearer ${newAccessToken}`;
+          const refreshResponse = await postReissue({
+            accessToken,
+            refreshToken,
+          });
+
+          const newAccessToken = refreshResponse.data.accessToken;
+          $axios.defaults.headers.common["Authorization"] =
+            `Bearer ${newAccessToken}`;
         }
         setIsLoginSuccess(true);
       }
     },
   });
 
-  return { mutate: mutation.mutate, msg, isLoginSuccess, token };
+  return { mutate: mutation.mutate, msg, isLoginSuccess };
 };
 
 export const useGetMyInfo = () => {

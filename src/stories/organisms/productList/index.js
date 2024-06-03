@@ -5,6 +5,10 @@ import ProdType from "stories/molecules/prodType";
 import Product from "stories/molecules/product";
 
 const ProductList = ({ data }) => {
+  if (!data || data.length === 0) {
+    return <div>No products available</div>;
+  }
+
   return (
     <>
       {Object.entries(data).map(([prodType, products], itemIndex) => (

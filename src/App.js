@@ -7,8 +7,14 @@ import { SUB_LAYOUT_ROUTES_URL } from "routes/subLayoutRouter";
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import { NO_LAYOUT_ROUTES_URL } from "routes/noLayoutRouter";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { useEffect } from "react";
+import { onSilentRefresh } from "api/userApi";
 
 function App() {
+  useEffect(() => {
+    onSilentRefresh();
+  }, []);
+
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

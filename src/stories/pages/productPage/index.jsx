@@ -6,7 +6,7 @@ import ProductList from "stories/organisms/productList";
 
 const ProductPage = () => {
   const { data: allProducts, isLoading, error } = useGetAllProduct();
-
+  console.log(allProducts);
   if (isLoading) {
     return <div>Loading...</div>;
   }

@@ -2,9 +2,6 @@ import {
   useGetAllAccount,
   useGetSumAccount,
 } from "hooks/queries/accountQueries";
-import { useGetAllProduct } from "hooks/queries/productQueries";
-import { usePostLogin } from "hooks/queries/userQueries";
-import { $axios } from "libs/axios";
 import React from "react";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
