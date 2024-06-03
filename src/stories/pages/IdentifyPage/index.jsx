@@ -6,10 +6,17 @@ import { useImmer } from "use-immer";
 
 const IdentifyPage = () => {
   const [page, setPage] = useState(1);
-  const [identifyForm, setIdentifyForm] = useImmer({
-    userName: "",
+  const [registForm, setRegistForm] = useImmer({
+    userId: "",
+    userPwd: "",
+    userRePwd: "",
+    userNameKr: "",
+    userNameEn: "",
     userInherentNumber: "",
     userPhone: "",
+    userAddr: "",
+    userAddrDetail: "",
+    userEmail: "",
   });
 
   const moveNextPage = () => {
@@ -21,19 +28,19 @@ const IdentifyPage = () => {
       {page === 1 && (
         <Page1
           moveNextPage={moveNextPage}
-          identifyForm={identifyForm}
-          setIdentifyForm={setIdentifyForm}
+          registForm={registForm}
+          setRegistForm={setRegistForm}
         />
       )}
       {page === 2 && (
         <Page2
           moveNextPage={moveNextPage}
-          identifyForm={identifyForm}
-          setIdentifyForm={setIdentifyForm}
+          registForm={registForm}
+          setRegistForm={setRegistForm}
         />
       )}
       {page === 3 && (
-        <Page3 identifyForm={identifyForm} setIdentifyForm={setIdentifyForm} />
+        <Page3 registForm={registForm} setRegistForm={setRegistForm} />
       )}
     </div>
   );

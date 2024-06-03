@@ -53,7 +53,7 @@ const LoginPage = () => {
           onClick={handleLogin}
         />
         <div className="mt-10">
-          아이디 찾기 | 비밀번호 찾기 | <Link to={"/join"}>회원가입</Link>
+          아이디 찾기 | 비밀번호 찾기 | <Link to={"/identify"}>회원가입</Link>
         </div>
       </div>
     </div>

@@ -2,23 +2,13 @@ import React, { useState } from "react";
 import Page1 from "./page1";
 import Page2 from "./page2";
 import Page3 from "./page3";
+import { useLocation } from "react-router-dom";
 import { useImmer } from "use-immer";
 
 const JoinPage = () => {
   const [page, setPage] = useState(1);
-  const [registForm, setRegistForm] = useImmer({
-    userId: "",
-    userPwd: "",
-    userRePwd: "",
-    userNameKr: "",
-    userNameEn: "",
-    userInherentNumber: "",
-    userPhone: "",
-    userAddr: "",
-    userAddrDetail: "",
-    userEmail: "",
-  });
-
+  const { state } = useLocation();
+  const [registForm, setRegistForm] = useImmer(state ? state.registForm : null);
   const moveNextPage = () => {
     setPage((currentPage) => currentPage + 1);
   };

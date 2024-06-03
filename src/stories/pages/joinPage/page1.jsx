@@ -62,8 +62,9 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
       <div className="mt-35 flex flex-col space-y-4">
         <Input
           placeholder={"홍길동"}
-          onChange={handleChange("userNameKr")}
+          value={registForm.userNameKr}
           msg={validText.userNameKr}
+          readonly={true}
         />
         <Input
           placeholder={"HONG GILL DONG"}
@@ -72,11 +73,14 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
         />
         <InherentInput
           onChange={handleInherentNumber}
+          value={registForm.userInherentNumber}
+          readonly={true}
           msg={validText.userInherentNumber}
         />
         <Input
           placeholder={"01012341223"}
-          onChange={handleChange("userPhone")}
+          value={registForm.userPhone}
+          readonly={true}
           msg={validText.userPhone}
         />
         <div className="flex justify-between space-x-3">
