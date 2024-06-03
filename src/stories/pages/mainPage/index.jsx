@@ -13,11 +13,13 @@ const MainPage = () => {
 
   return (
     <div className="pb-20">
-      <div className="ml-20 mb-14">
-        <p className="text-18 font-extrabold">양삼식님</p>
-      </div>
-      <div className="mb-40">
-        {allAccount && <MainCarousel data={allAccount}></MainCarousel>}
+      <div className="mb-40 mt-8">
+        {allAccount && (
+          <div className="flex flex-col space-y-4">
+            <p className="text-18 ml-25 font-bold">{sumAccount.userName}님</p>
+            <MainCarousel data={allAccount}></MainCarousel>
+          </div>
+        )}
       </div>
       <div className="mb-30">
         <ProdContainer
@@ -30,14 +32,14 @@ const MainPage = () => {
       <div className="mb-30">
         {sumAccount && (
           <TotalAcc
-            data={sumAccount}
+            data={sumAccount.assets}
             date={new Date().toLocaleTimeString()}
           ></TotalAcc>
         )}
       </div>
-      <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-3">
+      <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-4">
         <p className="text-17 font-semibold">금융 상식 톡톡</p>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-14 px-18">
+        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-16 px-18">
           <img src="/assets/toktok1.svg" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">
@@ -46,7 +48,7 @@ const MainPage = () => {
             <p className="text-12">내게 맞는 보험 찾기 {">"}</p>
           </div>
         </div>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 shadow-custom py-14 px-18">
+        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-14 px-18">
           <img src="/assets/toktok2.svg" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">

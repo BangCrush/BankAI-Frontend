@@ -13,6 +13,6 @@ export const useGetSumAccount = () => {
   return useQuery({
     queryKey: ["getSumAccounts"],
     queryFn: () => getSumAccount(),
-    select: (res) => res.data.assets,
+    select: (res) => res.data,
   });
 };
