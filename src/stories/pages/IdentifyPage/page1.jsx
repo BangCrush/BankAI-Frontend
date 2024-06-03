@@ -4,13 +4,13 @@ import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
+const Page1 = ({ moveNextPage, identifyForm, setIdentifyForm }) => {
   const [name, setName] = useState("");
 
   const handleName = (e) => {
     const newName = e.target.value;
     setName(newName);
-    setRegistForm((draft) => {
+    setIdentifyForm((draft) => {
       draft.userName = newName;
     });
   };

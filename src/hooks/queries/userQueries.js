@@ -6,6 +6,7 @@ import {
   postLogin,
   postRegister,
   postReissue,
+  postSmsSend,
 } from "api/userApi";
 import Cookies from "js-cookie";
 import { $axios } from "libs/axios";
@@ -114,4 +115,23 @@ export const useGetMyInfo = () => {
     queryFn: () => getMyInfo(),
     select: (res) => res.data,
   });
+};
+
+export const usePostSms = () => {
+  const [msg, setMsg] = useState(null);
+  const [ok, setOk] = useState(null);
+
+  const mutation = useMutation((userPhone) => postSmsSend(userPhone), {
+    onSuccess: (res) => {
+      if (res.status) {
+        console.log("인증번호 발송 성공");
+        setOk(true);
+      } else {
+        setMsg(res.message);
+        console.log("인증번호 발송 실패");
+      }
+    },
+  });
+
+  return { mutate: mutation.mutate, msg, ok };
 };
