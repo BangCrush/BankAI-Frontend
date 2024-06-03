@@ -7,6 +7,7 @@ import {
   postRegister,
   postReissue,
   postSmsSend,
+  postSmsVerify,
 } from "api/userApi";
 import Cookies from "js-cookie";
 import { $axios } from "libs/axios";
@@ -134,4 +135,26 @@ export const usePostSms = () => {
   });
 
   return { mutate: mutation.mutate, msg, ok };
+};
+
+export const usePostSmsVerify = () => {
+  const [verifyMsg, setVerifyMsg] = useState(null);
+  const [verifyOk, setVerifyOk] = useState(null);
+
+  const mutation = useMutation(
+    (userPhone, verificationCode) => postSmsVerify(userPhone, verificationCode),
+    {
+      onSuccess: (res) => {
+        if (res.status) {
+          console.log("인증번호 일치");
+          setVerifyOk(true);
+        } else {
+          setVerifyMsg(res.message);
+          console.log("인증번호 불일치");
+        }
+      },
+    },
+  );
+
+  return { mutate: mutation.mutate, verifyMsg, verifyOk };
 };
