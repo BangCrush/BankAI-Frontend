@@ -13,14 +13,15 @@ const MainPage = () => {
 
   return (
     <div className="pb-20">
-      <div className="mb-40 mt-8">
-        {allAccount && (
+      {allAccount && sumAccount && (
+        <div className="mb-40 mt-8">
           <div className="flex flex-col space-y-4">
             <p className="text-18 ml-25 font-bold">{sumAccount.userName}님</p>
             <MainCarousel data={allAccount}></MainCarousel>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
       <div className="mb-30">
         <ProdContainer
           title={"마이메뉴"}

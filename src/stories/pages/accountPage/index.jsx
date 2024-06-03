@@ -1,4 +1,5 @@
 import { useGetAllAccount } from "hooks/queries/accountQueries";
+import { Link } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
 import HeaderBar from "stories/molecules/headerBar";
 
@@ -20,9 +21,14 @@ const AccountPage = () => {
         </div>
         {allAccount &&
           allAccount.map((data, index) => (
-            <div key={index} className="cursor-pointer">
+            <Link
+              key={index}
+              className="cursor-pointer"
+              to={"/accountHistory"}
+              state={{ accCode: data.accCode, prodName: data.prodName }}
+            >
               <AccountItem data={data} />
-            </div>
+            </Link>
           ))}
       </div>
     </div>
