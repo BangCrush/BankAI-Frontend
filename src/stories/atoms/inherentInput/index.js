@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const InherentInput = ({ onChange }) => {
+const InherentInput = ({ onChange, value }) => {
   const [firstPart, setFirstPart] = useState("");
   const [secondPart, setSecondPart] = useState("");
+
+  useEffect(() => {
+    if (value && value.length >= 7) {
+      setFirstPart(value.slice(0, 6));
+      setSecondPart(value.slice(6, 7));
+    }
+  }, [value]);
 
   const handleFirstPartChange = (e) => {
     const value = e.target.value;
@@ -22,6 +29,7 @@ const InherentInput = ({ onChange }) => {
         placeholder="950101"
         className="rounded-10 bg-gray-input px-12 py-15 placeholder:text-gray-placeholder text-14 w-1/2"
         onChange={handleFirstPartChange}
+        value={firstPart}
       />
       <div className="w-15 h-2 bg-gray-900"></div>
 
@@ -30,6 +38,7 @@ const InherentInput = ({ onChange }) => {
         placeholder="2"
         className="rounded-10 text-center bg-gray-input px-12 py-15 w-40 placeholder:text-gray-placeholder text-14"
         onChange={handleSecondPartChange}
+        value={secondPart}
       />
       <div className="flex justify-around w-1/2">
         <div className="w-6 h-6 bg-gray-placeholder rounded-99"></div>
