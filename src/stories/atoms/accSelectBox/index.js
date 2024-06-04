@@ -1,12 +1,7 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 
-const AccSelectBox = ({
-  text,
-  options = [],
-  selectedOption,
-  setSelectedOption,
-}) => {
+const AccSelectBox = ({ text, options = [], selectedAcc, setSelectedAcc }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -14,13 +9,13 @@ const AccSelectBox = ({
   };
 
   const handleOptionSelect = (item) => {
-    setSelectedOption(item);
+    setSelectedAcc(item);
     setIsOpen(false);
   };
 
   const renderSelectedOption = () => {
-    if (selectedOption) {
-      return `뱅크시 ${selectedOption}`;
+    if (selectedAcc) {
+      return `뱅크시 ${selectedAcc}`;
     }
     return "옵션을 선택하세요";
   };
@@ -34,9 +29,7 @@ const AccSelectBox = ({
           onClick={handleToggle}
         >
           <span
-            className={
-              selectedOption ? "text-black-900" : "text-gray-placeholder"
-            }
+            className={selectedAcc ? "text-black-900" : "text-gray-placeholder"}
           >
             {renderSelectedOption()}
           </span>

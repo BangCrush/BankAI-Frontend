@@ -1,11 +1,11 @@
 import { useGetAllAccount } from "hooks/queries/accountQueries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AccSelectBox from "stories/atoms/accSelectBox";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page2 = ({ moveNextPage, depositForm, setDepositForm }) => {
+const Page2 = ({ moveNextPage, setSavingForm }) => {
   const [selectedAcc, setSelectedAcc] = useState(null);
   const { data: allAccount } = useGetAllAccount();
 
@@ -13,6 +13,12 @@ const Page2 = ({ moveNextPage, depositForm, setDepositForm }) => {
   if (allAccount) {
     accCodes = allAccount.map((item) => item.accCode);
   }
+
+  useEffect(() => {
+    setSavingForm((draft) => {
+      draft.outAccount = selectedAcc;
+    });
+  }, [selectedAcc]);
 
   return (
     <div>
@@ -22,8 +28,8 @@ const Page2 = ({ moveNextPage, depositForm, setDepositForm }) => {
         {accCodes && (
           <AccSelectBox
             options={accCodes}
-            selectedOption={selectedAcc}
-            setSelectedOption={setSelectedAcc}
+            selectedAcc={selectedAcc}
+            setSelectedAcc={setSelectedAcc}
           />
         )}
       </div>
