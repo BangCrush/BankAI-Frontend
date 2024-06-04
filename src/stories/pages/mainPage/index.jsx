@@ -41,7 +41,7 @@ const MainPage = () => {
       <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-4">
         <p className="text-17 font-semibold">금융 상식 톡톡</p>
         <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-16 px-18">
-          <img src="/assets/toktok1.svg" />
+          <img src="/assets/toktok1.svg" alt="toktok1" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">
               은행에서도 보험 상품을 판매한다고?
@@ -50,7 +50,7 @@ const MainPage = () => {
           </div>
         </div>
         <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-14 px-18">
-          <img src="/assets/toktok2.svg" />
+          <img src="/assets/toktok2.svg" alt="toktok2" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">
               신용대출을 받을 때 꼭 알아야할 유의사항
