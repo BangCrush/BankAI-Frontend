@@ -4,6 +4,7 @@ import AccountPage from "stories/pages/accountPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetail";
+import PwdPage from "stories/pages/pwdPage";
 import ZipCodePage from "stories/pages/zipcodePage";
 
 export const NO_LAYOUT_ROUTES_URL = {
@@ -37,4 +38,9 @@ export const NO_LAYOUT_ROUTES_URL = {
     path: () => "/accountHistory",
     component: AccHistoryPage,
   },
+  PasswordPage:{
+    name: "비밀번호 입력 페이지",
+    path: ()=>"/password",
+    component: PwdPage
+  }
 };

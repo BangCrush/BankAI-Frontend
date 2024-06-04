@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { productTypeMapping } from "constants/products";
-import { Link } from "react-router-dom";
 
 const MainCarousel = ({ data }) => {
   const handleTransfer = (accCode) => {
