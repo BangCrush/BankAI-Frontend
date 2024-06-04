@@ -15,7 +15,12 @@ const PwdPage = () => {
     } else if (step === 2 && finalPwd.length === 4) {
       if (pwd === finalPwd) {
         setIsMatched(true);
+<<<<<<< Updated upstream
         window.opener.postMessage({ pwd }, "*");
+=======
+        window.opener.postMessage({ pwd, isMatched: "true" }, "*");
+
+>>>>>>> Stashed changes
         window.close();
       } else {
         setIsMatched(false);
