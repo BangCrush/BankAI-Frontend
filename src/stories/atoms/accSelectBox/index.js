@@ -20,7 +20,7 @@ const AccSelectBox = ({
 
   const renderSelectedOption = () => {
     if (selectedOption) {
-      return `${selectedOption}`;
+      return `뱅크시 ${selectedOption}`;
     }
     return "옵션을 선택하세요";
   };
@@ -51,7 +51,7 @@ const AccSelectBox = ({
                 className="px-10 py-10 cursor-pointer hover:bg-gray-200 bg-white text-15"
                 onClick={() => handleOptionSelect(item)}
               >
-                {item}
+                뱅크시 {item}
               </div>
             ))}
           </div>
