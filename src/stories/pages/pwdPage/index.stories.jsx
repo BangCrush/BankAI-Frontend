@@ -12,8 +12,9 @@ export default {
   tags: ["autodocs"],
 };
 
-export const Default = ()=>{
-  let options = "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
+export const Default = () => {
+  let options =
+    "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data.pwd) {
@@ -29,9 +30,15 @@ export const Default = ()=>{
     };
   }, []);
 
-  return (<button type="button" className="btn" onClick={()=>{
-    window.open("http://localhost:3001/password","_blank",options)
-  }}>
-    hi
-</button>)
+  return (
+    <button
+      type="button"
+      className="btn"
+      onClick={() => {
+        window.open("http://localhost:3001/password", "_blank", options);
+      }}
+    >
+      hi
+    </button>
+  );
 };
