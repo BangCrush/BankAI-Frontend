@@ -142,12 +142,13 @@ export const usePostSmsVerify = () => {
   const [verifyOk, setVerifyOk] = useState(null);
 
   const mutation = useMutation(
-    (userPhone, verificationCode) => postSmsVerify(userPhone, verificationCode),
+    ({userPhone, verificationCode}) => postSmsVerify({userPhone, verificationCode}),
     {
       onSuccess: (res) => {
         if (res.status === 202) {
           setVerifyMsg(res.message);
           console.log("인증번호 불일치");
+          setVerifyOk(false);
         } else {
           console.log("인증번호 일치");
           setVerifyOk(true);

@@ -24,7 +24,7 @@ const Page3 = ({ registForm, setRegistForm }) => {
     sendSms(registForm.userPhone);
   };
   const handleSmsVerify = () => {
-    verifySms(registForm.userPhone, code);
+    verifySms({'userPhone':registForm.userPhone, 'verificationCode':code});
   };
 
   const handleCode = (e) => {
@@ -106,7 +106,7 @@ const Page3 = ({ registForm, setRegistForm }) => {
       <div className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
           text={"다음"}
-          active={!!registForm.userPhone}
+          active={!!registForm.userPhone && verifyOk}
           onClick={handleNextStep}
         />
       </div>
