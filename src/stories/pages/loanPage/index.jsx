@@ -29,6 +29,8 @@ const LoanPage = () => {
           moveNextPage={moveNextPage}
           jobForm={jobForm}
           setJobForm={setJobForm}
+          moveToPage3={() => setPage(3)}
+          moveToPage4={() => setPage(4)}
         />
       )}
       {page === 3 && (

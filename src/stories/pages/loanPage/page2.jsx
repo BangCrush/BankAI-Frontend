@@ -4,7 +4,7 @@ import SelectBox from "stories/atoms/selectBox";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page2 = ({ moveNextPage, jobForm, setJobForm }) => {
+const Page2 = ({ jobForm, setJobForm, moveToPage3, moveToPage4 }) => {
   const [selectedJob, setSelectedJob] = useState(null);
 
   const options = ["학생/군인", "무직", "직장인", "프리랜서"];
@@ -14,6 +14,14 @@ const Page2 = ({ moveNextPage, jobForm, setJobForm }) => {
       draft.jobName = selectedJob;
     });
   }, [selectedJob]);
+
+  const handleNextClick = () => {
+    if (selectedJob === "학생/군인" || selectedJob === "무직") {
+      moveToPage4();
+    } else {
+      moveToPage3();
+    }
+  };
 
   return (
     <div className="px-40 pt-30 w-full flex flex-col">
@@ -33,7 +41,7 @@ const Page2 = ({ moveNextPage, jobForm, setJobForm }) => {
         <LongButton
           text={"다음"}
           active={!!jobForm.jobName}
-          onClick={moveNextPage}
+          onClick={handleNextClick}
         />
       </div>
     </div>
