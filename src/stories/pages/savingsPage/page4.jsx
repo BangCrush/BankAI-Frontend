@@ -1,35 +1,22 @@
-<<<<<<< Updated upstream
-import { useState } from "react";
-=======
 import { useEffect, useState } from "react";
->>>>>>> Stashed changes
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 import PwdPage from "../pwdPage";
-<<<<<<< Updated upstream
 
-const Page4 = ({ moveNextPage, savingForm, setSavingForm }) => {
-  const [initialPwd, setInitialPwd] = useState(null);
-
-=======
 import { usePostCreateAccount } from "hooks/queries/accountQueries";
 
 const Page4 = ({ savingForm, setSavingForm }) => {
   const [initialPwd, setInitialPwd] = useState(null);
   const [allDone, setAllDone] = useState(null);
   const { mutate: createAccount } = usePostCreateAccount();
-
->>>>>>> Stashed changes
   const handleAmount = (e) => {
     setSavingForm((draft) => {
       draft.amount = e.target.value;
     });
   };
 
-<<<<<<< Updated upstream
-=======
   const handleSend = () => {
     createAccount(savingForm);
     window.location.href = "/main";
@@ -54,7 +41,6 @@ const Page4 = ({ savingForm, setSavingForm }) => {
     };
   }, [setSavingForm]);
 
->>>>>>> Stashed changes
   const onPopup = () => {
     setInitialPwd(savingForm.pwd);
     let options =
@@ -72,15 +58,11 @@ const Page4 = ({ savingForm, setSavingForm }) => {
         <LongButton
           text={"다음"}
           active={!!savingForm.amount}
-<<<<<<< Updated upstream
-          onClick={onPopup}
-=======
           onClick={
             allDone === null && savingForm.accountPwd === null
               ? onPopup
               : handleSend
           }
->>>>>>> Stashed changes
         />
       </div>
       {initialPwd && <PwdPage initialPwd={initialPwd} />}
