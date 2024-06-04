@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { MAIN_LAYOUT_ROUTES_URL } from "./routes/mainLayoutRouter";
 import MainLayout from "stories/templates/MainLayout";
 import "App.css";
@@ -10,18 +10,66 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useEffect, useState } from "react";
 import { onSilentRefresh } from "api/userApi";
 
-function App() {
+function MainApp() {
+  const location = useLocation();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await onSilentRefresh();
+    const excludedPaths = ["/", "/login"];
+
+    if (!excludedPaths.includes(location.pathname)) {
+      const fetchData = async () => {
+        await onSilentRefresh();
+        setIsDataLoaded(true);
+      };
+
+      fetchData();
+    } else {
       setIsDataLoaded(true);
-    };
+    }
+  }, [location.pathname]);
 
-    fetchData();
-  }, []);
+  return isDataLoaded ? (
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
+          return (
+            <Route
+              key={route.name}
+              path={route.path()}
+              element={<route.component />}
+            />
+          );
+        })}
+      </Route>
+      <Route path="/" element={<SubLayout />}>
+        {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
+          return (
+            <Route
+              key={route.name}
+              path={route.path()}
+              element={<route.component />}
+            />
+          );
+        })}
+      </Route>
+      <Route path="/">
+        {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
+          return (
+            <Route
+              key={route.name}
+              path={route.path()}
+              element={<route.component />}
+            />
+          );
+        })}
+      </Route>
+      <Route path="/accHistory" element={<AccHistoryPage />}></Route>
+    </Routes>
+  ) : null;
+}
 
+function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -35,46 +83,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {isDataLoaded && (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
-                return (
-                  <Route
-                    key={route.name}
-                    path={route.path()}
-                    element={<route.component />}
-                  />
-                );
-              })}
-            </Route>
-            <Route path="/" element={<SubLayout />}>
-              {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
-                return (
-                  <Route
-                    key={route.name}
-                    path={route.path()}
-                    element={<route.component />}
-                  />
-                );
-              })}
-            </Route>
-            <Route path="/">
-              {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
-                return (
-                  <Route
-                    key={route.name}
-                    path={route.path()}
-                    element={<route.component />}
-                  />
-                );
-              })}
-            </Route>
-            <Route path="/accHistory" element={<AccHistoryPage />}></Route>
-          </Routes>
-        </BrowserRouter>
-      )}
+      <BrowserRouter>
+        <MainApp />
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
