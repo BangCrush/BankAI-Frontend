@@ -9,7 +9,7 @@ import { productTypeMapping } from "constants/products";
 const MainCarousel = ({ data }) => {
   const handleTransfer = (accCode) => {
     return (window.location.href = `/transfer?accCode=${accCode}`);
-  }
+  };
 
   const LeftArrow = (props) => {
     const { className, style, onClick } = props;
@@ -33,7 +33,7 @@ const MainCarousel = ({ data }) => {
   };
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -64,7 +64,13 @@ const MainCarousel = ({ data }) => {
             </p>
             <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
               <MediumButton text={"조회하기"}></MediumButton>
-              <MediumButton text={"이체하기"} sub={true} onClick={()=>{handleTransfer(data[i].accCode)}}></MediumButton>
+              <MediumButton
+                text={"이체하기"}
+                sub={true}
+                onClick={() => {
+                  handleTransfer(data[i].accCode);
+                }}
+              ></MediumButton>
             </div>
           </div>
         );

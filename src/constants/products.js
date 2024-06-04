@@ -28,7 +28,7 @@ const repayDescription = {
 const productSubscription = {
   prodCode: null,
   amount: null,
-  accTrsfLimit: null,
+  accTrsfLimit: 300000,
   outAccount: null,
   accountPwd: null,
   period: null,
