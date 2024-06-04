@@ -9,9 +9,11 @@ const Page2 = ({ moveNextPage, setSavingForm }) => {
   const [selectedAcc, setSelectedAcc] = useState(null);
   const { data: allAccount } = useGetAllAccount();
 
-  let accCodes = [];
+  let checkingAccCodes = [];
   if (allAccount) {
-    accCodes = allAccount.map((item) => item.accCode);
+    checkingAccCodes = allAccount
+      .filter((item) => item.prodType === "CHECKING")
+      .map((item) => item.accCode);
   }
 
   useEffect(() => {
@@ -25,9 +27,9 @@ const Page2 = ({ moveNextPage, setSavingForm }) => {
       <HeaderBar text={"적금가입"} />
       <Title text1={"어느계좌에서 출금할까요?"} />
       <div className="mt-25">
-        {accCodes && (
+        {checkingAccCodes && (
           <AccSelectBox
-            options={accCodes}
+            options={checkingAccCodes}
             selectedAcc={selectedAcc}
             setSelectedAcc={setSelectedAcc}
           />
