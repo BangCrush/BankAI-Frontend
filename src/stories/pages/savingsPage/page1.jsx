@@ -4,7 +4,7 @@ import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 import MediumInput from "stories/molecules/mediumInput";
 
-const Page1 = ({ moveNextPage, depositForm, setDepositForm }) => {
+const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
   const [money, setMoney] = useState(0);
   const [error, setError] = useState(true);
 
@@ -13,10 +13,13 @@ const Page1 = ({ moveNextPage, depositForm, setDepositForm }) => {
     // 숫자인지 확인
     if (!isNaN(value)) {
       setMoney(value);
-      if (value && Number(value) < 100) {
-        setError("최소 100만원 이상 입력해야 합니다.");
+      if (value && Number(value) < prodMin / 10000) {
+        setError(`최소 ${prodMin / 10000}만원 이상 입력해야 합니다.`);
       } else {
         setError("");
+        setSavingForm((draft) => {
+          draft.accTrsfLimit = e.target.value + "0000";
+        });
       }
     } else {
       setError("숫자를 입력해야 합니다.");
@@ -29,7 +32,7 @@ const Page1 = ({ moveNextPage, depositForm, setDepositForm }) => {
       <Title text1={"얼마를 저축할까요?"} />
       <div className="mt-25">
         <MediumInput
-          placeholder={"최소 100만원"}
+          placeholder={`최소 ${prodMin / 10000}만원`}
           active={true}
           text={"만원 을"}
           onChange={onMoneyChange}

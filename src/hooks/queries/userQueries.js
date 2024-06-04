@@ -142,7 +142,8 @@ export const usePostSmsVerify = () => {
   const [verifyOk, setVerifyOk] = useState(null);
 
   const mutation = useMutation(
-    ({userPhone, verificationCode}) => postSmsVerify({userPhone, verificationCode}),
+    ({ userPhone, verificationCode }) =>
+      postSmsVerify({ userPhone, verificationCode }),
     {
       onSuccess: (res) => {
         if (res.status === 202) {
