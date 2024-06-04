@@ -1,13 +1,24 @@
+import { useState } from "react";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
+import PwdPage from "../pwdPage";
 
 const Page4 = ({ moveNextPage, savingForm, setSavingForm }) => {
+  const [initialPwd, setInitialPwd] = useState(null);
+
   const handleAmount = (e) => {
     setSavingForm((draft) => {
       draft.amount = e.target.value;
     });
+  };
+
+  const onPopup = () => {
+    setInitialPwd(savingForm.pwd);
+    let options =
+      "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
+    window.open("http://localhost:3000/password", "_blank", options);
   };
   return (
     <div>
@@ -20,9 +31,10 @@ const Page4 = ({ moveNextPage, savingForm, setSavingForm }) => {
         <LongButton
           text={"다음"}
           active={!!savingForm.amount}
-          onClick={moveNextPage}
+          onClick={onPopup}
         />
       </div>
+      {initialPwd && <PwdPage initialPwd={initialPwd} />}
     </div>
   );
 };
