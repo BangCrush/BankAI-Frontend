@@ -28,13 +28,8 @@ export const getBalanceAccount = async (accCode) => {
   const res = await $axios.get(ACCOUNT_API.BALANCE_ACCOUNT(accCode));
   return res.data;
 };
-<<<<<<< Updated upstream
-export const postCreateAccount = async (params) => {
-  console.log(params, "DDD");
-=======
 
 export const postCreateAccount = async (params) => {
->>>>>>> Stashed changes
   const res = await $axios.post(ACCOUNT_API.CREATE_ACCOUNT(), params);
   return res.data;
 };
