@@ -3,8 +3,9 @@ import {
   getBalanceAccount,
   getHistoryAccount,
   getSumAccount,
+  postCreateAccount,
 } from "api/accountApi";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 export const useGetAllAccount = () => {
   return useQuery({
@@ -36,4 +37,14 @@ export const useGetBalanceAccount = (accCode) => {
     queryFn: () => getBalanceAccount(accCode),
     select: (res) => res.data,
   });
+};
+
+export const usePostCreateAccount = () => {
+  const mutation = useMutation((params) => postCreateAccount(params), {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
+
+  return { mutate: mutation.mutate };
 };
