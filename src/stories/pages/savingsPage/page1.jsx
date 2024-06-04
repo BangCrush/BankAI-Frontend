@@ -1,4 +1,3 @@
-import { useGetAllAccount } from "hooks/queries/accountQueries";
 import { useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
@@ -6,20 +5,18 @@ import HeaderBar from "stories/molecules/headerBar";
 import MediumInput from "stories/molecules/mediumInput";
 
 const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
-  const [money, setMoney] = useState(0);
   const [error, setError] = useState(true);
 
   const onMoneyChange = (e) => {
     const value = e.target.value;
     // 숫자인지 확인
     if (!isNaN(value)) {
-      setMoney(value);
       if (value && Number(value) < prodMin / 10000) {
         setError(`최소 ${prodMin / 10000}만원 이상 입력해야 합니다.`);
       } else {
         setError("");
         setSavingForm((draft) => {
-          draft.accTrsfLimit = e.target.value + "0000";
+          draft.atAmount = value + "0000";
         });
       }
     } else {
@@ -35,7 +32,7 @@ const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
         <MediumInput
           placeholder={`최소 ${prodMin / 10000}만원`}
           active={true}
-          text={"만원 을"}
+          text={"만원 씩"}
           onChange={onMoneyChange}
           error={error}
         />
@@ -48,7 +45,7 @@ const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
       <div className="flex flex-col justify-center items-center mt-10 absolute left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
           text={"다음"}
-          active={!!money && !error}
+          active={!!savingForm.atAmount && !error}
           onClick={moveNextPage}
         />
       </div>
