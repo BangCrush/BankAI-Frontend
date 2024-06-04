@@ -1,13 +1,15 @@
-import { useGetAllProduct, useGetSelectedProducts } from "hooks/queries/productQueries";
+import { useGetAllProduct, useGetSearchProducts, useGetSelectedProducts } from "hooks/queries/productQueries";
 import React, { useState } from "react";
 import ProdButtons from "stories/molecules/prodButtons";
 import SearchBar from "stories/molecules/searchBar";
 import ProductList from "stories/organisms/productList";
 
 const ProductPage = () => {
-  const [productType, setProductType] = useState(0);
+  const [clicked, setClicked] = useState(0);
+  const [searchWord, setSearchWord] = useState("");
   const { data: allProducts, isLoading, error } = useGetAllProduct();
-  const { data: selectedProducts } = useGetSelectedProducts(productType);
+  const { data: selectedProducts } = useGetSelectedProducts(clicked);
+  const { data: searchedProducts } = useGetSearchProducts(searchWord);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -17,18 +19,25 @@ const ProductPage = () => {
     return <div>Error loading data</div>;
   }
 
-  const productsToDisplay = productType === 0 ? allProducts : selectedProducts;
+  let productsToDisplay = null;
+  if (clicked === 0) {
+    productsToDisplay = allProducts;
+  } else if (clicked === 5) {
+    productsToDisplay = searchedProducts;
+  } else {
+    productsToDisplay = selectedProducts;
+  }
 
-  console.log(productType);
-  console.log(selectedProducts);
+  console.log(searchWord)
+  console.log(clicked)
 
   return (
     <>
       <div className="mb-24">
-        <SearchBar placeholder={"어떤 상품을 찾으세요?"} />
+        <SearchBar placeholder={"어떤 상품을 찾으세요?"} setSearchWord={setSearchWord} setClicked={setClicked}/>
       </div>
       <div className="mb-40">
-        <ProdButtons productType={productType} setProductType={setProductType} />
+        <ProdButtons clicked={clicked} setClicked={setClicked} />
       </div>
       {productsToDisplay && <ProductList data={productsToDisplay} />}
     </>

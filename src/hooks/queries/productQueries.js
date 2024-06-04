@@ -1,4 +1,4 @@
-import { getAllProduct, getDetailProduct, getSelectedProduct } from "api/productApi";
+import { getAllProduct, getDetailProduct, getSearchProduct, getSelectedProduct } from "api/productApi";
 import { useQuery } from "react-query";
 
 export const useGetAllProduct = () => {
@@ -21,6 +21,14 @@ export const useGetSelectedProducts = (prodType) => {
   return useQuery({
     queryKey: ["getSelectdeProducts", prodType],
     queryFn: () => getSelectedProduct(prodType),
+    select: (res) => res.data,
+  });
+};
+
+export const useGetSearchProducts = (searchWord) => {
+  return useQuery({
+    queryKey: ["getSearchProduct", searchWord],
+    queryFn: () => getSearchProduct(searchWord),
     select: (res) => res.data,
   });
 };
