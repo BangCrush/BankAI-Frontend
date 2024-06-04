@@ -5,8 +5,13 @@ import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { productTypeMapping } from "constants/products";
+import { Link } from "react-router-dom";
 
 const MainCarousel = ({ data }) => {
+  const handleTransfer = (accCode) => {
+    return (window.location.href = `/transfer?accCode=${accCode}`);
+  }
+
   const LeftArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -60,7 +65,7 @@ const MainCarousel = ({ data }) => {
             </p>
             <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
               <MediumButton text={"조회하기"}></MediumButton>
-              <MediumButton text={"이체하기"} sub={true}></MediumButton>
+              <MediumButton text={"이체하기"} sub={true} onClick={()=>{handleTransfer(data[i].accCode)}}></MediumButton>
             </div>
           </div>
         );
