@@ -28,9 +28,6 @@ const ProductPage = () => {
     productsToDisplay = selectedProducts;
   }
 
-  console.log(searchWord)
-  console.log(clicked)
-
   return (
     <>
       <div className="mb-24">
