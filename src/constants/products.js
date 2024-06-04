@@ -25,4 +25,21 @@ const repayDescription = {
   },
 };
 
-export { repaymentMapping, repayDescription, productTypeMapping };
+const productSubscription = {
+  prodCode: null,
+  amount: null,
+  accTrsfLimit: null,
+  outAccount: null,
+  accountPwd: null,
+  period: null,
+  atDate: null,
+  inBankCode: null,
+  atAmount: null,
+};
+
+export {
+  repaymentMapping,
+  repayDescription,
+  productTypeMapping,
+  productSubscription,
+};

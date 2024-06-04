@@ -11,6 +11,7 @@ const USER_API = {
   REISSUE: () => "/login/reissue",
   SMS_SEND: () => "/register/sms-certification/send",
   SMS_VERIFY: () => "/register/sms-certification/verify",
+  JOB_INFO: () => "/users/job-info",
 };
 
 export const postIdCheck = async (id) => {
@@ -85,10 +86,16 @@ export const postSmsSend = async (userPhone) => {
   const res = await $axios.post(USER_API.SMS_SEND(), { userPhone });
   return res.data;
 };
+
 export const postSmsVerify = async ({ userPhone, verificationCode }) => {
   const res = await $axios.post(USER_API.SMS_VERIFY(), {
     userPhone,
     verificationCode,
   });
+  return res.data;
+};
+
+export const putJobInfo = async (jobInfo) => {
+  const res = await $axios.put(USER_API.JOB_INFO(), jobInfo);
   return res.data;
 };

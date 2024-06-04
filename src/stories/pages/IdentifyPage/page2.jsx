@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import InherentInput from "stories/atoms/inherentInput";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
-import HeaderBar from "stories/molecules/headerBar";
 
 const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
   const handleInherent = (newInherent) => {

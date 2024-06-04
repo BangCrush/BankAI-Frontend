@@ -8,6 +8,7 @@ import {
   postReissue,
   postSmsSend,
   postSmsVerify,
+  putJobInfo,
 } from "api/userApi";
 import Cookies from "js-cookie";
 import { $axios } from "libs/axios";
@@ -159,4 +160,16 @@ export const usePostSmsVerify = () => {
   );
 
   return { mutate: mutation.mutate, verifyMsg, verifyOk };
+};
+export const usePutJobInfo = () => {
+  const [ok, setOk] = useState(null);
+  const mutation = useMutation((jobInfo) => putJobInfo(jobInfo), {
+    onSuccess: (res) => {
+      if (res.status === 200) {
+        setOk(true);
+      }
+    },
+  });
+
+  return { mutate: mutation.mutate, ok };
 };

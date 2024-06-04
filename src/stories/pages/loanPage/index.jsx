@@ -3,41 +3,20 @@ import Page4 from "./page4";
 import Page5 from "./page5";
 import Page6 from "./page6";
 import Page3 from "./page3";
+import { useImmer } from "use-immer";
+import { productSubscription } from "constants/products";
+import Page2 from "./page2";
 
 const LoanPage = () => {
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(2);
 
-  const [loanForm, setLoanForm] = useState({
-    prodCode: "10002",
-    accountPwd: "",
-    amount: 0,
-    atDate: 0,
-    outAccount: null,
-    jobName: null,
-    companyName: null,
-    companyAddr: null,
-    companyPhone: null,
+  const [loanForm, setLoanForm] = useImmer(productSubscription);
+  const [jobForm, setJobForm] = useImmer({
+    jobName: "",
+    companyName: "",
+    companyAddr: "",
+    companyPhone: "",
   });
-  //repay
-  //BULLET - 만기일시상환
-  //EQUAL_INSTALLMENT - 원리금균등상환
-  const mock = {
-    prodCode: "",
-    prodType: "",
-    prodName: "",
-    prodDesc: "",
-    joinPeriod: "1년",
-    prodMin: 1000000,
-    prodMax: 100350000,
-    joinMember: "",
-    prodLimit: "",
-    prodRateMthd: 3.5,
-    prodRepay: "BULLET",
-    prodCaution: "",
-    prodAcc: "",
-    prodPromo: "",
-    prodTerms: "",
-  };
 
   const moveNextPage = () => {
     setPage((currentPage) => currentPage + 1);
@@ -45,16 +24,25 @@ const LoanPage = () => {
 
   return (
     <div>
+      {page === 2 && (
+        <Page2
+          moveNextPage={moveNextPage}
+          jobForm={jobForm}
+          setJobForm={setJobForm}
+          moveToPage3={() => setPage(3)}
+          moveToPage4={() => setPage(4)}
+        />
+      )}
       {page === 3 && (
         <Page3
           moveNextPage={moveNextPage}
-          loanForm={loanForm}
-          setLoanForm={setLoanForm}
+          jobForm={jobForm}
+          setJobForm={setJobForm}
         />
       )}
-      {page === 4 && <Page4 moveNextPage={moveNextPage} mock={mock} />}
-      {page === 5 && <Page5 moveNextPage={moveNextPage} mock={mock} />}
-      {page === 6 && <Page6 mock={mock} />}
+      {page === 4 && <Page4 moveNextPage={moveNextPage} />}
+      {page === 5 && <Page5 moveNextPage={moveNextPage} />}
+      {page === 6 && <Page6 />}
     </div>
   );
 };
