@@ -52,7 +52,6 @@ const ProdDetailPage = () => {
         ) : (
           <ProdBenefit data={productData} />
         ))}
-
       <div className="bg-gray-200 px-40 pt-24 pb-62">
         <div className="py-17">
           <div className="beforesign mb-15">
@@ -84,8 +83,16 @@ const ProdDetailPage = () => {
           </div>
         </div>
       </div>
-      {/* 대출상품일 시 */}
-      <Link to={getLinkUrl()}>
+
+      <Link
+        to={getLinkUrl()}
+        key={productData.prodCode}
+        state={{
+          prodCode: productData.prodCode,
+          prodName: productData.prodName,
+          prodMin: productData.prodMin,
+        }}
+      >
         <BottomStickyButton />
       </Link>
     </div>

@@ -15,7 +15,11 @@ function MainApp() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
+<<<<<<< HEAD
     const excludedPaths = ["/", "/login"];
+=======
+    const excludedPaths = ["/", "/login", "/identify", "/join"];
+>>>>>>> fc982bc2b55e617405544df69251ead0fb6f8bed
 
     if (!excludedPaths.includes(location.pathname)) {
       const fetchData = async () => {
