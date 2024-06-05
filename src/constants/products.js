@@ -33,8 +33,8 @@ const productSubscription = {
   accountPwd: null,
   period: null,
   atDate: null,
-  inBankCode: null,
-  atAmount: null,
+  inBankCode: "C04",
+  atAmount: "12",
 };
 
 export {
