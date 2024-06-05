@@ -2,8 +2,9 @@ import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
-import ProdDetailPage from "stories/pages/prodDetail";
+import ProdDetailPage from "stories/pages/prodDetailPage";
 import ProductMainPage from "stories/pages/productMainPage";
+import ProductPage from "stories/pages/productPage";
 import PwdPage from "stories/pages/pwdPage";
 import ZipCodePage from "stories/pages/zipcodePage";
 
@@ -47,5 +48,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "상품 메인 페이지",
     path: () => "/productMain",
     component: ProductMainPage,
+  },
+  product: {
+    name: "상품 목록 페이지",
+    path: () => "/product",
+    component: ProductPage,
   },
 };
