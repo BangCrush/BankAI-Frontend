@@ -5,6 +5,8 @@ import TransferPage from "stories/pages/transferPage";
 import SavingsPage from "stories/pages/savingsPage";
 import refuseLoanPage from "stories/pages/refuseLoanPage";
 import DepositPage from "stories/pages/depositPage";
+import CheckingPage from "stories/pages/checkingPage";
+
 
 export const SUB_LAYOUT_ROUTES_URL = {
   LoginPage: {
@@ -31,6 +33,11 @@ export const SUB_LAYOUT_ROUTES_URL = {
     name: "적금가입 페이지",
     path: () => "/savings",
     component: SavingsPage,
+  },
+  CheckingPage:{
+    name: "입출금가입 페이지",
+    path: () => "/checking",
+    component: CheckingPage,
   },
   refuseLoanPage: {
     name: "대출가입 실패 페이지",
