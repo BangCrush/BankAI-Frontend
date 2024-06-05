@@ -41,6 +41,8 @@ const MainCarousel = ({ data }) => {
     nextArrow: <RightArrow />,
   };
 
+  if(data.length === 0) return (<div></div>);
+
   return (
     <Slider
       key={"key"}
