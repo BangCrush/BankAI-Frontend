@@ -4,6 +4,8 @@ import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
 import { useState } from "react";
 import TransferWarningPage from "../bottomPages/transferWarningPage";
+import { searchAccount } from "api/accountApi";
+import { accFormatter } from "globalFunc/formatter";
 
 const Page1 = ({
   moveNextPage,
@@ -17,7 +19,6 @@ const Page1 = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 
-  const status = 202;
 
   const handleInputAcc = (e) => {
     const newAcc = e.target.value;
@@ -29,13 +30,23 @@ const Page1 = ({
     }
   };
 
-  const handleSendAcc = () => {
+  const handleSearchAcc = () => {
+    searchAccount(accFormatter(inAcc)).then((res) => {
+      if (res.status === 200) {
+        handleSendAcc(res.data.userName);
+      } else {
+        handleOpen();
+      }
+    });
+  };
+
+  const handleSendAcc = (userName) => {
     setTransferForm((draft) => {
       draft.inAccCode = inAcc;
     });
     setAccInfo((draft) => {
       draft.accCode = inAcc;
-      draft.userName = "기모이";
+      draft.userName = userName;
     });
     moveNextPage();
   };
@@ -57,7 +68,7 @@ const Page1 = ({
           <LongButton
             text={"다음"}
             active={!!inAcc & (errorMessage === "")}
-            onClick={status === 200 ? handleSendAcc : handleOpen}
+            onClick={handleSearchAcc}
           />
         </div>
         {!!inAcc ? (

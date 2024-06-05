@@ -37,7 +37,7 @@ export const useGetBalanceAccount = (accCode) => {
   return useQuery({
     queryKey: ["getBalanceAccount", accCode],
     queryFn: () => getBalanceAccount(accCode),
-    select: (res) => res.data,
+    select: (res) => res.data.accBalance,
   });
 };
 

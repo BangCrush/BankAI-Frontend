@@ -53,16 +53,19 @@ const AccHistoryPage = () => {
   const { mutate: deleteAccount } = useDeleteAccount(closeForm);
 
   const page = 1;
-  const { data: accountBalance } = useGetBalanceAccount(accCode);
+  const  {data:accountBalance} = useGetBalanceAccount(accCode);
   const {
     data: accountHistory,
     isLoading,
     error,
   } = useGetHistoryAccount({ accCode, page });
 
+  const handleTransfer = () => {
+    window.location.href = `/transfer?accCode=${accCode}&prodName=${prodName}`;
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading account history</div>;
-
   return (
     <>
       {accountHistory && (
@@ -74,9 +77,9 @@ const AccHistoryPage = () => {
           <div className="w-full pt-6 pb-19 px-227 bg-sub-color text-center">
             <p className="text-14 mb-14 underline text-gray-semi">{accCode}</p>
             <p className="text-26 font-extrabold mb-14">
-              {parseInt(accountBalance.accBalance, 10).toLocaleString()}원
+              {parseInt(accountBalance, 10).toLocaleString()}원
             </p>
-            <MediumButton text={"이체하기"} />
+            <MediumButton text={"이체하기"} onClick={handleTransfer} />
           </div>
           {accountHistory.map((data, i) => {
             return <AccHistory data={data} key={i}></AccHistory>;
