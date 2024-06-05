@@ -8,6 +8,7 @@ const Input = ({
   type,
   readonly,
   validate,
+  onKeyPress,
 }) => {
   return (
     <div className="flex flex-col flex-grow">
@@ -18,6 +19,7 @@ const Input = ({
         value={value}
         type={type ? "password" : "text"}
         readOnly={readonly ? true : false}
+        onKeyDown={onKeyPress}
       ></input>
       <div
         className={`text-13 ${validate ? "text-main-color " : "text-err-color "} ${msg ? "p-5" : ""}`}

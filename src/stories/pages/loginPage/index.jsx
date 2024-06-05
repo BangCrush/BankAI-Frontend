@@ -43,6 +43,11 @@ const LoginPage = () => {
         <Input
           placeholder={"비밀번호"}
           onChange={handleChange("userPwd")}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleLogin();
+            }
+          }}
           type={"password"}
         />
       </div>
