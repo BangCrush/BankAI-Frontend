@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { PwdWindowOptions } from "constants/password";
 import { usePostCreateAccount } from "hooks/queries/accountQueries";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -28,12 +29,11 @@ const CheckingPage = () => {
     };
   }, [setInitialPwd]);
 
-    let options =
-      "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
+   
     
     if (!status)
     {
-      window.open("http://localhost:3000/password", "_blank", options);
+      window.open("/password?type=double", "_blank", PwdWindowOptions);
     }
   
   return (

@@ -30,7 +30,7 @@ export const Default = ()=>{
   }, []);
 
   return (<button type="button" className="btn" onClick={()=>{
-    window.open("http://localhost:3001/password","_blank",PwdWindowOptions)
+    window.open("http://localhost:3001/password?type=single","_blank",PwdWindowOptions)
   }}>
     PwdPopUP
 </button>)

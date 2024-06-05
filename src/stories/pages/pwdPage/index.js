@@ -3,6 +3,7 @@ import PwdDots from "stories/molecules/pwdDots";
 import PwdKeyboard from "stories/organisms/pwdKeyboard";
 
 const PwdPage = () => {
+  const type = new URLSearchParams(window.location.search).get("type");
   const [pwd, setPwd] = useState("");
   const [finalPwd, setFinalPwd] = useState("");
   const [isMatched, setIsMatched] = useState(null);
@@ -10,6 +11,10 @@ const PwdPage = () => {
 
   useEffect(() => {
     if (step === 1 && pwd.length === 4) {
+      if (type === "single") {
+        window.opener.postMessage({ pwd }, "*");
+        window.close();
+      }
       setStep(2);
       setFinalPwd(""); // 입력란비움
     } else if (step === 2 && finalPwd.length === 4) {

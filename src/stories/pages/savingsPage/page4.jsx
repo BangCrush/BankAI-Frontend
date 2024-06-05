@@ -5,6 +5,7 @@ import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
 import { usePostCreateAccount } from "hooks/queries/accountQueries";
+import { PwdWindowOptions } from "constants/password";
 
 const Page4 = ({ savingForm, setSavingForm }) => {
   const [allDone, setAllDone] = useState(null);
@@ -48,9 +49,8 @@ const Page4 = ({ savingForm, setSavingForm }) => {
   }, [setSavingForm]);
 
   const onPopup = () => {
-    let options =
-      "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
-    window.open("http://localhost:3000/password", "_blank", options);
+   
+    window.open("/password?type=double", "_blank", PwdWindowOptions);
   };
   return (
     <div>

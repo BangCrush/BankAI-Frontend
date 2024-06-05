@@ -1,3 +1,4 @@
+import { PwdWindowOptions } from "constants/password";
 import {
   useGetAllAccount,
   usePostCreateAccount,
@@ -34,9 +35,8 @@ const Page2 = ({ depositForm, setDepositForm }) => {
   }, [selectedAcc, setDepositForm]);
 
   const onPopup = () => {
-    let options =
-      "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
-    window.open("http://localhost:3000/password", "_blank", options);
+   
+    window.open("/password?type=double", "_blank", PwdWindowOptions);
   };
 
   useEffect(() => {
