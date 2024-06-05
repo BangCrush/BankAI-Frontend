@@ -10,6 +10,7 @@ import BlueHeaderBar from "stories/molecules/blueHeaderBar";
 import BottomSheet from "stories/organisms/bottomSheet";
 import { useState, useEffect } from "react";
 import AccountClosePage from "../bottomPages/accountClosePage";
+import { PwdWindowOptions } from "constants/password";
 
 const AccHistoryPage = () => {
   const location = useLocation();
@@ -45,9 +46,8 @@ const AccHistoryPage = () => {
   };
 
   const onPopup = () => {
-    let options =
-      "toolbar=no,scrollbars=no,resizable=no,status=no,menubar=no,width=400, height=540, top=200,left=200";
-    window.open("http://localhost:3000/password", "_blank", options);
+   
+    window.open("/password", "_blank", PwdWindowOptions);
   };
 
   const { mutate: deleteAccount } = useDeleteAccount(closeForm);

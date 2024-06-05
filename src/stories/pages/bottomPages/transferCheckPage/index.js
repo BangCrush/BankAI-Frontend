@@ -48,7 +48,7 @@ function TransferCheckPage({ name, accNum, amount, moveNextPage }) {
  
 
   const checkPwd = ()=>{
-    window.open("/password","_blank",PwdWindowOptions)
+    window.open("/password?type=single","_blank",PwdWindowOptions)
   }
   return (
     <div className="space-y-20 flex flex-col justify-center w-560">
