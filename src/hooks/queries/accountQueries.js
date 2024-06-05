@@ -1,4 +1,5 @@
 import {
+  deleteAccount,
   getAllAccount,
   getBalanceAccount,
   getHistoryAccount,
@@ -56,4 +57,14 @@ export const usePostCreateAccount = () => {
   });
 
   return { mutate: mutation.mutate, ok, msg };
+};
+
+export const useDeleteAccount = () => {
+  const mutation = useMutation((params) => deleteAccount(params), {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
+
+  return { mutate: mutation.mutate };
 };

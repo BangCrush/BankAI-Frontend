@@ -34,7 +34,7 @@ export const NO_LAYOUT_ROUTES_URL = {
     component: AccountPage,
   },
   AccHistory: {
-    name: "계좌 목록 페이지",
+    name: "계좌 내역 상세 페이지",
     path: () => "/accountHistory",
     component: AccHistoryPage,
   },

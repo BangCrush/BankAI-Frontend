@@ -6,7 +6,8 @@ const ACCOUNT_API = {
   HISTORY_ACCOUNT: (accCode, page) =>
     `/account/history?acc=${accCode}&page=${page}`,
   BALANCE_ACCOUNT: (accCode) => `/account/balance?acc=${accCode}`,
-  CREATE_ACCOUNT: () => "account/opening",
+  CREATE_ACCOUNT: () => "/account/opening",
+  DELETE_ACCOUNT: () => "/account/closing",
 };
 
 export const getAllAccount = async () => {
@@ -32,4 +33,9 @@ export const getBalanceAccount = async (accCode) => {
 export const postCreateAccount = async (params) => {
   const res = await $axios.post(ACCOUNT_API.CREATE_ACCOUNT(), params);
   return res.data;
+};
+
+export const deleteAccount = async (params) => {
+  const res = await $axios.delete(ACCOUNT_API.DELETE_ACCOUNT(),{data:params});
+  return res.data.message;
 };
