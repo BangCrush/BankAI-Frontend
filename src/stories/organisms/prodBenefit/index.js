@@ -40,11 +40,11 @@ const ProdBenefit = ({ data }) => {
           </div>
         </div>
         <p className="mb-20 text-16 font-semibold">
-          한 달에{" "}
+        {data.prodType === "SAVINGS" && "한 달에"}
           <input
             type="text"
             placeholder="1,000 "
-            className="w-90 text-right placeholder:italic placeholder:text-right focus:outline-none"
+            className="w-125 text-right placeholder:italic placeholder:text-right focus:outline-none"
             onChange={handleInputChange}
           />
           {data.prodType === "SAVINGS" ? "원 씩" : "원을"}
