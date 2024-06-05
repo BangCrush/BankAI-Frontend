@@ -105,6 +105,7 @@ const Page2 = ({
                 <TransferCheckPage
                   name={accInfo.userName}
                   accNum={accInfo.accCode}
+                  handleClose={()=>{setOpen(false)}}
                   amount={amount}
                   moveNextPage={moveNextPage}
                 ></TransferCheckPage>

@@ -1,13 +1,16 @@
-import { CircularProgress } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 import { PwdWindowOptions } from "constants/password";
 import { usePostCreateAccount } from "hooks/queries/accountQueries";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import SavingsIcon from "@mui/icons-material/Savings";
+import BottomSuccessPage from "../bottomPages/BottomSuccessPage";
+import BottomSheet from "stories/organisms/bottomSheet";
 
 const CheckingPage = () => {
-  const [initialPwd, setInitialPwd] = useState(null);
-  const [status,setStatus] = useState(false);
-  const { mutate: createAccount, ok } = usePostCreateAccount();
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(false);
+  const { mutate: createAccount } = usePostCreateAccount();
   const location = useLocation();
   const { prodCode } = location.state || {};
   useEffect(() => {
@@ -16,7 +19,11 @@ const CheckingPage = () => {
         setStatus(true);
       }
       if (event.data.isMatched) {
-        createAccount({prodCode:prodCode,accountPwd:event.data.pwd,period:1200});
+        createAccount({
+          prodCode: prodCode,
+          accountPwd: event.data.pwd,
+          period: 1200,
+        });
         window.parent.location.href = "/main";
         window.close();
       }
@@ -27,18 +34,29 @@ const CheckingPage = () => {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, [setInitialPwd]);
+  }, [createAccount, prodCode]);
 
-   
-    
-    if (!status)
-    {
-      window.open("/password?type=double", "_blank", PwdWindowOptions);
-    }
-  
+  if (!status) {
+    window.open("/password?type=double", "_blank", PwdWindowOptions);
+  }
+
   return (
-    <div className="self-center justify-self-center">
-      <CircularProgress size={"10rem"} disableShrink color="inherit" sx={{marginBlock:'auto'}} className="text-main-color" />
+    <div className="self-center justify-self-center text-center text-main-color text-50">
+      <SavingsIcon color="inherit" fontSize="inherit" />
+      <p>계좌 생성 중입니다.</p>
+      <LinearProgress color="inherit" />
+      <BottomSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        page={
+          <BottomSuccessPage
+            text={"입출금계좌가 정상적으로 개설되었습니다."}
+            onClose={() => {
+              window.location.href = "/main";
+            }}
+          />
+        }
+      />
     </div>
   );
 };

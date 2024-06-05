@@ -1,28 +1,34 @@
 import { checkPw, transfer } from "api/accountApi";
 import { PwdWindowOptions } from "constants/password";
 import { accFormatter } from "globalFunc/formatter";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import TransferInfo from "stories/molecules/transferInfo";
+import BottomSheet from "stories/organisms/bottomSheet";
+import AlertModal from "stories/molecules/alertModal";
+import BottomSuccessPage from "../BottomSuccessPage";
 
 
-function TransferCheckPage({ name, accNum, amount, moveNextPage }) {
+function TransferCheckPage({ name, accNum, amount }) {
   const accCode = new URL(window.location.href).searchParams.get("accCode");
+  const [open,setOpen] = useState(false)
+  const [err,setErr] = useState(false)
+  
 
-  const tryTransfer = ()=>{
+  
+  const tryTransfer = useCallback(() => {
     transfer({
-      inAccCode:accFormatter(accNum),
-      outAccCode:accFormatter(accCode),
-      amount:amount
-    }).then((res)=>{
-      if(res.status===201){
-        alert("이체 성공")
-        window.location.href="/main"
+      inAccCode: accFormatter(accNum),
+      outAccCode: accFormatter(accCode),
+      amount: amount
+    }).then((res) => {
+      if (res.status === 201) {
+        setOpen(true)
       } else {
-        alert("이체 실패")
+        <AlertModal open={err} handleClose={()=>setErr(false)} text={res.message} />
       }
     })
-  }
+  }, [accNum, accCode, amount, err]);
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data.pwd) {
@@ -43,7 +49,7 @@ function TransferCheckPage({ name, accNum, amount, moveNextPage }) {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, [accCode,tryTransfer]);
 
  
 
@@ -53,8 +59,8 @@ function TransferCheckPage({ name, accNum, amount, moveNextPage }) {
   return (
     <div className="space-y-20 flex flex-col justify-center w-560">
       <TransferInfo name={name} accNum={accNum} amount={amount} />
-
       <LongButton text="확인" active={true} onClick={checkPwd}/>
+      <BottomSheet open={open} setOpen={setOpen} page={<BottomSuccessPage text={'계좌이체가 정상적으로 완료되었습니다.'} onClose={()=>{window.location.href='/main'}}/>} />
     </div>
   );
 }
