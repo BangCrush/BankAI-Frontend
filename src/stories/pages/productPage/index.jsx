@@ -44,7 +44,7 @@ const ProductPage = () => {
   return (
     <div className="pt-27 w-full flex flex-col min-h-screen">
       <div className="px-40">
-        <HeaderBar text={"상품"}></HeaderBar>
+        <HeaderBar text={"인기 상품 TOP3"}></HeaderBar>
       </div>
 
       <div className="bg-main-bg px-54 pt-24 min-h-screen">

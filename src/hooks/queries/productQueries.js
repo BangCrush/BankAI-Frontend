@@ -3,6 +3,7 @@ import {
   getDetailProduct,
   getSearchProduct,
   getSelectedProduct,
+  getTop3Product,
 } from "api/productApi";
 import { useQuery } from "react-query";
 
@@ -34,6 +35,14 @@ export const useGetSearchProducts = (searchWord) => {
   return useQuery({
     queryKey: ["getSearchProduct", searchWord],
     queryFn: () => getSearchProduct(searchWord),
+    select: (res) => res.data,
+  });
+};
+
+export const useGetTop3Products = () => {
+  return useQuery({
+    queryKey: ["getTop3Product"],
+    queryFn: () => getTop3Product(),
     select: (res) => res.data,
   });
 };
