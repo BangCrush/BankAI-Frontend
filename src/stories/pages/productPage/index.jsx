@@ -1,8 +1,13 @@
-import { useGetAllProduct, useGetSearchProducts, useGetSelectedProducts } from "hooks/queries/productQueries";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProdButtons from "stories/molecules/prodButtons";
 import SearchBar from "stories/molecules/searchBar";
 import ProductList from "stories/organisms/productList";
+import {
+  useGetAllProduct,
+  useGetSearchProducts,
+  useGetSelectedProducts,
+} from "hooks/queries/productQueries";
+import { useLocation } from "react-router-dom";
 
 const ProductPage = () => {
   const [clicked, setClicked] = useState(0);
@@ -10,6 +15,13 @@ const ProductPage = () => {
   const { data: allProducts, isLoading, error } = useGetAllProduct();
   const { data: selectedProducts } = useGetSelectedProducts(clicked);
   const { data: searchedProducts } = useGetSearchProducts(searchWord);
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.index) {
+      setClicked(location.state.index);
+    }
+  }, [location.state]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -31,12 +43,16 @@ const ProductPage = () => {
   return (
     <>
       <div className="mb-24">
-        <SearchBar placeholder={"어떤 상품을 찾으세요?"} setSearchWord={setSearchWord} setClicked={setClicked}/>
+        <SearchBar
+          placeholder={"어떤 상품을 찾으세요?"}
+          setSearchWord={setSearchWord}
+          setClicked={setClicked}
+        />
       </div>
       <div className="mb-40">
         <ProdButtons clicked={clicked} setClicked={setClicked} />
       </div>
-      {productsToDisplay && <ProductList data={productsToDisplay} />}
+      <ProductList data={productsToDisplay} />
     </>
   );
 };
