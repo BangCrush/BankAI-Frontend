@@ -42,6 +42,7 @@ const MainCarousel = ({ data, mainAcc }) => {
   };
 
   if(data.length === 0) return (<div></div>);
+  if(data.length === 1) settings.infinite = false;
 
   return (
     <Slider
