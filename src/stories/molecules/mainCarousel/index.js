@@ -5,8 +5,15 @@ import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { productTypeMapping } from "constants/products";
+import { ContentCopy } from "@mui/icons-material";
+import AlertModal from "../alertModal";
+import { useState } from "react";
 
 const MainCarousel = ({ data, mainAcc }) => {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleTransfer = (accCode, prodName) => {
     return (window.location.href = `/transfer?accCode=${accCode}&prodName=${prodName}`);
   };
@@ -41,12 +48,20 @@ const MainCarousel = ({ data, mainAcc }) => {
     nextArrow: <RightArrow />,
   };
 
-  if(data.length === 0) return (<div></div>);
-  if(data.length === 1) settings.infinite = false;
+  if (data.length === 0) return (<div></div>);
+  if (data.length === 1) settings.infinite = false;
+
+  const copyAccCode = (accCode) => {
+    setOpen(true);
+    navigator.clipboard.writeText(accCode);
+  }
+
 
 
   return (
-    <Slider
+    <div>
+      <AlertModal open={open} setOpen={setOpen} severity={'success'} content={`계좌번호를 복사했습니다.`} handleClose={handleClose} />
+      <Slider
       key={"key"}
       className="shadow-custom w-490 mx-auto rounded-20"
       {...settings}
@@ -55,10 +70,10 @@ const MainCarousel = ({ data, mainAcc }) => {
         return (
           <div
             key={i}
-            className="border border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
+            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
           >
             {mainAcc === data[i].accCode ? (
-              <div className="text-10 font-semibold shadow border border-gray-border bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
+              <div className="text-10 font-bold shadow border border-gray-placeholder bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
                 주거래 계좌
               </div>
             ) : (
@@ -69,7 +84,7 @@ const MainCarousel = ({ data, mainAcc }) => {
               {data[i].prodName}
             </p>
             <p className="text-gray-900 text-12 mb-10">
-              {productTypeMapping[data[i].prodType]} {data[i].accCode}
+            {productTypeMapping[data[i].prodType]} <button onClick={() => { copyAccCode(data[i].accCode.replaceAll('-', '')) }}>{data[i].accCode} <ContentCopy fontSize="10" /></button>
             </p>
             <p className="text-black-900 text-26 font-extrabold mb-30">
               {data[i].accBalance.toLocaleString()}원
@@ -88,6 +103,7 @@ const MainCarousel = ({ data, mainAcc }) => {
         );
       })}
     </Slider>
+    </div>
   );
 };
 
