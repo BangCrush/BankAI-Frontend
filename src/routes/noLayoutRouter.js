@@ -1,5 +1,6 @@
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
+import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetailPage";
@@ -41,8 +42,13 @@ export const NO_LAYOUT_ROUTES_URL = {
   },
   PasswordPage: {
     name: "비밀번호 입력 페이지",
-    path: () => "/password",
-    component: PwdPage,
+    path: ()=>"/password",
+    component: PwdPage
+  },
+  FrontPage:{
+    name: "초기 페이지",
+    path: ()=>"/front",
+    component: FrontPage
   },
   ProductMainPage: {
     name: "상품 메인 페이지",
