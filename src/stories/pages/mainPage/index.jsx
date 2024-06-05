@@ -45,7 +45,7 @@ const MainPage = () => {
           title={"마이메뉴"}
           data={["전체 계좌", "상품", "내 정보"]}
           imgs={[0, 1, 4]}
-          urls={["/account", "/product", "/myInfo"]}
+          urls={["/account", "/productMain", "/myInfo"]}
         ></ProdContainer>
       </div>
       <div className="mb-30">

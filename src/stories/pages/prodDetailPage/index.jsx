@@ -28,6 +28,8 @@ const ProdDetailPage = () => {
         return "/deposit";
       case "LOAN":
         return "/loan";
+      case "CHECKING":
+        return "/checking";
       default:
         return "/";
     }

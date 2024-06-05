@@ -1,4 +1,9 @@
-import { getAllProduct, getDetailProduct, getSearchProduct, getSelectedProduct } from "api/productApi";
+import {
+  getAllProduct,
+  getDetailProduct,
+  getSearchProduct,
+  getSelectedProduct,
+} from "api/productApi";
 import { useQuery } from "react-query";
 
 export const useGetAllProduct = () => {

@@ -41,7 +41,7 @@ const MainCarousel = ({ data, mainAcc }) => {
     nextArrow: <RightArrow />,
   };
 
-  if(data.length === 0) return (<div></div>);
+  if (data.length === 0) return <div></div>;
 
   return (
     <Slider
@@ -53,10 +53,10 @@ const MainCarousel = ({ data, mainAcc }) => {
         return (
           <div
             key={i}
-            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
+            className="border border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
           >
             {mainAcc === data[i].accCode ? (
-              <div className="text-10 font-bold shadow border border-gray-placeholder bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
+              <div className="text-10 font-semibold shadow border border-gray-border bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
                 주거래 계좌
               </div>
             ) : (
