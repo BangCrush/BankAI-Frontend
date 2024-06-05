@@ -1,6 +1,7 @@
 import AccHistory from "stories/molecules/accHistory";
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
+import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetail";
@@ -42,5 +43,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "비밀번호 입력 페이지",
     path: ()=>"/password",
     component: PwdPage
-  }
+  },
+  FrontPage:{
+    name: "초기 페이지",
+    path: ()=>"/front",
+    component: FrontPage
+  },
 };
