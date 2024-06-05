@@ -2,6 +2,7 @@ import {
   useGetAllAccount,
   useGetSumAccount,
 } from "hooks/queries/accountQueries";
+import { useGetMyInfo } from "hooks/queries/userQueries";
 import React from "react";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
@@ -10,14 +11,31 @@ import ProdContainer from "stories/organisms/prodContainer";
 const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: sumAccount } = useGetSumAccount();
+  const { data: myInfo, isLoading, error} = useGetMyInfo();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading data</div>;
+  }
+
+  const mainAcc = myInfo.userMainAcc;
+  const sortedAccounts = allAccount
+    ? [...allAccount].sort((a, b) => {
+        if (a.accCode === mainAcc) return -1;
+        if (b.accCode === mainAcc) return 1;
+        return 0;
+      })
+    : [];
 
   return (
     <div className="pb-20">
-      {allAccount && sumAccount && (
+      {sortedAccounts && sumAccount && (
         <div className="mb-40 mt-8">
           <div className="flex flex-col space-y-4">
             <p className="text-18 ml-25 font-bold">{sumAccount.userName}님</p>
-            <MainCarousel data={allAccount}></MainCarousel>
+            <MainCarousel data={sortedAccounts} mainAcc={mainAcc}></MainCarousel>
           </div>
         </div>
       )}

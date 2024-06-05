@@ -6,7 +6,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { productTypeMapping } from "constants/products";
 
-const MainCarousel = ({ data }) => {
+const MainCarousel = ({ data, mainAcc }) => {
   const handleTransfer = (accCode, prodName) => {
     return (window.location.href = `/transfer?accCode=${accCode}&prodName=${prodName}`);
   };
@@ -51,8 +51,16 @@ const MainCarousel = ({ data }) => {
         return (
           <div
             key={i}
-            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215"
+            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
           >
+            {mainAcc === data[i].accCode ? (
+              <div className="text-10 font-bold shadow border border-gray-placeholder bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
+                주거래 계좌
+              </div>
+            ) : (
+              ""
+            )}
+
             <p className="text-black-900 text-16 font-semibold mb-10">
               {data[i].prodName}
             </p>
@@ -64,7 +72,13 @@ const MainCarousel = ({ data }) => {
             </p>
             <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
               <MediumButton text={"조회하기"}></MediumButton>
-              <MediumButton text={"이체하기"} sub={true} onClick={() => { handleTransfer(data[i].accCode, data[i].prodName) }}></MediumButton>
+              <MediumButton
+                text={"이체하기"}
+                sub={true}
+                onClick={() => {
+                  handleTransfer(data[i].accCode, data[i].prodName);
+                }}
+              ></MediumButton>
             </div>
           </div>
         );
