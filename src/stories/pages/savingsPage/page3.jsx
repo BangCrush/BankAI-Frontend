@@ -18,8 +18,6 @@ const Page3 = ({
     setSavingForm((draft) => {
       draft.atDate = selectedDay;
       draft.prodCode = prodCode;
-      draft.inBankCode = "C04";
-      draft.period = "12";
     });
   }, [selectedDay]);
 

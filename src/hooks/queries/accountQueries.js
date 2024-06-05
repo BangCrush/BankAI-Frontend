@@ -6,6 +6,7 @@ import {
   getSumAccount,
   postCreateAccount,
 } from "api/accountApi";
+import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 
 export const useGetAllAccount = () => {
@@ -41,13 +42,21 @@ export const useGetBalanceAccount = (accCode) => {
 };
 
 export const usePostCreateAccount = () => {
+  const [msg, setMsg] = useState(null);
+  const [ok, setOk] = useState(false);
   const mutation = useMutation((params) => postCreateAccount(params), {
     onSuccess: (res) => {
+      if (res.status === 202) {
+        setMsg(res.message);
+        setOk(false);
+      } else {
+        setOk(true);
+      }
       console.log(res);
     },
   });
 
-  return { mutate: mutation.mutate };
+  return { mutate: mutation.mutate, ok, msg };
 };
 
 export const useDeleteAccount = () => {

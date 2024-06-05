@@ -4,6 +4,7 @@ import LoginPage from "stories/pages/loginPage";
 import TransferPage from "stories/pages/transferPage";
 import SavingsPage from "stories/pages/savingsPage";
 import refuseLoanPage from "stories/pages/refuseLoanPage";
+import DepositPage from "stories/pages/depositPage";
 
 export const SUB_LAYOUT_ROUTES_URL = {
   LoginPage: {
@@ -34,6 +35,11 @@ export const SUB_LAYOUT_ROUTES_URL = {
   refuseLoanPage: {
     name: "대출가입 실패 페이지",
     path: () => "/impossible",
-    component: refuseLoanPage
+    component: refuseLoanPage,
+  },
+  DepositPage: {
+    name: "예금가입 페이지",
+    path: () => "/deposit",
+    component: DepositPage,
   },
 };
