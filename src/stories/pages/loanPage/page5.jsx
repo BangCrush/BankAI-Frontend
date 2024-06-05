@@ -4,14 +4,22 @@ import HeaderBar from "stories/molecules/headerBar";
 import ErrorIcon from "@mui/icons-material/Error";
 import { repayDescription, repaymentMapping } from "constants/products";
 import RepayDesc from "stories/atoms/repayDesc";
+import { useGetProductDetail } from "hooks/queries/productQueries";
 
-const Page5 = ({ moveNextPage, mock }) => {
+const Page5 = ({ moveNextPage, prodCode, setLoanForm }) => {
+  const { data: productData, isLoading, error } = useGetProductDetail(prodCode);
+
   const [dept, setDept] = useState("");
   const [showRepayDesc, setShowRepayDesc] = useState(false);
 
   const handleInputChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setDept(value);
+    setLoanForm((draft) => {
+      draft.prodCode = prodCode;
+      draft.amount = value;
+      draft.period = productData.joinPeriod;
+    });
   };
 
   const calculateBullet = (rate) => {
@@ -60,9 +68,9 @@ const Page5 = ({ moveNextPage, mock }) => {
               <div>
                 매월 예상 상환 금액은{" "}
                 <span className="font-bold text-main-color">
-                  {mock.prodRepay === "BULLET"
-                    ? calculateBullet(mock.prodRateMthd)
-                    : calculateEqualInstallment(mock.prodRateMthd)}
+                  {productData.prodRepay === "BULLET"
+                    ? calculateBullet(productData.prodRate)
+                    : calculateEqualInstallment(productData.prodRate)}
                   원
                 </span>
                 입니다.
@@ -78,20 +86,20 @@ const Page5 = ({ moveNextPage, mock }) => {
               onClick={handleRepayDescToggle}
             >
               <span className="underline">
-                {repaymentMapping[mock.prodRepay]}{" "}
+                {repaymentMapping[productData.prodRepay]}{" "}
               </span>
               <ErrorIcon sx={{ fontSize: 20, color: "#BFBFBF" }} />
             </div>
           </div>
           {showRepayDesc && (
             <RepayDesc
-              text1={repayDescription[mock.prodRepay].text1}
-              text2={repayDescription[mock.prodRepay].text2}
+              text1={repayDescription[productData.prodRepay].text1}
+              text2={repayDescription[productData.prodRepay].text2}
             />
           )}
           <div className="flex w-full p-10 space-x-7">
             <div className="font-medium text-black-900">대출기간</div>
-            <span>{mock.joinPeriod}</span>
+            <span>{productData.joinPeriod}개월</span>
           </div>
         </div>
         <div
