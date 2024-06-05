@@ -6,9 +6,13 @@ import Page3 from "./page3";
 import { useImmer } from "use-immer";
 import { productSubscription } from "constants/products";
 import Page2 from "./page2";
+import { useLocation } from "react-router-dom";
 
 const LoanPage = () => {
   const [page, setPage] = useState(2);
+  const location = useLocation();
+
+  const { prodCode, prodName, prodMin } = location.state || {};
 
   const [loanForm, setLoanForm] = useImmer(productSubscription);
   const [jobForm, setJobForm] = useImmer({
@@ -40,9 +44,23 @@ const LoanPage = () => {
           setJobForm={setJobForm}
         />
       )}
-      {page === 4 && <Page4 moveNextPage={moveNextPage} />}
-      {page === 5 && <Page5 moveNextPage={moveNextPage} />}
-      {page === 6 && <Page6 />}
+      {page === 4 && (
+        <Page4
+          moveNextPage={moveNextPage}
+          prodCode={prodCode}
+          loanForm={loanForm}
+          setLoanForm={setLoanForm}
+        />
+      )}
+      {page === 5 && (
+        <Page5
+          moveNextPage={moveNextPage}
+          prodCode={prodCode}
+          loanForm={loanForm}
+          setLoanForm={setLoanForm}
+        />
+      )}
+      {page === 6 && <Page6 loanForm={loanForm} setLoanForm={setLoanForm} />}
     </div>
   );
 };

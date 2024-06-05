@@ -1,9 +1,12 @@
+import { useGetProductDetail } from "hooks/queries/productQueries";
 import React from "react";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page4 = ({ moveNextPage, mock }) => {
+const Page4 = ({ moveNextPage, mock, prodMin, prodCode }) => {
+  const { data: productData, isLoading, error } = useGetProductDetail(prodCode);
+
   return (
     <div className="flex flex-col bg-main-bg min-h-screen">
       <div className="px-40 pt-30 bg-white">
@@ -21,21 +24,21 @@ const Page4 = ({ moveNextPage, mock }) => {
           <div className="flex justify-between items-center w-full p-10 ">
             <div className="font-medium text-black-900">대출 하한금액</div>
             <span className="font-semibold text-20">
-              {mock.prodMin.toLocaleString()} 원
+              {productData.prodMin.toLocaleString()} 원
             </span>
           </div>
           <div className="flex justify-between items-center w-full p-10 ">
             <div className="font-medium text-black-900">대출 상한금액</div>
             <span className="font-semibold text-20">
-              {mock.prodMax.toLocaleString()} 원
+              {productData.prodMax.toLocaleString()} 원
             </span>
           </div>
           <div className="flex justify-between items-center w-full p-10 ">
             <div className="font-medium text-black-900">대출금리</div>
             <span className="font-semibold text-20">
               <span className="font-extrabold text-main-color">
-                {mock.prodRateMthd}
-              </span>{" "}
+                {productData.prodRate}
+              </span>
               %
             </span>
           </div>
