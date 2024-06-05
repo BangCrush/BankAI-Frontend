@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
-const SearchBar = ({ placeholder, setSearchWord, setClicked }) => {
+const SearchBar = ({ placeholder, setSearchWord, setClicked, readonly }) => {
   const inputRef = useRef(null);
   const handleSearchword = () => {
     if (inputRef.current) {
@@ -10,12 +10,17 @@ const SearchBar = ({ placeholder, setSearchWord, setClicked }) => {
     setClicked(5);
   };
 
+  const handleClick = () => {
+    window.location.href = "/product";
+  };
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" onClick={readonly ? handleClick : null}>
       <input
         ref={inputRef}
         placeholder={placeholder}
         className="rounded-12 w-full border border-main-color shadow-custom px-14 py-10 placeholder:text-gray-900 pr-12 focus:outline-none"
+        readOnly={readonly ? true : false}
       />
       <div
         onClick={handleSearchword}
