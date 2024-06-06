@@ -3,7 +3,7 @@ import {
   useGetSumAccount,
 } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
@@ -11,7 +11,21 @@ import ProdContainer from "stories/organisms/prodContainer";
 const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: sumAccount } = useGetSumAccount();
-  const { data: myInfo, isLoading, error} = useGetMyInfo();
+  const { data: myInfo, isLoading, error } = useGetMyInfo();
+  const [sortedAccounts, setSortedAccounts] = useState([]);
+
+  useEffect(() => {
+    if (myInfo && allAccount) {
+      const mainAcc = myInfo.userMainAcc;
+      const sorted = [...allAccount].sort((a, b) => {
+        if (a.accCode === mainAcc) return -1;
+        if (b.accCode === mainAcc) return 1;
+        return 0;
+      });
+      setSortedAccounts(sorted);
+    }
+  }, [myInfo, allAccount]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -20,22 +34,16 @@ const MainPage = () => {
     return <div>Error loading data</div>;
   }
 
-  const mainAcc = myInfo.userMainAcc;
-  const sortedAccounts = allAccount
-    ? [...allAccount].sort((a, b) => {
-        if (a.accCode === mainAcc) return -1;
-        if (b.accCode === mainAcc) return 1;
-        return 0;
-      })
-    : [];
-
   return (
     <div className="pb-20">
-      {sortedAccounts && sumAccount && (
+      {sortedAccounts.length > 0 && sumAccount && (
         <div className="mb-40 mt-8">
           <div className="flex flex-col space-y-4">
             <p className="text-18 ml-25 font-bold">{sumAccount.userName}님</p>
-            <MainCarousel data={sortedAccounts} mainAcc={mainAcc}></MainCarousel>
+            <MainCarousel
+              data={sortedAccounts}
+              mainAcc={myInfo.userMainAcc}
+            ></MainCarousel>
           </div>
         </div>
       )}

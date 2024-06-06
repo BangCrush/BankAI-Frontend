@@ -13,21 +13,24 @@ const ProdContainer = ({ title, data, imgs, urls }) => {
           className="flex items-center text-gray-900 text-13 cursor-pointer"
         >
           확인하기
-          <ArrowForwardIosIcon sx={{ fontSize: 14 }}></ArrowForwardIosIcon>
+          <ArrowForwardIosIcon sx={{ fontSize: 14 }} />
         </Link>
       </div>
-      <div className={`flex justify-between`}>
-        {data.map((menu, index) => (
-          <div key={index}>
-            <ProdItem
-              key={index}
-              title={menu}
-              img={images[imgs[index]]}
-              urls={urls[index]}
-              index={index + 1}
-            />
-          </div>
-        ))}
+      <div className="flex justify-between">
+        {data ? (
+          data.map((menu, index) => (
+            <div key={index}>
+              <ProdItem
+                title={menu}
+                img={images[imgs[index]]}
+                urls={urls[index]}
+                index={index + 1}
+              />
+            </div>
+          ))
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );
