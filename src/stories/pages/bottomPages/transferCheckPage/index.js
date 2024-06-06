@@ -13,6 +13,8 @@ function TransferCheckPage({ name, accNum, amount }) {
   const accCode = new URL(window.location.href).searchParams.get("accCode");
   const [open,setOpen] = useState(false)
   const [err,setErr] = useState(false)
+  const [text,setText] = useState('')
+
   
 
   
@@ -25,7 +27,8 @@ function TransferCheckPage({ name, accNum, amount }) {
       if (res.status === 201) {
         setOpen(true)
       } else {
-        <AlertModal open={err} handleClose={()=>setErr(false)} text={res.message} />
+        setText(res.message)
+        setErr(true)
       }
     })
   }, [accNum, accCode, amount, err]);
@@ -37,7 +40,8 @@ function TransferCheckPage({ name, accNum, amount }) {
             window.close();
             tryTransfer();
           } else {
-            alert("비밀번호가 틀렸습니다.")
+            setText('비밀번호가 일치하지 않습니다.')
+            setErr(true)
             window.close();
           }
         })
@@ -61,6 +65,7 @@ function TransferCheckPage({ name, accNum, amount }) {
       <TransferInfo name={name} accNum={accNum} amount={amount} />
       <LongButton text="확인" active={true} onClick={checkPwd}/>
       <BottomSheet open={open} setOpen={setOpen} page={<BottomSuccessPage text={'계좌이체가 정상적으로 완료되었습니다.'} onClose={()=>{window.location.href='/main'}}/>} />
+      <AlertModal severity={'error'} open={err} setOpen={setErr} content={text} handleClose={()=>{setErr(false)}} />
     </div>
   );
 }
