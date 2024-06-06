@@ -6,6 +6,7 @@ import SavingsPage from "stories/pages/savingsPage";
 import refuseLoanPage from "stories/pages/refuseLoanPage";
 import DepositPage from "stories/pages/depositPage";
 import CheckingPage from "stories/pages/checkingPage";
+import TempPwdPage from "stories/pages/tempPwdPage";
 
 
 export const SUB_LAYOUT_ROUTES_URL = {
@@ -48,5 +49,10 @@ export const SUB_LAYOUT_ROUTES_URL = {
     name: "예금가입 페이지",
     path: () => "/deposit",
     component: DepositPage,
+  },
+  TempPwdPage: {
+    name: "임시 비밀번호 발급 페이지",
+    path: () => "/lostPwd",
+    component: TempPwdPage,
   },
 };
