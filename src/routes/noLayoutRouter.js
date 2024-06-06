@@ -1,5 +1,6 @@
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
+import FindIdPage from "stories/pages/findIdPage";
 import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
@@ -50,6 +51,11 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "비밀번호 입력 페이지",
     path: ()=>"/password",
     component: PwdPage
+  },
+  FindIdPage: {
+    name: "아이디 찾기 페이지",
+    path: () => "/findId",
+    component: FindIdPage,
   },
   FrontPage:{
     name: "초기 페이지",

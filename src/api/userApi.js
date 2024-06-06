@@ -13,7 +13,13 @@ const USER_API = {
   SMS_VERIFY: () => "/register/sms-certification/verify",
   JOB_INFO: () => "/users/job-info",
   TEMP_PWD: () => "/login/temp-pwd",
+  FIND_ID: () => "/login/find-id",
 };
+
+export const postFindId = async (params) => {
+  const res = await $axios.post(USER_API.FIND_ID(), params);
+  return res.data;
+}
 
 export const postIdCheck = async (id) => {
   const res = await $axios.post(USER_API.ID_CHECK(), { userId: id });
@@ -118,13 +124,9 @@ export const putJobInfo = async (jobInfo) => {
 export const fixMyInfo = async (newData) => {
   const res = await $axios.put(USER_API.MY_INFO(), newData);
   return res.data;
-<<<<<<< Updated upstream
 }
 
 export const postTempPwd = async (params) => {
   const res = await $axios.post(USER_API.TEMP_PWD(), params);
   return res.data;
 };
-=======
-};
->>>>>>> Stashed changes
