@@ -4,7 +4,7 @@ const Product = ({ name, promotion, period, rate, isLast }) => {
       <div className="flex justify-between mb-7">
         <span className="font-extrabold text-black-900">{name}</span>
         <span className="text-gray-900 text-12">
-          {period === 12 ? `연(세전, ${period}개월)` : null}
+          {period === 12 ? `연(세전, ${period}개월)` : `제한 없음`}
         </span>
       </div>
       <div className="flex justify-between items-center mb-7">
