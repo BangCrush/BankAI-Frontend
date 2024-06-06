@@ -124,7 +124,11 @@ export const putJobInfo = async (jobInfo) => {
 export const fixMyInfo = async (newData) => {
   const res = await $axios.put(USER_API.MY_INFO(), newData);
   return res.data;
+<<<<<<< Updated upstream
 }
+=======
+};
+>>>>>>> Stashed changes
 
 export const postTempPwd = async (params) => {
   const res = await $axios.post(USER_API.TEMP_PWD(), params);
