@@ -7,7 +7,7 @@ const HeaderBar = ({ text }) => {
   return (
     <div className="w-full h-48 py-7 relative bg-white mb-15">
       <ArrowBackIosIcon
-        className="absolute left-0"
+        className="absolute left-0 cursor-pointer"
         onClick={handleBackClick}
       ></ArrowBackIosIcon>
       <p className="text-15 text-center">{text}</p>
