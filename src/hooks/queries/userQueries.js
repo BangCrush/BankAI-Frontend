@@ -7,6 +7,7 @@ import {
   postIdCheck,
   postLogin,
   postRegister,
+  postFindId,
   postReissue,
   postSmsSend,
   postSmsVerify,
@@ -32,6 +33,18 @@ export const usePostIdCheck = () => {
   });
 
   return { mutate: mutation.mutate, ok };
+};
+
+export const usePostFindId = () => {
+  const [id, setId] = useState(null);
+  const mutation = useMutation((params) => postFindId({userNameKr:params.name,userEmail:params.email}), {
+    onSuccess: (res) => {
+      console.log(res);
+      setId(res.data.userId);
+    },
+  });
+
+  return { mutate: mutation.mutate, id };
 };
 
 export const usePostEmailCheck = () => {

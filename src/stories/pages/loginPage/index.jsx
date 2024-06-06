@@ -1,3 +1,4 @@
+import { PwdWindowOptions } from "constants/password";
 import { usePostLogin } from "hooks/queries/userQueries";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -31,6 +32,14 @@ const LoginPage = () => {
     });
   };
 
+  const openFindId = () => {
+    window.open("/findId", "_blank",PwdWindowOptions);
+  }
+
+  const openLostPwd = () => {
+    window.open("/lostPwd", "_blank",PwdWindowOptions);
+  }
+
   return (
     <div>
       <Title text1={"로그인"} text2={""} />
@@ -58,7 +67,7 @@ const LoginPage = () => {
           onClick={handleLogin}
         />
         <div className="mt-10">
-          아이디 찾기 | 비밀번호 찾기 | <Link to={"/identify"}>회원가입</Link>
+          <button onClick={openFindId}>아이디 찾기</button> | <button onClick={openLostPwd}>비밀번호 찾기</button> | <Link to={"/identify"}>회원가입</Link>
         </div>
       </div>
     </div>

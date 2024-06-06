@@ -84,6 +84,13 @@ const AccHistoryPage = () => {
           {accountHistory.map((data, i) => {
             return <AccHistory data={data} key={i}></AccHistory>;
           })}
+          {accountHistory.length === 0 && (
+            <div className="w-full h-200 flex flex-col p-200 justify-center items-center">
+              <p></p>
+              <p className="text-100 text-gray-800">텅..</p>
+              <p className="text-20 text-gray-semi">거래내역이 없습니다.</p>
+            </div>
+          )}
         </>
       )}
       <BottomSheet
