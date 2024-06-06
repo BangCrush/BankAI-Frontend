@@ -9,6 +9,8 @@ const ProdContainer = ({ title, data, imgs, urls }) => {
       <div className="flex justify-between mb-36">
         <span className="font-semibold text-18">{title}</span>
         <Link
+          key={"1"}
+          state={{ index: 0 }}
           to={"/product"}
           className="flex items-center text-gray-900 text-13 cursor-pointer"
         >

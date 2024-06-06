@@ -1,6 +1,7 @@
 import {
   fixMyInfo,
   getMyInfo,
+  onSilentRefresh,
   postEmailCheck,
   postEmailSend,
   postIdCheck,
@@ -87,24 +88,20 @@ export const usePostLogin = () => {
       } else {
         const accessToken = res.data.accessToken;
         const refreshToken = res.data.refreshToken;
-        const expirationTime =
-          res.data.refreshTokenExpirationTime - 60 * 60 * 1000; // 1시간 전
+
+        const expirationTime = 30 * 60 * 1000;
+        const refreshBefore = 10 * 60 * 1000;
+        const now = Date.now();
+        const accessTokenExpiration = now + expirationTime;
+
         $axios.defaults.headers.common["Authorization"] =
           `Bearer ${accessToken}`;
         Cookies.set("refreshToken", refreshToken, { expires: 7 });
         Cookies.set("accessToken", accessToken);
+        Cookies.set("accessTokenExpiration", accessTokenExpiration);
 
-        const now = Date.now();
-        if (now >= expirationTime) {
-          const refreshResponse = await postReissue({
-            accessToken,
-            refreshToken,
-          });
+        setTimeout(onSilentRefresh, expirationTime - refreshBefore);
 
-          const newAccessToken = refreshResponse.data.accessToken;
-          $axios.defaults.headers.common["Authorization"] =
-            `Bearer ${newAccessToken}`;
-        }
         setIsLoginSuccess(true);
       }
     },

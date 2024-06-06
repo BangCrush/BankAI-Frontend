@@ -63,22 +63,36 @@ export const onLogInSuccess = (res) => {
 export const onSilentRefresh = async () => {
   const refreshToken = Cookies.get("refreshToken");
   const accessToken = Cookies.get("accessToken");
-  $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  const accessTokenExpiration = Cookies.get("accessTokenExpiration");
 
-  if (refreshToken) {
-    try {
-      const res = await postReissue({ accessToken, refreshToken });
-      if (res) {
-        $axios.defaults.headers.common["Authorization"] =
-          `Bearer ${res.data.accessToken}`;
-      }
-    } catch (error) {
-      if (error.response?.status === 401) {
-        console.log("refresh token 만료");
+  const now = Date.now();
+
+  if (accessToken && refreshToken && accessTokenExpiration) {
+    $axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+    if (now >= accessTokenExpiration - 10 * 60 * 1000) {
+      try {
+        const res = await postReissue({ accessToken, refreshToken });
+        if (res) {
+          const newAccessToken = res.data.accessToken;
+          const newAccessTokenExpiration = now + 30 * 60 * 1000;
+
+          $axios.defaults.headers.common["Authorization"] =
+            `Bearer ${newAccessToken}`;
+          Cookies.set("accessToken", newAccessToken);
+          Cookies.set("accessTokenExpiration", newAccessTokenExpiration);
+
+          setTimeout(onSilentRefresh, 20 * 60 * 1000);
+        }
+      } catch (error) {
+        if (error.response?.status === 401) {
+          console.log("refresh token 만료");
+          window.location.href = "/login";
+        }
       }
     }
   } else {
-    console.log("No refresh token found");
+    console.log("No access token or refresh token found");
     window.location.href = "/login";
   }
 };
@@ -104,9 +118,13 @@ export const putJobInfo = async (jobInfo) => {
 export const fixMyInfo = async (newData) => {
   const res = await $axios.put(USER_API.MY_INFO(), newData);
   return res.data;
+<<<<<<< Updated upstream
 }
 
 export const postTempPwd = async (params) => {
   const res = await $axios.post(USER_API.TEMP_PWD(), params);
   return res.data;
 };
+=======
+};
+>>>>>>> Stashed changes
