@@ -1,11 +1,12 @@
 import { usePostLogin, usePostTempPwd } from "hooks/queries/userQueries";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import { useImmer } from "use-immer";
 import { useRef } from "react";
+import AlertModal from "stories/molecules/alertModal";
 
 const TempPwdPage = () => {
   const [tempPwdForm, setTempPwdForm] = useImmer({
@@ -17,6 +18,7 @@ const TempPwdPage = () => {
   const nameRef = useRef(null);
   const idRef = useRef(null);
   const emailRef = useRef(null);
+  const [open, setOpen] = useState(false);
 
   const { mutate: postTempPwd } = usePostTempPwd();
 
@@ -36,7 +38,10 @@ const TempPwdPage = () => {
     if (tempPwdForm.userEmail) {
       // console.log(tempPwdForm);
       postTempPwd(tempPwdForm);
-      window.location.href = "/login";
+      setOpen(true);
+      setTimeout(() => {
+        window.close();
+      }, 3000);
     }
   }, [tempPwdForm]);
 
@@ -70,6 +75,7 @@ const TempPwdPage = () => {
           active={true}
         />
       </div>
+      <AlertModal open={open} setOpen={setOpen} severity={"success"} content={`임시 비밀번호가 발급되었습니다.`} handleClose={()=>{setOpen(true)}}/>
     </div>
   );
 };
