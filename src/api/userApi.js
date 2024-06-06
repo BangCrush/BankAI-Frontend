@@ -99,3 +99,8 @@ export const putJobInfo = async (jobInfo) => {
   const res = await $axios.put(USER_API.JOB_INFO(), jobInfo);
   return res.data;
 };
+
+export const fixMyInfo = async (newData) => {
+  const res = await $axios.put(USER_API.MY_INFO(), newData);
+  return res.data;
+}
