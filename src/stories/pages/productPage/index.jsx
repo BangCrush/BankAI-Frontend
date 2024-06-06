@@ -13,22 +13,34 @@ import HeaderBar from "stories/molecules/headerBar";
 const ProductPage = () => {
   const [clicked, setClicked] = useState(0);
   const [searchWord, setSearchWord] = useState("");
-  const { data: allProducts, isLoading, error } = useGetAllProduct();
-  const { data: selectedProducts } = useGetSelectedProducts(clicked);
-  const { data: searchedProducts } = useGetSearchProducts(searchWord);
+  const {
+    data: allProducts,
+    isLoading: isLoadingAll,
+    error: errorAll,
+  } = useGetAllProduct();
+  const {
+    data: selectedProducts,
+    isLoading: isLoadingSelected,
+    error: errorSelected,
+  } = useGetSelectedProducts(clicked);
+  const {
+    data: searchedProducts,
+    isLoading: isLoadingSearched,
+    error: errorSearched,
+  } = useGetSearchProducts(searchWord);
 
   const location = useLocation();
   useEffect(() => {
-    if (location.state && location.state.index) {
+    if (location.state && location.state.index !== undefined) {
       setClicked(location.state.index);
     }
   }, [location.state]);
 
-  if (isLoading) {
+  if (isLoadingAll || isLoadingSelected || isLoadingSearched) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (errorAll || errorSelected || errorSearched) {
     return <div>Error loading data</div>;
   }
 
@@ -44,7 +56,7 @@ const ProductPage = () => {
   return (
     <div className="pt-27 w-full flex flex-col min-h-screen">
       <div className="px-40">
-        <HeaderBar text={"인기 상품 TOP3"}></HeaderBar>
+        <HeaderBar text={"상품"}></HeaderBar>
       </div>
 
       <div className="bg-main-bg px-54 pt-24 min-h-screen">
@@ -58,7 +70,11 @@ const ProductPage = () => {
         <div className="mb-40">
           <ProdButtons clicked={clicked} setClicked={setClicked} />
         </div>
-        {productsToDisplay && <ProductList data={productsToDisplay} />}
+        {productsToDisplay ? (
+          <ProductList data={productsToDisplay} />
+        ) : (
+          <div>No products to display</div>
+        )}
       </div>
     </div>
   );
