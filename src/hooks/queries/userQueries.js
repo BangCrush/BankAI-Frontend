@@ -1,4 +1,5 @@
 import {
+  fixMyInfo,
   getMyInfo,
   postEmailCheck,
   postEmailSend,
@@ -164,6 +165,18 @@ export const usePostSmsVerify = () => {
 export const usePutJobInfo = () => {
   const [ok, setOk] = useState(null);
   const mutation = useMutation((jobInfo) => putJobInfo(jobInfo), {
+    onSuccess: (res) => {
+      if (res.status === 200) {
+        setOk(true);
+      }
+    },
+  });
+
+  return { mutate: mutation.mutate, ok };
+};
+export const useFixMyInfo = () => {
+  const [ok, setOk] = useState(null);
+  const mutation = useMutation((newData) => fixMyInfo(newData), {
     onSuccess: (res) => {
       if (res.status === 200) {
         setOk(true);
