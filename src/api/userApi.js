@@ -12,6 +12,7 @@ const USER_API = {
   SMS_SEND: () => "/register/sms-certification/send",
   SMS_VERIFY: () => "/register/sms-certification/verify",
   JOB_INFO: () => "/users/job-info",
+  TEMP_PWD: () => "/login/temp-pwd",
 };
 
 export const postIdCheck = async (id) => {
@@ -104,3 +105,8 @@ export const fixMyInfo = async (newData) => {
   const res = await $axios.put(USER_API.MY_INFO(), newData);
   return res.data;
 }
+
+export const postTempPwd = async (params) => {
+  const res = await $axios.post(USER_API.TEMP_PWD(), params);
+  return res.data;
+};

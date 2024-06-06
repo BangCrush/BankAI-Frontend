@@ -9,6 +9,7 @@ import {
   postReissue,
   postSmsSend,
   postSmsVerify,
+  postTempPwd,
   putJobInfo,
 } from "api/userApi";
 import Cookies from "js-cookie";
@@ -185,4 +186,13 @@ export const useFixMyInfo = () => {
   });
 
   return { mutate: mutation.mutate, ok };
+};
+export const usePostTempPwd = () => {
+  const mutation = useMutation((params) => postTempPwd(params), {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
+
+  return { mutate: mutation.mutate };
 };

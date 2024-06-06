@@ -154,7 +154,7 @@ const FixMyInfoPage = () => {
             <div className="w-full">
               <div className="my-15 flex flex-col space-y-3.5 text-14">
                 <div className="flex space-x-6">
-                  <span className="w-100">비밀번호</span>
+                  <span className="w-100 mt-10">비밀번호 수정</span>
                   <input
                     className="text-right font-bold border p-10 rounded-8 focus:outline-none"
                     type="password"
