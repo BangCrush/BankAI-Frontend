@@ -1,5 +1,6 @@
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
+import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
@@ -29,6 +30,11 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "내 정보 페이지",
     path: () => "myInfo",
     component: MyPage,
+  },
+  FixMyInfoPage: {
+    name: "내 정보 페이지",
+    path: () => "/fixMyInfo",
+    component: FixMyInfoPage,
   },
   AccountPage: {
     name: "계좌 목록 페이지",

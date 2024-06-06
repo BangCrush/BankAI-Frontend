@@ -9,7 +9,7 @@ const FrontPage = () => {
           로그인
         </button>
       </Link>
-      <Link to={"/join"}>
+      <Link to={"/identify"}>
         <button className="text-main-color font-semibold py-15 rounded-12 w-full bg-white shadow-md">
           회원가입
         </button>

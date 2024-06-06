@@ -8,6 +8,7 @@ import { productTypeMapping } from "constants/products";
 import { ContentCopy } from "@mui/icons-material";
 import AlertModal from "../alertModal";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MainCarousel = ({ data, mainAcc }) => {
   const [open, setOpen] = useState(false);
@@ -90,7 +91,14 @@ const MainCarousel = ({ data, mainAcc }) => {
               {data[i].accBalance.toLocaleString()}원
             </p>
             <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
+            <Link
+              key={i}
+              className="cursor-pointer"
+              to={"/accountHistory"}
+              state={{ accCode: data[i].accCode, prodName: data[i].prodName }}
+            >
               <MediumButton text={"조회하기"}></MediumButton>
+            </Link>
               <MediumButton
                 text={"이체하기"}
                 sub={true}

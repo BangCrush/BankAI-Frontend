@@ -1,13 +1,59 @@
-import { useGetMyInfo } from "hooks/queries/userQueries";
-import HeaderBar from "stories/molecules/headerBar";
+import { accFormatter } from "globalFunc/formatter";
+import { useFixMyInfo, useGetMyInfo } from "hooks/queries/userQueries";
+import { useRef, useState } from "react";
 import MediumButton from "stories/atoms/mediumButton";
-import { PwdWindowOptions } from "constants/password";
-import { useState, useEffect } from "react";
-import { checkPw } from "api/accountApi";
-import { Link } from "react-router-dom";
+import HeaderBar from "stories/molecules/headerBar";
+import { useImmer } from "use-immer";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const MyPage = () => {
+const FixMyInfoPage = () => {
+  const [fixForm, setFixForm] = useImmer({
+    userPwd: "",
+    userEmail: "",
+    userPhone: "",
+    userAddr: "",
+    userAddrDetail: "",
+    userTrsfLimit: 0,
+    userMainAcc: "",
+  });
+  const mainRef = useRef(null);
+  const limitRef = useRef(null);
+  const pwdRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const { mutate: fixMyInfo } = useFixMyInfo();
   const { data: myData, isLoading } = useGetMyInfo();
+
+  const handleFixForm = () => {
+    let newMain = mainRef.current.value;
+    let newLimit = limitRef.current.value;
+    let pwd = pwdRef.current.value;
+    setFixForm((draft) => {
+      draft.userEmail = myData.userEmail;
+      draft.userPhone = myData.userPhone;
+      draft.userAddr = myData.userAddr;
+      draft.userAddrDetail = myData.userAddrDetail;
+      draft.userMainAcc = !!newMain
+        ? accFormatter(newMain)
+        : myData.userMainAcc;
+      draft.userTrsfLimit = !!newLimit
+        ? parseInt(newLimit)
+        : myData.userTrsfLimit;
+      draft.userPwd = pwd;
+    });
+  };
+  useEffect(() => {
+    if (fixForm.userPwd) {
+      fixMyInfo(fixForm);
+      window.location.href = '/myInfo';
+      // console.log(fixForm);
+    }
+  }, [fixForm]);
+
+  // console.log(fixForm);
+  // console.log(myData);
 
   return (
     <div className="w-full ">
@@ -51,24 +97,31 @@ const MyPage = () => {
             </div>
             <hr className="mb-20" />
           </div>
-          {/* fasdfasfda */}
           <div className="w-full">
             <p className="text-18 font-bold mb-13">계좌 정보</p>
             <div className="my-15 flex flex-col space-y-3.5 text-14">
               <div className="flex space-x-6">
                 <span className="w-100">주거래 계좌</span>
-                <span className="font-semibold">{myData.userMainAcc}</span>
+                <input
+                  className="text-right font-bold border px-5 rounded-8 focus:outline-none"
+                  type="text"
+                  placeholder={myData.userMainAcc}
+                  ref={mainRef}
+                />
               </div>
               <div className="flex space-x-6">
                 <span className="w-100">일일 이체 한도</span>
-                <span className="font-semibold">
-                  {myData.userTrsfLimit.toLocaleString()}원
-                </span>
+                <input
+                  className="text-right font-bold border px-5 rounded-8 focus:outline-none"
+                  type="text"
+                  placeholder={myData.userTrsfLimit.toLocaleString()}
+                  ref={limitRef}
+                />
+                <span className="font-semibold mx-0">원</span>
               </div>
             </div>
             <hr className="mb-20" />
           </div>
-          {/* sdfafsd */}
           <div className="w-full">
             <p className="text-18 font-bold mb-13">직장 정보</p>
             <div className="my-15 flex flex-col space-y-3.5 text-14">
@@ -96,9 +149,24 @@ const MyPage = () => {
               </div>
             </div>
             <hr className="mb-20" />
-            <Link to={"/fixMyInfo"}>
-              <MediumButton text={"수정하기"}></MediumButton>
-            </Link>
+            <div className="w-full">
+              <div className="my-15 flex flex-col space-y-3.5 text-14">
+                <div className="flex space-x-6">
+                  <span className="w-100">비밀번호</span>
+                  <input
+                    className="text-right font-bold border p-10 rounded-8 focus:outline-none"
+                    type="password"
+                    placeholder={"계정 비밀번호를 입력해주세요"}
+                    ref={pwdRef}
+                  />
+                </div>
+              </div>
+              <hr className="mb-20" />
+            </div>
+            <MediumButton
+              text={"수정하기"}
+              onClick={handleFixForm}
+            ></MediumButton>
           </div>
         </div>
       )}
@@ -106,4 +174,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default FixMyInfoPage;
