@@ -30,11 +30,15 @@ const ProductPage = () => {
   } = useGetSearchProducts(searchWord);
 
   const location = useLocation();
+
   useEffect(() => {
+    console.log(location.state.index);
     if (location.state && location.state.index !== undefined) {
       setClicked(location.state.index);
     }
   }, [location.state]);
+
+  useEffect(() => {}, [allProducts, selectedProducts, searchedProducts]);
 
   if (isLoadingAll || isLoadingSelected || isLoadingSearched) {
     return <div>Loading...</div>;
