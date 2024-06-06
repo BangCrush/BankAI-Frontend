@@ -47,7 +47,9 @@ const FixMyInfoPage = () => {
   useEffect(() => {
     if (fixForm.userPwd) {
       fixMyInfo(fixForm);
-      window.location.href = '/myInfo';
+      setTimeout(() => {
+        window.location.href = '/myInfo';
+      }, 1000);
       // console.log(fixForm);
     }
   }, [fixForm]);
