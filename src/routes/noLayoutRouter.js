@@ -1,6 +1,7 @@
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
 import FindIdPage from "stories/pages/findIdPage";
+import AudioRecordPage from "stories/pages/audioRecordPage";
 import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
@@ -71,5 +72,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "상품 목록 페이지",
     path: () => "/product",
     component: ProductPage,
+  },
+  AudioRecordPage: {
+    name: "음성 녹음 페이지",
+    path: () => "/audioRecord",
+    component: AudioRecordPage,
   },
 };
