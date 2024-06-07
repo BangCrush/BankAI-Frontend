@@ -10,6 +10,7 @@ import ProdDetailPage from "stories/pages/prodDetailPage";
 import ProductMainPage from "stories/pages/productMainPage";
 import ProductPage from "stories/pages/productPage";
 import PwdPage from "stories/pages/pwdPage";
+import TransferAccountPage from "stories/pages/transferAccountPage";
 import ZipCodePage from "stories/pages/zipcodePage";
 
 export const NO_LAYOUT_ROUTES_URL = {
@@ -42,6 +43,11 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "계좌 목록 페이지",
     path: () => "/account",
     component: AccountPage,
+  },
+  transferAccountPage: {
+    name: "계좌 이체 페이지",
+    path: () => "/transferAccount",
+    component: TransferAccountPage,
   },
   AccHistory: {
     name: "계좌 내역 상세 페이지",
