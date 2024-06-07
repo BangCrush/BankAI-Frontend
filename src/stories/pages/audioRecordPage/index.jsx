@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ResultReason } from "microsoft-cognitiveservices-speech-sdk";
-import "../../../styles/custom.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { getTokenOrRefresh } from "../../../utils/token_util";
 import MicIcon from "@mui/icons-material/Mic";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const AudioRecordPage = () => {
+const AudioRecordPage = ({ setResult, options, type }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
 
@@ -51,8 +49,10 @@ const AudioRecordPage = () => {
     try {
       const response = await axios.post("http://121.163.20.238:35281/request", {
         text: displayText,
+        options: options,
+        type: type,
       });
-      console.log("파일 전송 성공:", response.data);
+      setResult(response.data);
     } catch (error) {
       console.error("파일 전송 실패:", error);
     }
