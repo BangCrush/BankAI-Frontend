@@ -8,7 +8,6 @@ import DepositPage from "stories/pages/depositPage";
 import CheckingPage from "stories/pages/checkingPage";
 import TempPwdPage from "stories/pages/tempPwdPage";
 
-
 export const SUB_LAYOUT_ROUTES_URL = {
   LoginPage: {
     name: "로그인 페이지",
@@ -35,7 +34,7 @@ export const SUB_LAYOUT_ROUTES_URL = {
     path: () => "/savings",
     component: SavingsPage,
   },
-  CheckingPage:{
+  CheckingPage: {
     name: "입출금가입 페이지",
     path: () => "/checking",
     component: CheckingPage,

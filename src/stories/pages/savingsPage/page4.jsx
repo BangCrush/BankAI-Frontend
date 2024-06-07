@@ -13,10 +13,12 @@ const Page4 = ({ savingForm, setSavingForm }) => {
   const handleAmount = (e) => {
     setSavingForm((draft) => {
       draft.amount = e.target.value;
+      draft.period = 12;
     });
   };
 
   const handleButtonClick = () => {
+    console.log(savingForm);
     if (!allDone) {
       onPopup();
     } else {
@@ -36,7 +38,7 @@ const Page4 = ({ savingForm, setSavingForm }) => {
           draft.accountPwd = event.data.pwd;
         });
       }
-      if (event.data.isMatched && savingForm.accountPwd) {
+      if (event.data.isMatched && event.data.pwd) {
         setAllDone(true);
       }
     };
@@ -49,7 +51,6 @@ const Page4 = ({ savingForm, setSavingForm }) => {
   }, [setSavingForm]);
 
   const onPopup = () => {
-   
     window.open("/password?type=double", "_blank", PwdWindowOptions);
   };
   return (

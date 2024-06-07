@@ -39,7 +39,6 @@ const Page6 = ({ loanForm, setLoanForm }) => {
   }, [setLoanForm]);
 
   const onPopup = () => {
-   
     window.open("/password?type=double", "_blank", PwdWindowOptions);
   };
 
