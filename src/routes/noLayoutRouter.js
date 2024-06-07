@@ -49,18 +49,18 @@ export const NO_LAYOUT_ROUTES_URL = {
   },
   PasswordPage: {
     name: "비밀번호 입력 페이지",
-    path: ()=>"/password",
-    component: PwdPage
+    path: () => "/password",
+    component: PwdPage,
   },
   FindIdPage: {
     name: "아이디 찾기 페이지",
     path: () => "/findId",
     component: FindIdPage,
   },
-  FrontPage:{
+  FrontPage: {
     name: "초기 페이지",
-    path: ()=>"/front",
-    component: FrontPage
+    path: () => "/front",
+    component: FrontPage,
   },
   ProductMainPage: {
     name: "상품 메인 페이지",
