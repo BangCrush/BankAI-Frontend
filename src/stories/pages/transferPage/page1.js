@@ -2,23 +2,20 @@ import HeaderBar from "stories/molecules/headerBar";
 import Input from "stories/atoms/input";
 import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransferWarningPage from "../bottomPages/transferWarningPage";
 import { searchAccount } from "api/accountApi";
 import { accFormatter } from "globalFunc/formatter";
 
-const Page1 = ({
-  moveNextPage,
-  transferForm,
-  setTransferForm,
-  accBal,
-  accInfo,
-  setAccInfo,
-}) => {
+const Page1 = ({ moveNextPage, setTransferForm, setAccInfo, result }) => {
   const [inAcc, setInAcc] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    if (result && result.result) {
+      setInAcc(result.result);
+    }
+  }, [result]);
 
   const handleInputAcc = (e) => {
     const newAcc = e.target.value;
@@ -63,7 +60,11 @@ const Page1 = ({
           어떤 계좌로 돈을 보낼까요?
         </p>
 
-        <Input placeholder={"계좌번호"} onChange={handleInputAcc}></Input>
+        <Input
+          placeholder={"계좌번호"}
+          onChange={handleInputAcc}
+          value={inAcc}
+        ></Input>
         <div className="flex flex-col justify-center items-center mt-10 fixed left-0 bottom-0 w-full px-40 mb-50">
           <LongButton
             text={"다음"}
