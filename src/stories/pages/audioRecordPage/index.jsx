@@ -6,7 +6,7 @@ import MicIcon from "@mui/icons-material/Mic";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const AudioRecordPage = ({setResult, options,type,onMic,setOnMic}) => {
+const AudioRecordPage = ({ setResult, options, type }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
 
@@ -51,8 +51,8 @@ const AudioRecordPage = ({setResult, options,type,onMic,setOnMic}) => {
     try {
       const response = await axios.post("http://121.163.20.238:35281/request", {
         text: displayText,
-        options : options,
-        type: type
+        options: options,
+        type: type,
       });
       setResult(response.data);
     } catch (error) {
