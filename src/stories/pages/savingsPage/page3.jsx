@@ -38,7 +38,7 @@ const Page3 = ({
           {prodName} 이체 한도는 기본 300,000원 입니다.
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center mt-10 fixed left-0 bottom-0 w-full px-40 mb-50">
+      <div className="max-w-640 flex flex-col justify-center items-center mt-10 fixed left-0 bottom-0 w-full px-40 mb-50">
         <LongButton
           text={"다음"}
           active={!!savingForm.atDate}

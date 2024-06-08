@@ -67,7 +67,7 @@ const AccHistoryPage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading account history</div>;
   return (
-    <>
+    <div className="w-640">
       {accountHistory && (
         <>
           <BlueHeaderBar
@@ -98,7 +98,7 @@ const AccHistoryPage = () => {
         setOpen={setOpen}
         page={<AccountClosePage onPopup={onPopup}></AccountClosePage>}
       />
-    </>
+    </div>
   );
 };
 

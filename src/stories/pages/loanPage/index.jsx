@@ -27,7 +27,7 @@ const LoanPage = () => {
   };
 
   return (
-    <div>
+    <div className="w-640">
       {page === 2 && (
         <Page2
           moveNextPage={moveNextPage}

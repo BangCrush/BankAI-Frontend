@@ -23,37 +23,37 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "대출가입 페이지",
     path: () => "/loan",
     component: LoanPage,
-  },
+  }, //화면 조정 완료
   ProdDetailPage: {
     name: "상품상세 페이지",
     path: () => "/product/:id",
     component: ProdDetailPage,
-  },
+  },// 화면 조정 완료
   MyInfoPage: {
     name: "내 정보 페이지",
     path: () => "myInfo",
     component: MyPage,
-  },
+  },// 화면 조정 완료
   FixMyInfoPage: {
-    name: "내 정보 페이지",
+    name: "내 정보 수정 페이지",
     path: () => "/fixMyInfo",
     component: FixMyInfoPage,
-  },
+  },// 화면 조정 완료
   AccountPage: {
     name: "계좌 목록 페이지",
     path: () => "/account",
     component: AccountPage,
-  },
+  }, // 화면 조정 완료
   transferAccountPage: {
     name: "계좌 이체 페이지",
     path: () => "/transferAccount",
     component: TransferAccountPage,
-  },
+  }, // 화면 조정 완료
   AccHistory: {
     name: "계좌 내역 상세 페이지",
     path: () => "/accountHistory",
     component: AccHistoryPage,
-  },
+  }, // 화면 조정 완료
   PasswordPage: {
     name: "비밀번호 입력 페이지",
     path: () => "/password",
@@ -68,17 +68,17 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "초기 페이지",
     path: () => "/front",
     component: FrontPage,
-  },
+  }, //화면 조정 완료
   ProductMainPage: {
     name: "상품 메인 페이지",
     path: () => "/productMain",
     component: ProductMainPage,
-  },
+  }, //화면 조정 완료
   product: {
     name: "상품 목록 페이지",
     path: () => "/product",
     component: ProductPage,
-  },
+  }, //화면 조정 완료
   AudioRecordPage: {
     name: "음성 녹음 페이지",
     path: () => "/audioRecord",

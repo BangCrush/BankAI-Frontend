@@ -37,7 +37,7 @@ const ProdDetailPage = () => {
   };
 
   return (
-    <div className="w-full font-sans pt-30">
+    <div className="w-640 font-sans pt-30">
       <div className="px-40">
         <HeaderBar text={productTypeMapping[productData.prodType]}></HeaderBar>
       </div>
