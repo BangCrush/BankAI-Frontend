@@ -8,6 +8,7 @@ import { productTypeMapping } from "constants/products";
 import BottomStickyButton from "stories/molecules/bottomStickyButton";
 import ProdBenefit2 from "stories/organisms/prodBenefit2";
 import ProdBenefit3 from "stories/organisms/prodBenefit3";
+import ProdBenefit4 from "stories/organisms/prodBenefit4";
 
 const ProdDetailPage = () => {
   const location = useLocation();
@@ -51,6 +52,10 @@ const ProdDetailPage = () => {
           <ProdBenefit2 />
         ) : productData.prodType === "LOAN" ? (
           <ProdBenefit3 />
+        ) : productData.prodType === "SAVINGS" ? (
+          <ProdBenefit4 data={productData} />
+        ) : productData.prodType === "DEPOSIT" ? (
+          <ProdBenefit data={productData} />
         ) : (
           <ProdBenefit data={productData} />
         ))}

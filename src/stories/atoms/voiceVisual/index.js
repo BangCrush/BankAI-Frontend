@@ -9,6 +9,7 @@ const VoiceWave = () => {
   const [freqs, setFreqs] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
   const [show, setShow] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const WIDTH = 500;
   const HEIGHT = 200;
@@ -37,10 +38,19 @@ const VoiceWave = () => {
   }, [audioContext, analyser, freqs, isRunning]);
 
   useEffect(() => {
-    start();
+    if (show) {
+      start();
+    } else {
+      stop();
+    }
   }, [show]);
 
   const start = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setErrorMessage("이 브라우저는 getUserMedia를 지원하지 않습니다.");
+      return;
+    }
+
     const context = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = context.createAnalyser();
     const freqs = new Uint8Array(analyser.frequencyBinCount);
@@ -57,7 +67,7 @@ const VoiceWave = () => {
         input.connect(analyser);
       })
       .catch((error) => {
-        document.body.innerHTML = "<h1>이 펜은 https://에서만 작동합니다</h1>";
+        setErrorMessage("마이크 권한이 필요합니다.");
         console.error(error);
       });
   };
@@ -158,11 +168,8 @@ const VoiceWave = () => {
       <div className={`AiRecordButton transition delay-100 ${show ? "" : "invisible"}`}>
         <canvas id="canvas" ref={canvasRef}></canvas>
       </div>
-      {/* <button onClick={start}>Start</button> */}
-      {/* <button onClick={stop}>Stop</button> */}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
       <MicNoneIcon onClick={handleShow} className="w-100"></MicNoneIcon>
-      {/* <KeyboardVoiceOutlinedIcon onClick={handleShow} className="w-full"></KeyboardVoiceOutlinedIcon> */}
-      {/* <button className="border p-10 bg-main-color text-white font-bold" onClick={handleShow}></button> */}
     </div>
   );
 };

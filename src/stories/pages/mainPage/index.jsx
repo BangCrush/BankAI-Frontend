@@ -8,6 +8,7 @@ import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
 import AudioRecordPage from "../audioRecordPage";
+import VoiceWave from "stories/atoms/voiceVisual";
 
 const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
@@ -103,6 +104,7 @@ const MainPage = () => {
         </div>
       </div>
       <AudioRecordPage setResult={setResult} options={mainAIList} type={'text'} />
+      <VoiceWave></VoiceWave>
     </div>
   );
 };
