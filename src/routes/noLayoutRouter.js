@@ -1,6 +1,7 @@
 import AccHistoryPage from "stories/pages/accHistoryPage";
 import AccountPage from "stories/pages/accountPage";
 import FindIdPage from "stories/pages/findIdPage";
+import AudioRecordPage from "stories/pages/audioRecordPage";
 import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
 import LoanPage from "stories/pages/loanPage";
@@ -9,6 +10,7 @@ import ProdDetailPage from "stories/pages/prodDetailPage";
 import ProductMainPage from "stories/pages/productMainPage";
 import ProductPage from "stories/pages/productPage";
 import PwdPage from "stories/pages/pwdPage";
+import TransferAccountPage from "stories/pages/transferAccountPage";
 import ZipCodePage from "stories/pages/zipcodePage";
 
 export const NO_LAYOUT_ROUTES_URL = {
@@ -42,6 +44,11 @@ export const NO_LAYOUT_ROUTES_URL = {
     path: () => "/account",
     component: AccountPage,
   },
+  transferAccountPage: {
+    name: "계좌 이체 페이지",
+    path: () => "/transferAccount",
+    component: TransferAccountPage,
+  },
   AccHistory: {
     name: "계좌 내역 상세 페이지",
     path: () => "/accountHistory",
@@ -71,5 +78,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "상품 목록 페이지",
     path: () => "/product",
     component: ProductPage,
+  },
+  AudioRecordPage: {
+    name: "음성 녹음 페이지",
+    path: () => "/audioRecord",
+    component: AudioRecordPage,
   },
 };
