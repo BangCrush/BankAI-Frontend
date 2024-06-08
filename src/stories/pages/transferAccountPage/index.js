@@ -28,7 +28,7 @@ const TransferAccountPage = () => {
   }
 
   return (
-    <div className="pt-22">
+    <div className="pt-22 w-640">
       <div className="px-50">
         <HeaderBar text={"송금계좌"} />
       </div>

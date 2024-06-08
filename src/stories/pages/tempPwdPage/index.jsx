@@ -46,29 +46,29 @@ const TempPwdPage = () => {
   }, [tempPwdForm]);
 
   return (
-    <div>
+    <div className="max-w-350">
       <Title text1={"임시 비밀번호 발급"} text2={""} />
       <div className="grid grid-cols-1 gap-20 mt-20">
         <input
-          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-full placeholder:text-gray-placeholder text-14 flex-auto"
+          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-300 placeholder:text-gray-placeholder text-14 flex-auto"
           type="text"
           ref={nameRef}
           placeholder="이름"
         />
         <input
-          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-full placeholder:text-gray-placeholder text-14 flex-auto"
+          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-300 placeholder:text-gray-placeholder text-14 flex-auto"
           type="text"
           ref={idRef}
           placeholder="아이디"
         />
         <input
-          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-full placeholder:text-gray-placeholder text-14 flex-auto"
+          className="rounded-10 focus:outline-none bg-gray-input px-12 py-15 w-300 placeholder:text-gray-placeholder text-14 flex-auto"
           type="text"
           ref={emailRef}
           placeholder="회원가입 당시 사용한 이메일"
         />
       </div>
-      <div className="flex flex-col justify-center items-center mt-10 absolute left-0 bottom-0 w-full px-40 mb-50">
+      <div className="max-w-400 flex flex-col justify-center items-center mt-10 absolute left-0 bottom-0 w-300 px-40 mb-50">
         <LongButton
           text={"비밀번호 재발급"}
           onClick={handleTempPwdForm}

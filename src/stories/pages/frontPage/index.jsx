@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const FrontPage = () => {
   return (
-    <div className="temp_body w-screen h-screen px-40">
+    <div className="temp_body w-640 h-screen px-40">
       <img className="mx-auto mb-70 w-400 relative" src="/assets/logo1.png" />
       <Link to={"/login"}>
         <button className="text-main-color font-semibold py-15 rounded-12 w-full bg-white mb-20 shadow-md">

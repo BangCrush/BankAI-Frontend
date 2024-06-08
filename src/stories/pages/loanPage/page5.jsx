@@ -103,7 +103,7 @@ const Page5 = ({ moveNextPage, prodCode, setLoanForm }) => {
           </div>
         </div>
         <div
-          className="flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40"
+          className="max-w-640 flex flex-col justify-center items-center absolute left-0 bottom-0 w-full px-40"
           style={{ bottom: "50px" }}
         >
           <LongButton text={"다음"} active={true} onClick={moveNextPage} />
