@@ -49,68 +49,82 @@ const MainCarousel = ({ data, mainAcc }) => {
     nextArrow: <RightArrow />,
   };
 
-  if (data.length === 0) return (<div></div>);
+  if (data.length === 0) return <div></div>;
   if (data.length === 1) settings.infinite = false;
 
   const copyAccCode = (accCode) => {
     setOpen(true);
     navigator.clipboard.writeText(accCode);
-  }
-
-
+  };
 
   return (
     <div>
-      <AlertModal open={open} setOpen={setOpen} severity={'success'} content={`계좌번호를 복사했습니다.`} handleClose={handleClose} />
+      <AlertModal
+        open={open}
+        setOpen={setOpen}
+        severity={"success"}
+        content={`계좌번호를 복사했습니다.`}
+        handleClose={handleClose}
+      />
       <Slider
-      key={"key"}
-      className="shadow-custom w-490 mx-auto rounded-20"
-      {...settings}
-    >
-      {data.map((a, i) => {
-        return (
-          <div
-            key={i}
-            className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
-          >
-            {mainAcc === data[i].accCode ? (
-              <div className="text-10 font-bold shadow border border-gray-placeholder bg-white px-8 py-6 rounded-20 w-fit absolute right-5">
-                주거래 계좌
-              </div>
-            ) : (
-              ""
-            )}
-
-            <p className="text-black-900 text-16 font-semibold mb-10">
-              {data[i].prodName}
-            </p>
-            <p className="text-gray-900 text-12 mb-10">
-            {productTypeMapping[data[i].prodType]} <button onClick={() => { copyAccCode(data[i].accCode.replaceAll('-', '')) }}>{data[i].accCode} <ContentCopy fontSize="10" /></button>
-            </p>
-            <p className="text-black-900 text-26 font-extrabold mb-30">
-              {data[i].accBalance.toLocaleString()}원
-            </p>
-            <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
-            <Link
+        key={"key"}
+        className="shadow-custom w-490 mx-auto rounded-20"
+        {...settings}
+      >
+        {data.map((a, i) => {
+          return (
+            <div
               key={i}
-              className="cursor-pointer"
-              to={"/accountHistory"}
-              state={{ accCode: data[i].accCode, prodName: data[i].prodName }}
+              className="border-1 border-solid border-gray-border bg-white rounded-20 px-20 py-17 max-y-215 relative"
             >
-              <MediumButton text={"조회하기"}></MediumButton>
-            </Link>
-              <MediumButton
-                text={"이체하기"}
-                sub={true}
-                onClick={() => {
-                  handleTransfer(data[i].accCode, data[i].prodName);
-                }}
-              ></MediumButton>
+              {mainAcc === data[i].accCode ? (
+                <div className="text-10 font-bold shadow border border-gray-placeholder bg-white px-8 py-6 rounded-20 w-fit absolute right-15">
+                  주거래 계좌
+                </div>
+              ) : (
+                ""
+              )}
+
+              <p className="text-black-900 text-16 font-semibold mb-10">
+                {data[i].prodName}
+              </p>
+              <p className="text-gray-900 text-12 mb-10">
+                {productTypeMapping[data[i].prodType]}{" "}
+                <button
+                  onClick={() => {
+                    copyAccCode(data[i].accCode.replaceAll("-", ""));
+                  }}
+                >
+                  {data[i].accCode} <ContentCopy fontSize="10" />
+                </button>
+              </p>
+              <p className="text-black-900 text-26 font-extrabold mb-30">
+                {data[i].accBalance.toLocaleString()}원
+              </p>
+              <div className="grid grid-cols-2 gap-x-15 justify-center mb-10">
+                <Link
+                  key={i}
+                  className="cursor-pointer"
+                  to={"/accountHistory"}
+                  state={{
+                    accCode: data[i].accCode,
+                    prodName: data[i].prodName,
+                  }}
+                >
+                  <MediumButton text={"조회하기"}></MediumButton>
+                </Link>
+                <MediumButton
+                  text={"이체하기"}
+                  sub={true}
+                  onClick={() => {
+                    handleTransfer(data[i].accCode, data[i].prodName);
+                  }}
+                ></MediumButton>
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </Slider>
+          );
+        })}
+      </Slider>
     </div>
   );
 };

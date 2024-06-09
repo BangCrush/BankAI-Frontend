@@ -3,6 +3,7 @@ import AccountPage from "stories/pages/accountPage";
 import FindIdPage from "stories/pages/findIdPage";
 import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
+import BancassurancePage from "stories/pages/InfoPage/bancassurancePage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetailPage";
@@ -27,17 +28,17 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "상품상세 페이지",
     path: () => "/product/:id",
     component: ProdDetailPage,
-  },// 화면 조정 완료
+  }, // 화면 조정 완료
   MyInfoPage: {
     name: "내 정보 페이지",
     path: () => "myInfo",
     component: MyPage,
-  },// 화면 조정 완료
+  }, // 화면 조정 완료
   FixMyInfoPage: {
     name: "내 정보 수정 페이지",
     path: () => "/fixMyInfo",
     component: FixMyInfoPage,
-  },// 화면 조정 완료
+  }, // 화면 조정 완료
   AccountPage: {
     name: "계좌 목록 페이지",
     path: () => "/account",
@@ -78,4 +79,9 @@ export const NO_LAYOUT_ROUTES_URL = {
     path: () => "/product",
     component: ProductPage,
   }, //화면 조정 완료
+  BancassurancePage: {
+    name: "(정보성) 방카슈랑스 페이지",
+    path: () => "/bancassurance",
+    component: BancassurancePage,
+  },
 };
