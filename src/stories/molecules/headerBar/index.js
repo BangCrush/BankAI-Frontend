@@ -1,7 +1,11 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 const HeaderBar = ({ text }) => {
   const handleBackClick = () => {
-    window.history.back();
+    if (window.location.pathname === "/myInfo") {
+      window.location.href = "/main";
+    } else {
+      window.history.back();
+    }
   };
 
   return (
