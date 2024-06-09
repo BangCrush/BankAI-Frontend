@@ -1,3 +1,4 @@
+import { usePutJobInfo } from "hooks/queries/userQueries";
 import { useEffect, useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import SelectBox from "stories/atoms/selectBox";
@@ -6,6 +7,7 @@ import HeaderBar from "stories/molecules/headerBar";
 
 const Page2 = ({ jobForm, setJobForm, moveToPage3, moveToPage4 }) => {
   const [selectedJob, setSelectedJob] = useState(null);
+  const { mutate: putJobInfo, isLoading, isError } = usePutJobInfo();
 
   const options = ["학생/군인", "무직", "직장인", "프리랜서"];
 
@@ -17,6 +19,7 @@ const Page2 = ({ jobForm, setJobForm, moveToPage3, moveToPage4 }) => {
 
   const handleNextClick = () => {
     if (selectedJob === "학생/군인" || selectedJob === "무직") {
+      putJobInfo(jobForm);
       moveToPage4();
     } else {
       moveToPage3();
