@@ -3,10 +3,26 @@ import { useGetMyInfo } from "hooks/queries/userQueries";
 import { Link } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
 import HeaderBar from "stories/molecules/headerBar";
+import { useEffect, useState } from "react";
+import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 
 const TransferAccountPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
+  const [result, setResult] = useState(null);
+
+  let transferAccountsList = [];
+  useEffect(() => {
+    console.log(transferAccountsList);
+    if (result) {
+      transferAccountsList.forEach((data) => {
+        if (result === data.name) {
+          window.location.href = `/transfer?accCode=${data.data}&prodName=${data.name}`;
+        }
+      });
+    }
+  }, [result, transferAccountsList]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -26,6 +42,11 @@ const TransferAccountPage = () => {
   if(sortedAccounts.length !== 0){
     transferAccounts = sortedAccounts.filter((val)=>{return val.prodType === 'CHECKING' || val.prodType === 'LOAN'})
   }
+
+  
+  transferAccounts.map((data) => {
+    transferAccountsList.push({name: data.prodName, data: data.accCode});
+  });
 
   return (
     <div className="pt-22 w-640">
@@ -55,6 +76,7 @@ const TransferAccountPage = () => {
             </Link>
           ))}
       </div>
+      <VoiceServiceComp setResult={setResult} options={transferAccountsList} type={'text'} />
     </div>
   );
 };

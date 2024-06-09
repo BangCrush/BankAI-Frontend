@@ -1,27 +1,34 @@
+import { VideoStateContext, VoiceServiceStateContext } from "App";
 import {
   useGetAllAccount,
   useGetSumAccount,
 } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
-import AudioRecordPage from "../audioRecordPage";
-import VoiceWave from "stories/atoms/voiceVisual";
 
 const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: sumAccount } = useGetSumAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
-  const [result, setResult] = useState(null);
 
-  const mainAIList = [{name: "내 정보 페이지", data: '/myInfo'},
-										{name: "상품 메인페이지", data: '/productMain'},
-										{name: "전체 계좌 페이지", data: '/account'},
-										{name: "거래내역 조회 페이지", data: '/accountHistory'},
-										{name: "계좌이체 페이지", data: '/transferAccount'},]
+  const { result, options, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const setSrc = useContext(VideoStateContext);
+
+  const mainAIList = [{ name: "내 정보 페이지", data: '/myInfo' },
+  { name: "상품 메인페이지", data: '/productMain' },
+  { name: "전체 계좌 페이지", data: '/account' },
+  { name: "거래내역 조회 페이지", data: '/accountHistory' },
+  { name: "계좌이체 페이지", data: '/transferAccount' },]
+
+  useEffect(() => {
+    setSrc("http://localhost:3000/assets/cancelTransfer.mov")
+    setOptions(mainAIList)
+    setType("text")
+  }, [])
 
   useEffect(() => {
     if (myInfo && allAccount) {
@@ -35,14 +42,14 @@ const MainPage = () => {
     }
   }, [myInfo, allAccount]);
 
-  useEffect(()=>{
-    if(result){
-      const findData = mainAIList.find((data) => result=== data.name);
-      if(findData){
+  useEffect(() => {
+    if (result) {
+      const findData = mainAIList.find((data) => result === data.name);
+      if (findData) {
         window.location.href = findData.data;
       }
     }
-  },[result])
+  }, [result])
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -103,8 +110,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <AudioRecordPage setResult={setResult} options={mainAIList} type={'text'} />
-      <VoiceWave></VoiceWave>
+      <button onClick={()=>{setSrc("http://localhost:3000/assets/checkAccNum.mov")}}>test</button>
     </div>
   );
 };
