@@ -30,10 +30,10 @@ const MainPage = () => {
   ];
 
   useEffect(() => {
-    setSrc("http://localhost:3000/assets/cancelTransfer.mov");
-    setOptions(mainAIList);
-    setType("text");
-  }, []);
+    setSrc("/assets/introduce.mov")
+    setOptions(mainAIList)
+    setType("text")
+  }, [])
 
   useEffect(() => {
     if (myInfo && allAccount) {
@@ -121,13 +121,6 @@ const MainPage = () => {
           </div>
         </Link>
       </div>
-      <button
-        onClick={() => {
-          setSrc("http://localhost:3000/assets/checkAccNum.mov");
-        }}
-      >
-        test
-      </button>
     </div>
   );
 };
