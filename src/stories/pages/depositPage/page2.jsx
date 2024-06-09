@@ -36,7 +36,7 @@ const Page2 = ({
   }
 
   useEffect(() => {
-    setSrc('assets/inputOutAcc.mov');
+    setSrc("assets/inputOutAcc.mov");
   }, []);
 
   useEffect(() => {
@@ -55,8 +55,8 @@ const Page2 = ({
       } else {
         alert("마이크을 눌러 다시 입력해주세요");
         setStep(0);
-        setSrc('assets/inputOutAcc.mov')
-        setType('number');
+        setSrc("assets/inputOutAcc.mov");
+        setType("number");
       }
     }
   }, [result]);
@@ -68,8 +68,6 @@ const Page2 = ({
       setSrc("/assets/checkAccNum.mov");
     }
   }, [step]);
-
-  
 
   // useEffect(() => {
   //   checkingAccCodes.forEach((value) => {
