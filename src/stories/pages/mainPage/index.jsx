@@ -108,7 +108,10 @@ const MainPage = () => {
             <p className="text-12">내게 맞는 보험 찾기 {">"}</p>
           </div>
         </Link>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-14 px-18">
+        <Link
+          to={"/precaution"}
+          className="flex justify-start space-x-3 border border-gray-border rounded-20 py-14 px-18"
+        >
           <img src="/assets/toktok2.svg" alt="toktok2" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">
@@ -116,7 +119,7 @@ const MainPage = () => {
             </p>
             <p className="text-12">내게 맞는 대출 찾기 {">"}</p>
           </div>
-        </div>
+        </Link>
       </div>
       <button
         onClick={() => {

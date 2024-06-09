@@ -37,7 +37,7 @@ const BancassurancePage = () => {
       </div>
       <div className="flex flex-col p-25 text-white bg-sub-color">
         <div
-          className={`font-extrabold text-24 text-main-color ${isAnimated ? "animate-slide-up" : ""}`}
+          className={`font-extrabold text-24 text-supermain-color ${isAnimated ? "animate-slide-up" : ""}`}
         >
           방카슈랑스 (Banque+Assurance)
         </div>

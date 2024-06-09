@@ -25,6 +25,7 @@ module.exports = {
       },
       borderWidth: px0_1000,
       colors: {
+        "supermain-color": "#6B58D3",
         "main-color": "#8785F6",
         "sub-color": "#C9C8FF",
         "err-color": "#D10000",

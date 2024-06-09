@@ -4,6 +4,7 @@ import FindIdPage from "stories/pages/findIdPage";
 import FixMyInfoPage from "stories/pages/fixMyPage";
 import FrontPage from "stories/pages/frontPage";
 import BancassurancePage from "stories/pages/InfoPage/bancassurancePage";
+import PrecautionPage from "stories/pages/InfoPage/precautionPage";
 import LoanPage from "stories/pages/loanPage";
 import MyPage from "stories/pages/myPage";
 import ProdDetailPage from "stories/pages/prodDetailPage";
@@ -83,5 +84,10 @@ export const NO_LAYOUT_ROUTES_URL = {
     name: "(정보성) 방카슈랑스 페이지",
     path: () => "/bancassurance",
     component: BancassurancePage,
+  },
+  PrecautionPage: {
+    name: "(정보성) 신용대출 전 유의사항 페이지",
+    path: () => "/precaution",
+    component: PrecautionPage,
   },
 };
