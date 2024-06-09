@@ -10,6 +10,8 @@ const AudioRecordPage = ({ setResult, options, type }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
 
+
+
   async function sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
 

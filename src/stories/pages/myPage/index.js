@@ -10,7 +10,7 @@ const MyPage = () => {
   const { data: myData, isLoading } = useGetMyInfo();
 
   return (
-    <div className="w-full ">
+    <div className="w-640 ">
       <div className="px-50 pt-22">
         <HeaderBar text={"내 정보"}></HeaderBar>
       </div>

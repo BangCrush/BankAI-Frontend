@@ -58,7 +58,7 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="pt-27 w-full flex flex-col min-h-screen">
+    <div className="pt-27 w-640 flex flex-col min-h-screen">
       <div className="px-40">
         <HeaderBar text={"상품"}></HeaderBar>
       </div>
