@@ -2,8 +2,7 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import Input from "stories/atoms/input";
 
 
-function VideoComp({src,classes}) {
-    const [nowPlaying, setNowPlaying] = useState(false);
+function VideoComp({src,classes, isVideoPlaying, setIsVideoPlaying}) {
     const [currentTime, setCurrentTime] = useState(0);
     const [showControl, setShowControl] = useState(false);
     const ref = useRef(null);
@@ -22,15 +21,26 @@ function VideoComp({src,classes}) {
           setCurrentTime(observedVideoElement.currentTime);
         });
         // 컴포넌트가 처음 마운트 될 때 동영상 시작 할지 말지 여부 (여기서는 시작되게 했음)
-        setNowPlaying(true);
+        setIsVideoPlaying(1);
         observedVideoElement.play();
       }
     };
+
   
     useEffect(() => {
-      console.log(src);
-      addTimeUpdate();
+      if(src){
+        addTimeUpdate();
+      }
     }, [src]);
+
+    setInterval(()=>{
+      const observedVideoElement = ref && ref.current;
+      if (observedVideoElement) {
+        if (observedVideoElement.ended) {
+          setIsVideoPlaying(2);
+        }
+      }
+    },200)
   
     // progress 이동시켰을때 실행되는 함수
     const onProgressChange = (percent) => {
@@ -48,11 +58,11 @@ function VideoComp({src,classes}) {
     // play icon 클릭했을떄 실행되는 함수
     const onPlayIconClick = () => {
       if (videoElement) {
-        if (nowPlaying) {
-          setNowPlaying(false);
+        if (isVideoPlaying) {
+          setIsVideoPlaying(false);
           videoElement.pause();
         } else {
-          setNowPlaying(true);
+          setIsVideoPlaying(true);
           videoElement.play();
         }
       }

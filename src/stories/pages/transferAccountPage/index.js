@@ -3,17 +3,23 @@ import { useGetMyInfo } from "hooks/queries/userQueries";
 import { Link } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
 import HeaderBar from "stories/molecules/headerBar";
-import { useEffect, useState } from "react";
-import VoiceServiceComp from "stories/organisms/voiceServiceComp";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const TransferAccountPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
-  const [result, setResult] = useState(null);
+  const setSrc = useContext(VideoStateContext);
+  const {result,setOptions,setType} = useContext(VoiceServiceStateContext);
+  
+
+  useEffect(() => {
+    setSrc("/assets/selectAccount.mov");
+    setType("text");
+  }, []);
 
   let transferAccountsList = [];
   useEffect(() => {
-    console.log(transferAccountsList);
     if (result) {
       transferAccountsList.forEach((data) => {
         if (result === data.name) {
@@ -22,6 +28,10 @@ const TransferAccountPage = () => {
       });
     }
   }, [result, transferAccountsList]);
+
+  useMemo(() => {
+    setOptions(transferAccountsList);
+  }, [transferAccountsList]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -76,7 +86,6 @@ const TransferAccountPage = () => {
             </Link>
           ))}
       </div>
-      <VoiceServiceComp setResult={setResult} options={transferAccountsList} type={'text'} />
     </div>
   );
 };

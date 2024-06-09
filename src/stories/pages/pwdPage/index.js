@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { VideoStateContext, VoiceServiceStateContext } from "App";
+import { useState, useEffect, useContext } from "react";
 import PwdDots from "stories/molecules/pwdDots";
 import PwdKeyboard from "stories/organisms/pwdKeyboard";
 
@@ -8,25 +9,48 @@ const PwdPage = () => {
   const [finalPwd, setFinalPwd] = useState("");
   const [isMatched, setIsMatched] = useState(null);
   const [step, setStep] = useState(1);
+  const setSrc = useContext(VideoStateContext);
+  const {result, setType} = useContext(VoiceServiceStateContext);
 
   useEffect(() => {
-    if (step === 1 && pwd.length === 4) {
-      if (type === "single") {
-        window.opener.postMessage({ pwd }, "*");
-        window.close();
-      }
-      setStep(2);
-      setFinalPwd(""); // 입력란비움
-    } else if (step === 2 && finalPwd.length === 4) {
-      if (pwd === finalPwd) {
-        setIsMatched(true);
+    setType("number");
+  }, []);
 
-        window.opener.postMessage({ pwd, isMatched: "true" }, "*");
-        window.close();
-      } else {
-        setIsMatched(false);
-        setFinalPwd("");
-        setStep(1);
+  useEffect(() => {
+    console.log(result);
+    if(result){
+    if (step===1){
+      setPwd(result.result);
+    }
+    if (step===2){
+      setFinalPwd(result.result);
+    }}
+  }, [result]);
+
+  useEffect(() => {
+    if (step === 1) {
+      if(type === "single")setSrc("/assets/accountPassword.mov");
+      if(type === "double")setSrc("/assets/accountPasswordSet.mov");
+      if (pwd.length === 4) {
+        if (type === "single") {
+          window.opener.postMessage({ pwd }, "*");
+          window.close();
+        }
+        setStep(2);
+        setFinalPwd(""); // 입력란비움
+      }
+    } else if (step === 2) {
+      setSrc("/assets/accountPasswordAgain.mov");
+      if (finalPwd.length === 4) {
+        if (pwd === finalPwd) {
+          setIsMatched(true);
+          window.opener.postMessage({ pwd, isMatched: "true" }, "*");
+          window.close();
+        } else {
+          setIsMatched(false);
+          setFinalPwd("");
+          setStep(1);
+        }
       }
     }
   }, [pwd, finalPwd, step]);

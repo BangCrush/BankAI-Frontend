@@ -24,7 +24,7 @@ const TransferPage = () => {
   useEffect(() => {
     setOptions(transferAIList);
     setType("number");
-    setSrc("/assets/inputOutAcc.mov");
+    setSrc("/assets/inputInAccNum.mov");
   }, []);
 
   const moveNextPage = () => {

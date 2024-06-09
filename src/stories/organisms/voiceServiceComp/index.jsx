@@ -7,12 +7,16 @@ import VoiceWave from "stories/atoms/voiceVisual";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const VoiceServiceComp = ({ setResult, options, type }) => {
+const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
   const [show,setShow] = useState(false);
 
-
+  useEffect(()=>{
+    if(isVideoPlaying === 2){
+      sttFromMic();
+    }
+  },[isVideoPlaying])
 
   async function sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
@@ -43,9 +47,7 @@ const VoiceServiceComp = ({ setResult, options, type }) => {
         setIsRecording(false);
       } else {
         // 입력이 취소됐을 때 실행
-        setDisplayText(
-          "ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.",
-        );
+        setDisplayText(null);
         setIsRecording(false);
       }
     });
@@ -54,6 +56,7 @@ const VoiceServiceComp = ({ setResult, options, type }) => {
   const onSubmit = async () => {
     console.log(options);
     try {
+      if (!displayText) return;
       const response = await axios.post("http://121.163.20.238:35281/request", {
         text: displayText,
         options: options,
@@ -72,17 +75,9 @@ const VoiceServiceComp = ({ setResult, options, type }) => {
 
   return (
     <button className="absolute left-850 top-500" onClick={sttFromMic}>
+      {isRecording ? (
       <VoiceWave show={show}/>
-      {isRecording ?
-      null:
-      <MicIcon
-      sx={{
-        borderRadius: "50%",
-        fontSize: 80,
-        color: "rgb(255, 255, 255)",
-        backgroundColor:"rgb(135, 133, 246)"
-      }}
-    />}
+      ) :null}
     </button>
   );
 };
