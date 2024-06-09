@@ -37,6 +37,7 @@ const TransferPage = () => {
 
   const moveNextPage = () => {
     setPage((currentPage) => currentPage + 1);
+    setResult(null); // 페이지 전환 후 result 초기화
   };
 
   const [transferForm, setTransferForm] = useImmer({
