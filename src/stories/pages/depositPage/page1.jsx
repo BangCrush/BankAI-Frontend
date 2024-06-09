@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
@@ -10,8 +10,46 @@ const Page1 = ({
   setDepositForm,
   prodMin,
   prodCode,
+  result,
+  setOptions,
+  setType,
+  setSrc,
 }) => {
   const [error, setError] = useState(true);
+  const [voiceAmount, setVoiceAmount] = useState("");
+  const [progress, setProgress] = useState(0);
+  const handleProgress = () => {
+    setProgress(progress + 1);
+  };
+  useEffect(() => {
+    if (progress === 0) {
+      if (result && result.result) {
+        if (result.result < 30000) {
+          setError("최소 금액을 확인해주세요.");
+          return;
+        }
+        setVoiceAmount(result.result);
+        handleProgress();
+      }
+    }
+    if (progress === 1) {
+      if (result === "맞아") {
+        setError(false);
+        moveNextPage();
+      }
+      else{
+        alert("버튼을 눌러 다시 입력해주세요");
+      }
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (progress === 1) {
+      setOptions([{ name: "맞아" }, { name: "다시 입력할래" }]);
+      setType("text");
+      setSrc("/assets/checkAmount.mov");
+    }
+  }, [progress]);
 
   const onMoneyChange = (e) => {
     const value = e.target.value;
@@ -31,6 +69,8 @@ const Page1 = ({
     }
   };
 
+  console.log(voiceAmount);
+
   return (
     <div>
       <HeaderBar text={"예금가입"} />
@@ -42,6 +82,7 @@ const Page1 = ({
           text={"만원 을"}
           onChange={onMoneyChange}
           error={error}
+          value={voiceAmount / 10000}
         />
         <MediumInput
           placeholder={"12개월"}

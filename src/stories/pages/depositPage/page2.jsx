@@ -1,4 +1,5 @@
 import { PwdWindowOptions } from "constants/password";
+import { accFormatter } from "globalFunc/formatter";
 import {
   useGetAllAccount,
   usePostCreateAccount,
@@ -9,7 +10,7 @@ import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page2 = ({ depositForm, setDepositForm }) => {
+const Page2 = ({ depositForm, setDepositForm, result, setSrc }) => {
   const [selectedAcc, setSelectedAcc] = useState(null);
   const [allDone, setAllDone] = useState(false);
 
@@ -22,6 +23,19 @@ const Page2 = ({ depositForm, setDepositForm }) => {
       .filter((item) => item.prodType === "CHECKING")
       .map((item) => item.accCode);
   }
+
+  useEffect(()=>{
+    setSrc('/assets/inputOutAcc.mov')
+  },[])
+
+  useEffect(()=>{
+    checkingAccCodes.forEach((value)=>{
+      if(value===accFormatter(String(result.result))){
+        setSelectedAcc(value)
+        return;
+      }
+    })
+  },[result])
 
   const handleSend = () => {
     createAccount(depositForm);

@@ -5,7 +5,7 @@ const MediumInput = ({ placeholder, active, text, value, onChange, error }) => {
         <input
           placeholder={placeholder}
           readOnly={active ? false : true}
-          value={value ? "" : value}
+          value={value ? value : ""}
           className={`rounded-10 outline-none bg-gray-input px-12 py-15 max-w-190 placeholder:font-semibold ${active ? "placeholder:text-gray" : "placeholder:text-main-color"} text-13 mr-10`}
           onChange={onChange}
         />
