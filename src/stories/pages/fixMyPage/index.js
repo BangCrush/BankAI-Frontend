@@ -6,8 +6,12 @@ import HeaderBar from "stories/molecules/headerBar";
 import { useImmer } from "use-immer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AccSelectBox from "stories/atoms/accSelectBox";
+import { useGetAllAccount } from "hooks/queries/accountQueries";
 
 const FixMyInfoPage = () => {
+  const [selectedAcc, setSelectedAcc] = useState(null);
+
   const [fixForm, setFixForm] = useImmer({
     userPwd: "",
     userEmail: "",
@@ -17,6 +21,13 @@ const FixMyInfoPage = () => {
     userTrsfLimit: 0,
     userMainAcc: "",
   });
+
+  useEffect(() => {
+    setFixForm((draft) => {
+      draft.userMainAcc = selectedAcc;
+    });
+  }, [selectedAcc, setFixForm]);
+
   const mainRef = useRef(null);
   const limitRef = useRef(null);
   const pwdRef = useRef(null);
@@ -26,8 +37,16 @@ const FixMyInfoPage = () => {
   const { mutate: fixMyInfo } = useFixMyInfo();
   const { data: myData, isLoading } = useGetMyInfo();
 
+  const { data: allAccount } = useGetAllAccount();
+
+  let checkingAccCodes = [];
+  if (allAccount) {
+    checkingAccCodes = allAccount
+      .filter((item) => item.prodType === "CHECKING")
+      .map((item) => item.accCode);
+  }
+
   const handleFixForm = () => {
-    let newMain = mainRef.current.value;
     let newLimit = limitRef.current.value;
     let pwd = pwdRef.current.value;
     setFixForm((draft) => {
@@ -35,9 +54,7 @@ const FixMyInfoPage = () => {
       draft.userPhone = myData.userPhone;
       draft.userAddr = myData.userAddr;
       draft.userAddrDetail = myData.userAddrDetail;
-      draft.userMainAcc = !!newMain
-        ? accFormatter(newMain)
-        : myData.userMainAcc;
+      draft.userMainAcc = !!selectedAcc ? selectedAcc : myData.userMainAcc;
       draft.userTrsfLimit = !!newLimit
         ? parseInt(newLimit)
         : myData.userTrsfLimit;
@@ -48,14 +65,10 @@ const FixMyInfoPage = () => {
     if (fixForm.userPwd) {
       fixMyInfo(fixForm);
       setTimeout(() => {
-        window.location.href = '/myInfo';
+        window.location.href = "/myInfo";
       }, 1000);
-      // console.log(fixForm);
     }
   }, [fixForm]);
-
-  // console.log(fixForm);
-  // console.log(myData);
 
   return (
     <div className="w-640 ">
@@ -104,12 +117,13 @@ const FixMyInfoPage = () => {
             <div className="my-15 flex flex-col space-y-3.5 text-14">
               <div className="flex space-x-6">
                 <span className="w-100">주거래 계좌</span>
-                <input
-                  className="text-right font-bold border px-5 rounded-8 focus:outline-none"
-                  type="text"
-                  placeholder={myData.userMainAcc}
-                  ref={mainRef}
-                />
+                {checkingAccCodes && (
+                  <AccSelectBox
+                    options={checkingAccCodes}
+                    selectedAcc={selectedAcc}
+                    setSelectedAcc={setSelectedAcc}
+                  />
+                )}
               </div>
               <div className="flex space-x-6">
                 <span className="w-100">일일 이체 한도</span>

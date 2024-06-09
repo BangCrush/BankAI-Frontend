@@ -1,9 +1,6 @@
 import { useGetMyInfo } from "hooks/queries/userQueries";
 import HeaderBar from "stories/molecules/headerBar";
 import MediumButton from "stories/atoms/mediumButton";
-import { PwdWindowOptions } from "constants/password";
-import { useState, useEffect } from "react";
-import { checkPw } from "api/accountApi";
 import { Link } from "react-router-dom";
 
 const MyPage = () => {
