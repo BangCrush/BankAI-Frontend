@@ -12,8 +12,9 @@ function BottomSheet({ open,setOpen, page }) {
       <Modal
         open={open}
         onClose={handleClose}
-        style={{ border: "none" }}
+        style={{ border: "none", left:'5px' }}
         closeAfterTransition
+        BackdropProps={{sx:{width:'650px',height:'100%'}}}
       >
         <Slide direction="up" in={open} mountOnEnter unmountOnExit>
           <div className="bg-white w-640 border-none rounded-t-20 pb-40 absolute bottom-0 outline-none">
