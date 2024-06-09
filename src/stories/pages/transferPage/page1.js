@@ -7,15 +7,43 @@ import TransferWarningPage from "../bottomPages/transferWarningPage";
 import { searchAccount } from "api/accountApi";
 import { accFormatter } from "globalFunc/formatter";
 
-const Page1 = ({ moveNextPage, setTransferForm, setAccInfo, result }) => {
+const Page1 = ({
+  moveNextPage,
+  setTransferForm,
+  setAccInfo,
+  result,
+  setOptions,
+  setType,
+  setSrc,
+}) => {
   const [inAcc, setInAcc] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
-    if (result && result.result) {
-      setInAcc(result.result);
+    if (progress === 0) {
+      if (result && result.result) {
+        setInAcc(result.result);
+        setProgress(1);
+      }
+    }
+    if (progress === 1) {
+      if (result === "맞아") {
+        moveNextPage();
+      } else {
+        alert("마이크를 눌러 다시 말씀해주세요");
+      }
     }
   }, [result]);
+
+  useEffect(() => {
+    if (progress === 1) {
+      setOptions([{ name: "맞아" }, { name: "다시 입력할래" }]);
+      setType("text");
+      setSrc("/assets/checkAccNum.mov");
+    }
+  }, [progress]);
 
   const handleInputAcc = (e) => {
     const newAcc = e.target.value;

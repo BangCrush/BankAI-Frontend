@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Page1 from "./page1";
 import Page2 from "./page2";
 import Page3 from "./page3";
 import { useImmer } from "use-immer";
 import VoiceServiceComp from "stories/organisms/voiceServiceComp";
+import { useNavigate } from "react-router-dom";
+import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const TransferPage = () => {
   const [page, setPage] = useState(1);
-  const [result, setResult] = useState(null);
+  const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const setSrc = useContext(VideoStateContext);
+
+  const navigate = useNavigate();
 
   const transferAIList = [
     { name: "메인 페이지", data: "/main" },
@@ -17,27 +22,13 @@ const TransferPage = () => {
   ];
 
   useEffect(() => {
-    if (result) {
-      const findData = transferAIList.find((data) => result === data.name);
-      if (
-        findData &&
-        (findData.result === "메인 페이지" ||
-          findData.result === "비밀번호 입력페이지")
-      ) {
-        window.location.href = findData.result;
-      } else if (findData) {
-        setResult(findData.result);
-      } else if (findData && findData.data === "확인") {
-        moveNextPage();
-      }
-    }
-  }, [result]);
-
-  const accBal = 89523400;
+    setOptions(transferAIList);
+    setType("number");
+    setSrc("/assets/inputOutAcc.mov");
+  }, []);
 
   const moveNextPage = () => {
     setPage((currentPage) => currentPage + 1);
-    setResult(null); // 페이지 전환 후 result 초기화
   };
 
   const [transferForm, setTransferForm] = useImmer({
@@ -60,10 +51,12 @@ const TransferPage = () => {
           moveNextPage={moveNextPage}
           transferForm={transferForm}
           setTransferForm={setTransferForm}
-          accBal={accBal}
           accInfo={accInfo}
           setAccInfo={setAccInfo}
           result={result}
+          setOptions={setOptions}
+          setType={setType}
+          setSrc={setSrc}
         />
       )}
       {page === 2 && (
@@ -71,7 +64,6 @@ const TransferPage = () => {
           moveNextPage={moveNextPage}
           transferForm={transferForm}
           setTransferForm={setTransferForm}
-          accBal={accBal}
           accInfo={accInfo}
           setAccInfo={setAccInfo}
           result={result}
@@ -82,16 +74,10 @@ const TransferPage = () => {
           moveNextPage={moveNextPage}
           transferForm={transferForm}
           setTransferForm={setTransferForm}
-          accBal={accBal}
           accInfo={accInfo}
           setAccInfo={setAccInfo}
         />
       )}
-      <VoiceServiceComp
-        setResult={setResult}
-        options={transferAIList}
-        type={"number"}
-      />
     </div>
   );
 };

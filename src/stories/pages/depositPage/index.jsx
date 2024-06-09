@@ -4,13 +4,12 @@ import { useImmer } from "use-immer";
 import Page2 from "./page2";
 import { useLocation } from "react-router-dom";
 import { productSubscription } from "constants/products";
-import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const DepositPage = () => {
   const [page, setPage] = useState(1);
   const location = useLocation();
-  const { prodCode, prodName, prodMin } = location.state || {};
+  const { prodCode, prodMin } = location.state || {};
 
   const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
   const setSrc = useContext(VideoStateContext);
