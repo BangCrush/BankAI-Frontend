@@ -2,13 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import KeyboardVoiceOutlinedIcon from '@mui/icons-material/KeyboardVoiceOutlined';
 import MicNoneIcon from '@mui/icons-material/MicNone';
 
-const VoiceWave = () => {
+const VoiceWave = ({show}) => {
   const canvasRef = useRef(null);
   const [audioContext, setAudioContext] = useState(null);
   const [analyser, setAnalyser] = useState(null);
   const [freqs, setFreqs] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
-  const [show, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const WIDTH = 500;
@@ -104,10 +103,6 @@ const VoiceWave = () => {
     requestAnimationFrame(visualize);
   };
 
-  const handleShow = () => {
-    setShow(!show);
-  }
-
   const path = (ctx, channel) => {
     const color = opts[`color${channel + 1}`].map(Math.floor);
     ctx.fillStyle = `rgba(${color}, ${opts.fillOpacity})`;
@@ -169,7 +164,6 @@ const VoiceWave = () => {
         <canvas id="canvas" ref={canvasRef}></canvas>
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <MicNoneIcon onClick={handleShow} className="w-100"></MicNoneIcon>
     </div>
   );
 };

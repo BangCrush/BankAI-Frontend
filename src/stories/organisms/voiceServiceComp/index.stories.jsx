@@ -1,16 +1,16 @@
 import store from "libs/store";
 
 import { Provider } from "react-redux";
-import AudioRecordPage from ".";
+import VoiceServiceComp from ".";
 
 export default {
-  component: AudioRecordPage,
-  title: "molecules/audioRecordPage",
+  component: VoiceServiceComp,
+  title: "molecules/VoiceServiceComp",
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ["autodocs"],
 };
 
 export const Default = () => {
-  return <AudioRecordPage />;
+  return <VoiceServiceComp />;
 };
 // Default.args = {}

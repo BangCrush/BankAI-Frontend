@@ -3,7 +3,7 @@ import Page1 from "./page1";
 import Page2 from "./page2";
 import Page3 from "./page3";
 import { useImmer } from "use-immer";
-import AudioRecordPage from "../audioRecordPage";
+import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 
 const TransferPage = () => {
   const [page, setPage] = useState(1);
@@ -87,7 +87,7 @@ const TransferPage = () => {
           setAccInfo={setAccInfo}
         />
       )}
-      <AudioRecordPage
+      <VoiceServiceComp
         setResult={setResult}
         options={transferAIList}
         type={"number"}
