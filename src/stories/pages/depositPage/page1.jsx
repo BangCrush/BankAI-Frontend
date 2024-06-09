@@ -16,11 +16,12 @@ const Page1 = ({
   setSrc,
 }) => {
   const [error, setError] = useState(true);
-  const [voiceAmount, setVoiceAmount] = useState("");
   const [progress, setProgress] = useState(0);
+
   const handleProgress = () => {
     setProgress(progress + 1);
   };
+  // progress 0: data 입력 진행중, progress 1: data 입력받음
   useEffect(() => {
     if (progress === 0) {
       if (result && result.result) {
@@ -28,17 +29,23 @@ const Page1 = ({
           setError("최소 금액을 확인해주세요.");
           return;
         }
-        setVoiceAmount(result.result);
+        setDepositForm((draft) => {
+          draft.amount = result.result;
+        });
+
         handleProgress();
       }
     }
     if (progress === 1) {
+      console.log(result);
       if (result === "맞아") {
         setError(false);
         moveNextPage();
-      }
-      else{
-        alert("버튼을 눌러 다시 입력해주세요");
+      } else {
+        alert("마이크를 눌러 다시 말씀해주세요");
+        setProgress(0);
+        setSrc("/assets/inputDepositAmount.mov");
+        setType("number");
       }
     }
   }, [result]);
@@ -53,23 +60,31 @@ const Page1 = ({
 
   const onMoneyChange = (e) => {
     const value = e.target.value;
+    console.log(value);
+    setDepositForm((draft) => {
+      draft.amount = value * 10000;
+    });
+    clearTimeout();
     // 숫자인지 확인
     if (!isNaN(value)) {
-      if (value && Number(value) < prodMin / 10000) {
-        setError(`최소 ${prodMin / 10000}만원 이상 입력해야 합니다.`);
-      } else {
-        setError("");
-        setDepositForm((draft) => {
-          draft.amount = value + "0000";
-          draft.prodCode = prodCode;
-        });
-      }
+      setTimeout(() => {
+        if (Number(value) < prodMin / 10000) {
+          setError(`최소 ${prodMin / 10000}만원 이상 입력해야 합니다.`);
+          setDepositForm((draft) => {
+            draft.amount = 0;
+          });
+        } else {
+          setError("");
+          setDepositForm((draft) => {
+            draft.amount = value * 10000;
+            draft.prodCode = prodCode;
+          });
+        }
+      }, 500);
     } else {
       setError("숫자를 입력해야 합니다.");
     }
   };
-
-  console.log(voiceAmount);
 
   return (
     <div>
@@ -82,7 +97,7 @@ const Page1 = ({
           text={"만원 을"}
           onChange={onMoneyChange}
           error={error}
-          value={voiceAmount / 10000}
+          value={depositForm.amount / 10000}
         />
         <MediumInput
           placeholder={"12개월"}
