@@ -26,6 +26,7 @@ const DepositPage = () => {
     setSrc("/assets/inputDepositAmount.mov");
   }, []);
 
+
   const [depositForm, setDepositForm] = useImmer(productSubscription);
 
   const moveNextPage = () => {

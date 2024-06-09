@@ -10,9 +10,20 @@ import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
 import HeaderBar from "stories/molecules/headerBar";
 
-const Page2 = ({ depositForm, setDepositForm, result, setSrc }) => {
+const Page2 = ({
+  depositForm,
+  setDepositForm,
+  result,
+  setSrc,
+  setOptions,
+  setType,
+}) => {
   const [selectedAcc, setSelectedAcc] = useState(null);
   const [allDone, setAllDone] = useState(false);
+  const [step, setStep] = useState(0);
+  const handleStep = () => {
+    setStep(step + 1);
+  };
 
   const { data: allAccount } = useGetAllAccount();
   const { mutate: createAccount, ok, msg } = usePostCreateAccount();
@@ -24,18 +35,50 @@ const Page2 = ({ depositForm, setDepositForm, result, setSrc }) => {
       .map((item) => item.accCode);
   }
 
-  useEffect(()=>{
-    setSrc('/assets/inputOutAcc.mov')
-  },[])
+  useEffect(() => {
+    setSrc('assets/inputOutAcc.mov');
+  }, []);
 
-  useEffect(()=>{
-    checkingAccCodes.forEach((value)=>{
-      if(value===accFormatter(String(result.result))){
-        setSelectedAcc(value)
-        return;
+  useEffect(() => {
+    if (step === 0) {
+      checkingAccCodes.forEach((value) => {
+        if (value === accFormatter(String(result.result))) {
+          setSelectedAcc(value);
+        }
+        handleStep();
+      });
+    }
+    if (step === 1) {
+      if (result === "맞아") {
+        //팝업띄우는 로직
+        handleButtonClick();
+      } else {
+        alert("마이크을 눌러 다시 입력해주세요");
+        setStep(0);
+        setSrc('assets/inputOutAcc.mov')
+        setType('number');
       }
-    })
-  },[result])
+    }
+  }, [result]);
+
+  useEffect(() => {
+    if (step === 1) {
+      setOptions([{ name: "맞아" }, { name: "다시 입력할래" }]);
+      setType("text");
+      setSrc("/assets/checkAccNum.mov");
+    }
+  }, [step]);
+
+  
+
+  // useEffect(() => {
+  //   checkingAccCodes.forEach((value) => {
+  //     if (value === accFormatter(String(result.result))) {
+  //       setSelectedAcc(value);
+  //       return;
+  //     }
+  //   });
+  // }, [result]);
 
   const handleSend = () => {
     createAccount(depositForm);
