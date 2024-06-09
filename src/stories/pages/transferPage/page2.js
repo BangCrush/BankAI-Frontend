@@ -1,7 +1,7 @@
 import HeaderBar from "stories/molecules/headerBar";
 import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransferCheckPage from "../bottomPages/transferCheckPage";
 import TransferWarningPage from "../bottomPages/transferWarningPage";
 import { accFormatter } from "globalFunc/formatter";
@@ -12,7 +12,7 @@ const Page2 = ({
   transferForm,
   setTransferForm,
   accInfo,
-  setAccInfo,
+  result,
 }) => {
   const [amount, setAmount] = useState("");
   const [inputWidth, setInputWidth] = useState(190);
@@ -23,6 +23,12 @@ const Page2 = ({
   const myAcc = params.get("accCode");
   const [isValid, setIsValid] = useState(false);
   const { data: accountBalance } = useGetBalanceAccount(accFormatter(myAcc));
+
+  useEffect(() => {
+    if (result && result.result) {
+      setAmount(result.result);
+    }
+  }, [result]);
 
   const handleTransfer = () => {
     checkLimit({ accCode: accFormatter(myAcc), amount: amount }).then((res) => {

@@ -27,6 +27,8 @@ const TransferPage = () => {
         window.location.href = findData.result;
       } else if (findData) {
         setResult(findData.result);
+      } else if (findData && findData.data === "확인") {
+        moveNextPage();
       }
     }
   }, [result]);
@@ -71,6 +73,7 @@ const TransferPage = () => {
           accBal={accBal}
           accInfo={accInfo}
           setAccInfo={setAccInfo}
+          result={result}
         />
       )}
       {page === 3 && (

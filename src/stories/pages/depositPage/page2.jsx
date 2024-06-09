@@ -35,7 +35,6 @@ const Page2 = ({ depositForm, setDepositForm }) => {
   }, [selectedAcc, setDepositForm]);
 
   const onPopup = () => {
-   
     window.open("/password?type=double", "_blank", PwdWindowOptions);
   };
 
