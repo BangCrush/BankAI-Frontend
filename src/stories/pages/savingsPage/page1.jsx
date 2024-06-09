@@ -16,7 +16,7 @@ const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
       } else {
         setError("");
         setSavingForm((draft) => {
-          draft.atAmount = value + "0000";
+          draft.Amount = value + "0000";
         });
       }
     } else {
@@ -30,10 +30,11 @@ const Page1 = ({ moveNextPage, savingForm, setSavingForm, prodMin }) => {
       <Title text1={"얼마를 저축할까요?"} />
       <div className="mt-25">
         <MediumInput
-          placeholder={`최소 ${prodMin / 10000}만원`}
+          placeholder={`최소 ${prodMin / 10000}`}
           active={true}
           text={"만원 씩"}
           onChange={onMoneyChange}
+          value={savingForm.Amount / 10000}
           error={error}
         />
         <MediumInput
