@@ -1,8 +1,11 @@
 import React, { useRef } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ placeholder, setSearchWord, setClicked, readonly }) => {
   const inputRef = useRef(null);
+  const navigate = useNavigate();
+
   const handleSearchword = () => {
     if (inputRef.current) {
       setSearchWord(inputRef.current.value);
@@ -11,7 +14,7 @@ const SearchBar = ({ placeholder, setSearchWord, setClicked, readonly }) => {
   };
 
   const handleClick = () => {
-    window.location.href = "/product";
+    navigate("/product");
   };
 
   return (

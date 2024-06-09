@@ -32,7 +32,9 @@ const ProductPage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.state.index);
+    if (!location.state) {
+      setClicked(0);
+    }
     if (location.state && location.state.index !== undefined) {
       setClicked(location.state.index);
     }
