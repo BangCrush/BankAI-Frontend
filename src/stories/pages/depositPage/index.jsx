@@ -48,6 +48,7 @@ const DepositPage = () => {
           setSrc={setSrc}
         />
       )}
+
       {page === 2 && (
         <Page2
           depositForm={depositForm}

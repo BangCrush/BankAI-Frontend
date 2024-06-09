@@ -3,7 +3,6 @@ import Page1 from "./page1";
 import Page2 from "./page2";
 import Page3 from "./page3";
 import { useImmer } from "use-immer";
-import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 import { useNavigate } from "react-router-dom";
 import { VideoStateContext, VoiceServiceStateContext } from "App";
 
@@ -24,7 +23,7 @@ const TransferPage = () => {
   useEffect(() => {
     setOptions(transferAIList);
     setType("number");
-    setSrc("/assets/inputOutAcc.mov");
+    setSrc("/assets/inputInAccNum.mov");
   }, []);
 
   const moveNextPage = () => {
@@ -67,6 +66,9 @@ const TransferPage = () => {
           accInfo={accInfo}
           setAccInfo={setAccInfo}
           result={result}
+          setOptions={setOptions}
+          setType={setType}
+          setSrc={setSrc}
         />
       )}
       {page === 3 && (
