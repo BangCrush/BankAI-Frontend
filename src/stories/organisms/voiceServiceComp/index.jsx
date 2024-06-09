@@ -3,17 +3,20 @@ import axios from "axios";
 import { ResultReason } from "microsoft-cognitiveservices-speech-sdk";
 import { getTokenOrRefresh } from "../../../utils/token_util";
 import MicIcon from "@mui/icons-material/Mic";
+import VoiceWave from "stories/atoms/voiceVisual";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const AudioRecordPage = ({ setResult, options, type }) => {
+const VoiceServiceComp = ({ setResult, options, type }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
+  const [show,setShow] = useState(false);
 
 
 
   async function sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
+    setShow(true);
 
     const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
       tokenObj.authToken,
@@ -34,6 +37,7 @@ const AudioRecordPage = ({ setResult, options, type }) => {
 
     recognizer.recognizeOnceAsync((result) => {
       if (result.reason === ResultReason.RecognizedSpeech) {
+        setShow(false);
         // 입력이 완료됐을 때 실행
         setDisplayText(`${result.text}`);
         setIsRecording(false);
@@ -48,6 +52,7 @@ const AudioRecordPage = ({ setResult, options, type }) => {
   }
 
   const onSubmit = async () => {
+    console.log(options);
     try {
       const response = await axios.post("http://121.163.20.238:35281/request", {
         text: displayText,
@@ -66,19 +71,20 @@ const AudioRecordPage = ({ setResult, options, type }) => {
   }, [displayText]);
 
   return (
-    <button onClick={sttFromMic}>
+    <button className="absolute left-850 top-500" onClick={sttFromMic}>
+      <VoiceWave show={show}/>
+      {isRecording ?
+      null:
       <MicIcon
-        sx={{
-          borderRadius: "50%",
-          fontSize: 80,
-          color: "rgb(255, 255, 255)",
-          backgroundColor: isRecording
-            ? "rgb(135, 133, 246)"
-            : "rgb(255, 0, 0)",
-        }}
-      />
+      sx={{
+        borderRadius: "50%",
+        fontSize: 80,
+        color: "rgb(255, 255, 255)",
+        backgroundColor:"rgb(135, 133, 246)"
+      }}
+    />}
     </button>
   );
 };
 
-export default AudioRecordPage;
+export default VoiceServiceComp;
