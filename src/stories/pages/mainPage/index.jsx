@@ -5,6 +5,7 @@ import {
 } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
@@ -15,20 +16,24 @@ const MainPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
 
-  const { result, options, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const { result, options, setOptions, setType } = useContext(
+    VoiceServiceStateContext,
+  );
   const setSrc = useContext(VideoStateContext);
 
-  const mainAIList = [{ name: "내 정보 페이지", data: '/myInfo' },
-  { name: "상품 메인페이지", data: '/productMain' },
-  { name: "전체 계좌 페이지", data: '/account' },
-  { name: "거래내역 조회 페이지", data: '/accountHistory' },
-  { name: "계좌이체 페이지", data: '/transferAccount' },]
+  const mainAIList = [
+    { name: "내 정보 페이지", data: "/myInfo" },
+    { name: "상품 메인페이지", data: "/productMain" },
+    { name: "전체 계좌 페이지", data: "/account" },
+    { name: "거래내역 조회 페이지", data: "/accountHistory" },
+    { name: "계좌이체 페이지", data: "/transferAccount" },
+  ];
 
   useEffect(() => {
-    setSrc("http://localhost:3000/assets/cancelTransfer.mov")
-    setOptions(mainAIList)
-    setType("text")
-  }, [])
+    setSrc("http://localhost:3000/assets/cancelTransfer.mov");
+    setOptions(mainAIList);
+    setType("text");
+  }, []);
 
   useEffect(() => {
     if (myInfo && allAccount) {
@@ -49,7 +54,7 @@ const MainPage = () => {
         window.location.href = findData.data;
       }
     }
-  }, [result])
+  }, [result]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -91,7 +96,10 @@ const MainPage = () => {
       </div>
       <div className="flex flex-col py-20 px-20 border border-gray-border bg-white shadow-custom rounded-20 space-y-4">
         <p className="text-17 font-semibold">금융 상식 톡톡</p>
-        <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-16 px-18">
+        <Link
+          to={"/bancassurance"}
+          className="flex justify-start space-x-3 border border-gray-border rounded-20 py-16 px-18"
+        >
           <img src="/assets/toktok1.svg" alt="toktok1" />
           <div className="flex flex-col space-y-1">
             <p className="text-16 font-semibold">
@@ -99,7 +107,7 @@ const MainPage = () => {
             </p>
             <p className="text-12">내게 맞는 보험 찾기 {">"}</p>
           </div>
-        </div>
+        </Link>
         <div className="flex justify-start space-x-3 border border-gray-border rounded-20 py-14 px-18">
           <img src="/assets/toktok2.svg" alt="toktok2" />
           <div className="flex flex-col space-y-1">
@@ -110,7 +118,13 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <button onClick={()=>{setSrc("http://localhost:3000/assets/checkAccNum.mov")}}>test</button>
+      <button
+        onClick={() => {
+          setSrc("http://localhost:3000/assets/checkAccNum.mov");
+        }}
+      >
+        test
+      </button>
     </div>
   );
 };

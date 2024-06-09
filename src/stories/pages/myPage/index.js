@@ -48,7 +48,6 @@ const MyPage = () => {
             </div>
             <hr className="mb-20" />
           </div>
-          {/* fasdfasfda */}
           <div className="w-full">
             <p className="text-18 font-bold mb-13">계좌 정보</p>
             <div className="my-15 flex flex-col space-y-3.5 text-14">
