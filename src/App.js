@@ -23,6 +23,7 @@ function MainApp() {
   const [result, setResult] = useState(null);
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
+  const [isVideoPlaying, setIsVideoPlaying] = useState(0);
 
   useEffect(() => {
     const excludedPaths = [
@@ -40,7 +41,6 @@ function MainApp() {
         await onSilentRefresh();
         setIsDataLoaded(true);
       };
-
       fetchData();
     } else {
       setIsDataLoaded(true);
@@ -48,8 +48,10 @@ function MainApp() {
   }, [location.pathname]);
 
   return isDataLoaded ? (
-    <VoiceServiceStateContext.Provider value={{ result, setOptions, setType }}>
-      <VideoStateContext.Provider value={setSrc}>
+    <VideoStateContext.Provider value={setSrc}>
+      <VoiceServiceStateContext.Provider
+        value={{ result, setOptions, setType }}
+      >
         <Routes>
           <Route path="/" element={<MainLayout />}>
             {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
@@ -86,10 +88,10 @@ function MainApp() {
           </Route>
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
-        <VideoComp src={src} classes={"absolute top-0 left-900 min-w-400 "} />
-        <VoicdServiceComp setResult={setResult} options={options} type={type} />
-      </VideoStateContext.Provider>
-    </VoiceServiceStateContext.Provider>
+        <VideoComp isVideoPlaying={isVideoPlaying} setIsVideoPlaying={setIsVideoPlaying} src={src} classes={"absolute top-0 left-900 min-w-400 "} />
+        <VoicdServiceComp isVideoPlaying={isVideoPlaying} setResult={setResult} options={options} type={type} />
+      </VoiceServiceStateContext.Provider>
+    </VideoStateContext.Provider>
   ) : null;
 }
 

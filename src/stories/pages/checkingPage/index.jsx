@@ -24,8 +24,7 @@ const CheckingPage = () => {
           accountPwd: event.data.pwd,
           period: 1200,
         });
-        window.parent.location.href = "/main";
-        window.close();
+        setOpen(true);
       }
     };
 

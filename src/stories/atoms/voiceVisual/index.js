@@ -77,6 +77,7 @@ const VoiceWave = ({show}) => {
       setIsRunning(false);
     }
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
   };
@@ -91,6 +92,7 @@ const VoiceWave = ({show}) => {
     analyser.getByteFrequencyData(freqs);
 
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
     canvas.width = WIDTH;
