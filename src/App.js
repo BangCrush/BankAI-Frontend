@@ -125,7 +125,7 @@ function MainApp() {
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
 
-        {isIncludeAIServicePage ? (
+      {isIncludeAIServicePage && autoPlay ? (
           <>
             <VideoComp
               isVideoPlaying={isVideoPlaying}
@@ -140,6 +140,7 @@ function MainApp() {
               setResult={setResult}
               options={options}
               type={type}
+              autoPlay={autoPlay}
             />
           </>
         ) : (
