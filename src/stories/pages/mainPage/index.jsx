@@ -1,11 +1,13 @@
 import { VideoStateContext, VoiceServiceStateContext } from "App";
+import { todayTransfer } from "api/userApi";
+import axios from "axios";
 import {
   useGetAllAccount,
   useGetSumAccount,
 } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
@@ -15,8 +17,9 @@ const MainPage = () => {
   const { data: sumAccount } = useGetSumAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
+  const navigate = useNavigate();
 
-  const { result, options, setOptions, setType } = useContext(
+  const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
   const setSrc = useContext(VideoStateContext);
@@ -27,6 +30,7 @@ const MainPage = () => {
     { name: "전체 계좌 페이지", data: "/account" },
     { name: "거래내역 조회 페이지", data: "/accountHistory" },
     { name: "계좌이체 페이지", data: "/transferAccount" },
+    { name: "오늘 송금 금액", data: "todayTransfer"}
   ];
 
   useEffect(() => {
@@ -50,8 +54,17 @@ const MainPage = () => {
   useEffect(() => {
     if (result) {
       const findData = mainAIList.find((data) => result === data.name);
-      if (findData) {
-        window.location.href = findData.data;
+      if (findData && findData.data === "todayTransfer") {
+        todayTransfer().then((res) => {
+        });
+      }
+      else if (findData && sortedAccounts.length > 0) {
+        if (findData.data === "/accountHistory") {
+          navigate(findData.data,{state:{accCode:sortedAccounts[0].accCode,prodName:sortedAccounts[0].prodName}});
+        }
+        else {
+          navigate(findData.data);
+        }
       }
     }
   }, [result]);

@@ -14,7 +14,13 @@ const USER_API = {
   JOB_INFO: () => "/users/job-info",
   TEMP_PWD: () => "/login/temp-pwd",
   FIND_ID: () => "/login/find-id",
+  TODAY_TRANSFER: () => "/users/check-daily-amount",
 };
+
+export const todayTransfer = async () => {
+  const res = await $axios.get(USER_API.TODAY_TRANSFER());
+  return res.data;
+}
 
 export const postFindId = async (params) => {
   const res = await $axios.post(USER_API.FIND_ID(), params);
@@ -70,7 +76,6 @@ export const onSilentRefresh = async () => {
   const refreshToken = Cookies.get("refreshToken");
   const accessToken = Cookies.get("accessToken");
   const accessTokenExpiration = Cookies.get("accessTokenExpiration");
-
   const now = Date.now();
 
   if (accessToken && refreshToken && accessTokenExpiration) {
