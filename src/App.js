@@ -88,8 +88,18 @@ function MainApp() {
           </Route>
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
-        <VideoComp isVideoPlaying={isVideoPlaying} setIsVideoPlaying={setIsVideoPlaying} src={src} classes={"absolute top-0 left-900 min-w-400 "} />
-        <VoicdServiceComp isVideoPlaying={isVideoPlaying} setResult={setResult} options={options} type={type} />
+        <VideoComp
+          isVideoPlaying={isVideoPlaying}
+          setIsVideoPlaying={setIsVideoPlaying}
+          src={src}
+          classes={"absolute top-0 left-900 min-w-400 "}
+        />
+        <VoicdServiceComp
+          isVideoPlaying={isVideoPlaying}
+          setResult={setResult}
+          options={options}
+          type={type}
+        />
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;
