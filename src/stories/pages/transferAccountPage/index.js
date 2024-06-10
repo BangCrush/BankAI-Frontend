@@ -1,6 +1,6 @@
 import { useGetAllAccount, useGetTransferAccount } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
 import HeaderBar from "stories/molecules/headerBar";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -13,19 +13,34 @@ const TransferAccountPage = () => {
   const mainAcc = myInfo?.userMainAcc;
   const { data: allAccount } = useGetAllAccount();
   const [transferAccount, setTransferAccount] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (allAccount) {
+      const accounts = allAccount.filter((data) => data.prodType === 'CHECKING').sort((a, _) => a.accCode === mainAcc ? -1 : 1);
       setTransferAccount(
-        allAccount.filter((data) => data.prodType === 'CHECKING').sort((a, _) => a.accCode === mainAcc ? -1 : 1)
+        accounts
       );
+      const options = accounts.map((data) => {return {name:data.prodName}});
+      setOptions(options);
+      setType("text");
     }
   },[allAccount]);
 
   useEffect(() => {
     setSrc("/assets/selectAccount.mov");
-    setType("text");
   }, []);
+
+  useEffect(() => {
+    if (result) {
+      allAccount.map((data) => {
+        if (data.prodName === result) {
+          navigate("/transfer?accCode=" + data.accCode + "&prodName=" + data.prodName);
+        }
+      });
+    }
+  }, [result]);
+
 
 
   if (isLoading) {
