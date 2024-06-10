@@ -1,4 +1,4 @@
-import { useGetAllAccount } from "hooks/queries/accountQueries";
+import { useGetAllAccount, useGetTransferAccount } from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
 import { Link } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
@@ -7,30 +7,25 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const TransferAccountPage = () => {
-  const { data: allAccount } = useGetAllAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const setSrc = useContext(VideoStateContext);
   const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const mainAcc = myInfo?.userMainAcc;
+  const { data: allAccount } = useGetAllAccount();
+  const [transferAccount, setTransferAccount] = useState([]);
 
+  useEffect(() => {
+    if (allAccount) {
+      setTransferAccount(
+        allAccount.filter((data) => data.prodType === 'CHECKING').sort((a, _) => a.accCode === mainAcc ? -1 : 1)
+      );
+    }
+  },[allAccount]);
   useEffect(() => {
     setSrc("/assets/selectAccount.mov");
     setType("text");
   }, []);
 
-  let transferAccountsList = [];
-  useEffect(() => {
-    if (result) {
-      transferAccountsList.forEach((data) => {
-        if (result === data.name) {
-          window.location.href = `/transfer?accCode=${data.data}&prodName=${data.name}`;
-        }
-      });
-    }
-  }, [result, transferAccountsList]);
-
-  useMemo(() => {
-    setOptions(transferAccountsList);
-  }, [transferAccountsList]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -39,25 +34,9 @@ const TransferAccountPage = () => {
   if (error) {
     return <div>Error loading data</div>;
   }
-  const mainAcc = myInfo.userMainAcc;
-  let transferAccounts = [];
-  const sortedAccounts = allAccount
-    ? [...allAccount].sort((a, b) => {
-        if (a.accCode === mainAcc) return -1;
-        if (b.accCode === mainAcc) return 1;
-        return 0;
-      })
-    : [];
-  if (sortedAccounts.length !== 0) {
-    transferAccounts = sortedAccounts.filter((val) => {
-      return val.prodType === "CHECKING" || val.prodType === "LOAN";
-    });
-  }
 
-  transferAccounts.map((data) => {
-    transferAccountsList.push({ name: data.prodName, data: data.accCode });
-  });
 
+  
   return (
     <div className="pt-22 w-640">
       <div className="px-50">
@@ -71,8 +50,8 @@ const TransferAccountPage = () => {
             내 계좌
           </div>
         </div>
-        {transferAccounts &&
-          transferAccounts.map((data, index) => (
+        {transferAccount &&
+          transferAccount.map((data, index) => (
             <Link
               key={index}
               className="cursor-pointer"
