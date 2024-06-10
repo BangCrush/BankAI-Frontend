@@ -32,21 +32,19 @@ function VideoComp({
     }
   };
 
-
   useEffect(() => {
-    if (autoPlay) {
+    if (autoPlay && isVideoPlaying === 3) {
       ref.current.currentTime = 0;
-      ref.current.play();
+      addTimeUpdate();
     } else {
       ref.current.pause();
+      setIsVideoPlaying(3);
     }
   }, [autoPlay]);
 
   useEffect(() => {
     if (src) {
-      setTimeout(() => {
       addTimeUpdate();
-      }, 1000);
     }
   }, [src]);
 
