@@ -76,7 +76,7 @@ const AccHistoryPage = () => {
           ></BlueHeaderBar>
           <div className="w-full pt-6 pb-19 px-227 bg-sub-color text-center">
             <p className="text-14 mb-14 underline text-gray-semi">{accCode}</p>
-            <p className="text-26 font-extrabold mb-14">
+            <p className="text-26 font-extrabold mb-14 text-nowrap">
               {parseInt(accountBalance, 10).toLocaleString()}원
             </p>
             <MediumButton text={"이체하기"} onClick={handleTransfer} />
