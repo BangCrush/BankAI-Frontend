@@ -32,6 +32,7 @@ const Page2 = ({
     // 초기 로드시 amount를 빈 상태로 유지
     setAmount("");
     setSrc("/assets/inputTransferAmount.mov");
+    setType("number");
   }, []);
 
   useEffect(() => {
@@ -47,7 +48,6 @@ const Page2 = ({
         setIsValid(true);
         handleTransfer();
       } else {
-        alert("마이크를 눌러 다시 말씀해주세요");
         setProgress(0);
         setSrc("/assets/inputTransferAmount.mov");
         setType("number");

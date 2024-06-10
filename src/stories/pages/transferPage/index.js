@@ -8,7 +8,9 @@ import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const TransferPage = () => {
   const [page, setPage] = useState(1);
-  const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const { result, setResult, setOptions, setType } = useContext(
+    VoiceServiceStateContext,
+  );
   const setSrc = useContext(VideoStateContext);
 
   const transferAIList = [
@@ -22,6 +24,7 @@ const TransferPage = () => {
     setOptions(transferAIList);
     setType("number");
     setSrc("/assets/inputInAccNum.mov");
+    setResult(null);
   }, []);
 
   const moveNextPage = () => {

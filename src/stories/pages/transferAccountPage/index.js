@@ -1,4 +1,7 @@
-import { useGetAllAccount, useGetTransferAccount } from "hooks/queries/accountQueries";
+import {
+  useGetAllAccount,
+  useGetTransferAccount,
+} from "hooks/queries/accountQueries";
 import { useGetMyInfo } from "hooks/queries/userQueries";
 import { Link, useNavigate } from "react-router-dom";
 import AccountItem from "stories/molecules/accountItem";
@@ -9,7 +12,9 @@ import { VideoStateContext, VoiceServiceStateContext } from "App";
 const TransferAccountPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const setSrc = useContext(VideoStateContext);
-  const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const { result, setResult, setOptions, setType } = useContext(
+    VoiceServiceStateContext,
+  );
   const mainAcc = myInfo?.userMainAcc;
   const { data: allAccount } = useGetAllAccount();
   const [transferAccount, setTransferAccount] = useState([]);
@@ -17,31 +22,34 @@ const TransferAccountPage = () => {
 
   useEffect(() => {
     if (allAccount) {
-      const accounts = allAccount.filter((data) => data.prodType === 'CHECKING').sort((a, _) => a.accCode === mainAcc ? -1 : 1);
-      setTransferAccount(
-        accounts
-      );
-      const options = accounts.map((data) => {return {name:data.prodName}});
+      const accounts = allAccount
+        .filter((data) => data.prodType === "CHECKING")
+        .sort((a, _) => (a.accCode === mainAcc ? -1 : 1));
+      setTransferAccount(accounts);
+      const options = accounts.map((data) => {
+        return { name: data.prodName };
+      });
       setOptions(options);
       setType("text");
     }
-  },[allAccount]);
+  }, [allAccount]);
 
   useEffect(() => {
     setSrc("/assets/selectAccount.mov");
+    setResult(null);
   }, []);
 
   useEffect(() => {
     if (result) {
       allAccount.map((data) => {
         if (data.prodName === result) {
-          navigate("/transfer?accCode=" + data.accCode + "&prodName=" + data.prodName);
+          navigate(
+            "/transfer?accCode=" + data.accCode + "&prodName=" + data.prodName,
+          );
         }
       });
     }
   }, [result]);
-
-
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -51,8 +59,6 @@ const TransferAccountPage = () => {
     return <div>Error loading data</div>;
   }
 
-
-  
   return (
     <div className="pt-22 w-640">
       <div className="px-50">
@@ -71,8 +77,12 @@ const TransferAccountPage = () => {
             <Link
               key={index}
               className="cursor-pointer"
-              to={"/transfer?accCode=" + data.accCode + "&prodName=" + data.prodName}
-
+              to={
+                "/transfer?accCode=" +
+                data.accCode +
+                "&prodName=" +
+                data.prodName
+              }
               state={{ accCode: data.accCode, prodName: data.prodName }}
             >
               <AccountItem

@@ -10,27 +10,29 @@ const PwdPage = () => {
   const [isMatched, setIsMatched] = useState(null);
   const [step, setStep] = useState(1);
   const setSrc = useContext(VideoStateContext);
-  const {result, setType} = useContext(VoiceServiceStateContext);
+  const { result, setResult, setType } = useContext(VoiceServiceStateContext);
 
   useEffect(() => {
     setType("number");
+    setResult(null);
   }, []);
 
   useEffect(() => {
     console.log(result);
-    if(result){
-    if (step===1){
-      setPwd(result.result);
+    if (result) {
+      if (step === 1) {
+        setPwd(result.result);
+      }
+      if (step === 2) {
+        setFinalPwd(result.result);
+      }
     }
-    if (step===2){
-      setFinalPwd(result.result);
-    }}
   }, [result]);
 
   useEffect(() => {
     if (step === 1) {
-      if(type === "single")setSrc("/assets/accountPassword.mov");
-      if(type === "double")setSrc("/assets/accountPasswordSet.mov");
+      if (type === "single") setSrc("/assets/accountPassword.mov");
+      if (type === "double") setSrc("/assets/accountPasswordSet.mov");
       if (pwd.length === 4) {
         if (type === "single") {
           window.opener.postMessage({ pwd }, "*");
