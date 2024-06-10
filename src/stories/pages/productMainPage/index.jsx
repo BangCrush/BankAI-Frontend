@@ -13,7 +13,9 @@ const ProductMainPage = () => {
   const navigate = useNavigate();
 
   const setSrc = useContext(VideoStateContext);
-  const {result,setResult,setOptions,setType} = useContext(VoiceServiceStateContext);
+  const { result, setResult, setOptions, setType } = useContext(
+    VoiceServiceStateContext,
+  );
   const productAIList = [
     { name: "입출금 상품", data: 1 },
     { name: "예금 상품", data: 2 },
@@ -22,10 +24,11 @@ const ProductMainPage = () => {
   ];
 
   useEffect(() => {
-    setSrc("/assets/searchProductType.mov")
-    setOptions(productAIList)
-    setType("text")
-  }, [])
+    setSrc("/assets/searchProductType.mov");
+    setOptions(productAIList);
+    setType("text");
+    setResult(null);
+  }, []);
 
   useEffect(() => {
     if (result) {

@@ -23,7 +23,6 @@ export const AIServicePageList = [
   "/transfer",
   "/deposit",
   "/productMain",
-   "/pwdPage"
 ];
 
 function MainApp() {
@@ -86,7 +85,7 @@ function MainApp() {
   return isDataLoaded ? (
     <VideoStateContext.Provider value={setSrc}>
       <VoiceServiceStateContext.Provider
-        value={{ result,setResult, setOptions, setType }}
+        value={{ result, setResult, setOptions, setType }}
       >
         <Routes>
           <Route path="/" element={<MainLayout />}>

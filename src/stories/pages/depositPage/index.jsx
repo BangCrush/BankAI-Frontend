@@ -11,7 +11,9 @@ const DepositPage = () => {
   const location = useLocation();
   const { prodCode, prodMin } = location.state || {};
 
-  const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
+  const { result, setResult, setOptions, setType } = useContext(
+    VoiceServiceStateContext,
+  );
   const setSrc = useContext(VideoStateContext);
   const transferAIList = [
     { name: "메인 페이지", data: "/main" },
@@ -24,8 +26,8 @@ const DepositPage = () => {
     setOptions(transferAIList);
     setType("number");
     setSrc("/assets/inputDepositAmount.mov");
+    setResult(null);
   }, []);
-
 
   const [depositForm, setDepositForm] = useImmer(productSubscription);
 

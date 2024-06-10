@@ -38,6 +38,7 @@ const MainPage = () => {
     setSrc("/assets/introduce.mov");
     setOptions(mainAIList);
     setType("text");
+    setResult(null);
   }, []);
 
   useEffect(() => {

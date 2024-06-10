@@ -27,12 +27,10 @@ const Page1 = ({
         setInAcc(result.result);
         setProgress(1);
       }
-    }
-    if (progress === 1) {
+    } else if (progress === 1) {
       if (result === "맞아") {
-        moveNextPage();
+        handleSearchAcc();
       } else {
-        alert("마이크를 눌러 다시 말씀해주세요");
         setProgress(0);
         setSrc("/assets/inputInAccNum.mov");
         setType("number");
@@ -43,7 +41,6 @@ const Page1 = ({
   useEffect(() => {
     if (progress === 1) {
       setOptions([{ name: "맞아" }, { name: "다시 입력할래" }]);
-      handleSearchAcc();
       setType("text");
       setSrc("/assets/checkAccNum.mov");
     }
