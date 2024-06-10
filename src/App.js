@@ -10,7 +10,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import React, { useEffect, useState } from "react";
 import { onSilentRefresh } from "api/userApi";
 import VideoComp from "stories/organisms/videoComp";
-import VoicdServiceComp from "stories/organisms/voiceServiceComp";
+import VoiceServiceComp from "stories/organisms/voiceServiceComp";
+import { AutoPlayToggle } from "stories/organisms/autoPlayToggle";
 
 export const VoiceServiceStateContext = React.createContext();
 export const VideoStateContext = React.createContext();
@@ -23,6 +24,31 @@ function MainApp() {
   const [result, setResult] = useState(null);
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
+
+  // const [autoPlay, setAutoPlay] = useState(false); // autoPlayStatus
+  const [alignment, setAlignment] = useState(
+    localStorage.getItem("autoPlay") === true,
+  ); // autoPlayToggleStatus
+  console.log(alignment);
+
+  // autoPlayToggleHandler
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+    // setAutoPlay(alignment === "on");
+    localStorage.setItem("autoPlay", newAlignment);
+  };
+
+  useEffect(() => {
+    // const savedAlignment = ;
+    // if (savedAlignment) {
+    //   setAlignment(savedAlignment);
+    //   return;
+    // }
+    // setAlignment(false);
+    // localStorage.setItem("autoPlay", false);
+    // setAutoPlay(savedAlignment === "on");
+  }, []);
+
   const [isVideoPlaying, setIsVideoPlaying] = useState(0);
 
   useEffect(() => {
@@ -88,8 +114,24 @@ function MainApp() {
           </Route>
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
-        <VideoComp isVideoPlaying={isVideoPlaying} setIsVideoPlaying={setIsVideoPlaying} src={src} classes={"absolute top-0 left-900 min-w-400 "} />
-        <VoicdServiceComp isVideoPlaying={isVideoPlaying} setResult={setResult} options={options} type={type} />
+        <VideoComp
+          isVideoPlaying={isVideoPlaying}
+          setIsVideoPlaying={setIsVideoPlaying}
+          src={src}
+          classes={"absolute top-0 left-900 min-w-400 "}
+          // autoPlay={autoPlay}
+          alignment={alignment}
+        />
+        <AutoPlayToggle
+          alignment={alignment}
+          handleAlignment={handleAlignment}
+        />
+        <VoiceServiceComp
+          isVideoPlaying={isVideoPlaying}
+          setResult={setResult}
+          options={options}
+          type={type}
+        />
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;
