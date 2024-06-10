@@ -43,6 +43,7 @@ function MainApp() {
   // autoPlayToggleHandler
   const handleAutoPlay = (event, newAutoPlay) => {
     setAutoPlay(newAutoPlay);
+    setIsVideoPlaying(0);
     localStorage.setItem("autoPlay", newAutoPlay);
   };
 
