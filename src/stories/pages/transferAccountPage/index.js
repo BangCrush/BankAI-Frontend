@@ -10,8 +10,7 @@ const TransferAccountPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const setSrc = useContext(VideoStateContext);
-  const {result,setOptions,setType} = useContext(VoiceServiceStateContext);
-  
+  const { result, setOptions, setType } = useContext(VoiceServiceStateContext);
 
   useEffect(() => {
     setSrc("/assets/selectAccount.mov");
@@ -49,13 +48,14 @@ const TransferAccountPage = () => {
         return 0;
       })
     : [];
-  if(sortedAccounts.length !== 0){
-    transferAccounts = sortedAccounts.filter((val)=>{return val.prodType === 'CHECKING' || val.prodType === 'LOAN'})
+  if (sortedAccounts.length !== 0) {
+    transferAccounts = sortedAccounts.filter((val) => {
+      return val.prodType === "CHECKING" || val.prodType === "LOAN";
+    });
   }
 
-  
   transferAccounts.map((data) => {
-    transferAccountsList.push({name: data.prodName, data: data.accCode});
+    transferAccountsList.push({ name: data.prodName, data: data.accCode });
   });
 
   return (

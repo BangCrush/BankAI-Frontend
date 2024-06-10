@@ -1,7 +1,13 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import Input from "stories/atoms/input";
 
-function VideoComp({ src, classes, isVideoPlaying, setIsVideoPlaying }) {
+function VideoComp({
+  isVideoPlaying,
+  setIsVideoPlaying,
+  src,
+  classes,
+  alignment,
+}) {
   const [currentTime, setCurrentTime] = useState(0);
   const [showControl, setShowControl] = useState(false);
   const ref = useRef(null);
@@ -10,6 +16,39 @@ function VideoComp({ src, classes, isVideoPlaying, setIsVideoPlaying }) {
   const videoElement = ref && ref.current;
 
   const startTime = Math.floor(currentTime);
+
+  // 동영상 시간 업데이트 함수
+  const addTimeUpdate = () => {
+    const observedVideoElement = ref && ref.current;
+    if (observedVideoElement) {
+      observedVideoElement.addEventListener("timeupdate", function () {
+        setCurrentTime(observedVideoElement.currentTime);
+      });
+
+      if (alignment === true) {
+        console.log(alignment);
+        setIsVideoPlaying(1);
+        observedVideoElement.play();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (src && alignment === true) {
+      addTimeUpdate();
+    }
+  }, [src]);
+
+  useEffect(() => {
+    console.log(alignment === true);
+    if (alignment) {
+      // addTimeUpdate();
+      ref.current.currentTime = 0;
+      ref.current.play();
+    } else {
+      ref.current.pause();
+    }
+  }, [alignment]);
 
   // 동영상 시간 업데이트 함수
   const addTimeUpdate = () => {
@@ -91,4 +130,4 @@ function VideoComp({ src, classes, isVideoPlaying, setIsVideoPlaying }) {
   );
 }
 
-export default VideoComp;
+export default React.memo(VideoComp);
