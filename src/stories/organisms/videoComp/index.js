@@ -6,7 +6,7 @@ function VideoComp({
   setIsVideoPlaying,
   src,
   classes,
-  alignment,
+  autoPlay,
 }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [showControl, setShowControl] = useState(false);
@@ -25,8 +25,8 @@ function VideoComp({
         setCurrentTime(observedVideoElement.currentTime);
       });
 
-      if (alignment === true) {
-        console.log(alignment);
+      if (autoPlay === true) {
+        console.log(autoPlay);
         setIsVideoPlaying(1);
         observedVideoElement.play();
       }
@@ -34,21 +34,21 @@ function VideoComp({
   };
 
   useEffect(() => {
-    if (src && alignment === true) {
+    if (src && autoPlay === true) {
       addTimeUpdate();
     }
   }, [src]);
 
   useEffect(() => {
-    console.log(alignment === true);
-    if (alignment) {
+    console.log(autoPlay === true);
+    if (autoPlay) {
       // addTimeUpdate();
       ref.current.currentTime = 0;
       ref.current.play();
     } else {
       ref.current.pause();
     }
-  }, [alignment]);
+  }, [autoPlay]);
 
   // 동영상 시간 업데이트 함수
   const addTimeUpdate = () => {
