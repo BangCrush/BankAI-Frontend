@@ -1,4 +1,7 @@
+import { VideoStateContext, VoiceServiceStateContext } from "App";
 import { useGetTop3Products } from "hooks/queries/productQueries";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import HeaderBar from "stories/molecules/headerBar";
 import SearchBar from "stories/molecules/searchBar";
 import PopularProd from "stories/organisms/popularProd";
@@ -6,6 +9,33 @@ import ProdContainer from "stories/organisms/prodContainer";
 
 const ProductMainPage = () => {
   const { data: top3, isLoading } = useGetTop3Products();
+
+  const navigate = useNavigate();
+
+  const setSrc = useContext(VideoStateContext);
+  const {result,setResult,setOptions,setType} = useContext(VoiceServiceStateContext);
+  const productAIList = [
+    { name: "입출금 상품", data: 1 },
+    { name: "예금 상품", data: 2 },
+    { name: "적금 상품", data: 3 },
+    { name: "대출 상품", data: 4 },
+  ];
+
+  useEffect(() => {
+    setSrc("/assets/searchProductType.mov")
+    setOptions(productAIList)
+    setType("text")
+  }, [])
+
+  useEffect(() => {
+    if (result) {
+      const findData = productAIList.find((data) => result === data.name);
+      if (findData) {
+        setResult(null);
+        navigate("/product", { state: { index: findData.data } });
+      }
+    }
+  }, [result]);
 
   if (isLoading) {
     return <div>Loading...</div>;
