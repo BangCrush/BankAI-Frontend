@@ -27,6 +27,7 @@ const Page2 = ({
   const [isValid, setIsValid] = useState(false);
   const { data: accountBalance } = useGetBalanceAccount(accFormatter(myAcc));
   const [progress, setProgress] = useState(0);
+  const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     // 초기 로드시 amount를 빈 상태로 유지
@@ -44,19 +45,22 @@ const Page2 = ({
       }
     }
     if (progress === 1) {
-      if (result === "맞아") {
-        setIsValid(true);
-        handleTransfer();
-      } else {
+      if (result === "다시 입력할래") {
+        setOpen(false);
         setProgress(0);
         setSrc("/assets/inputTransferAmount.mov");
         setType("number");
+      }
+      else if (result === "맞아") {
+        setConfirm(true);
       }
     }
   }, [result]);
 
   useEffect(() => {
     if (progress === 1) {
+      setIsValid(true);
+      setOpen(true);
       setOptions([{ name: "맞아" }, { name: "다시 입력할래" }]);
       setType("text");
       setSrc("/assets/checkAmount.mov");
@@ -155,7 +159,7 @@ const Page2 = ({
                   }}
                   amount={amount}
                   moveNextPage={moveNextPage}
-                  isValid={isValid}
+                  confirm={confirm}
                 ></TransferCheckPage>
               )
             }
