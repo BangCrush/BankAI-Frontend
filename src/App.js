@@ -22,7 +22,8 @@ export const AIServicePageList = [
   "/password",
   "/transfer",
   "/deposit",
-  "/productMain"
+  "/productMain",
+   "/pwdPage"
 ];
 
 function MainApp() {
@@ -143,7 +144,7 @@ function MainApp() {
           </>
         ) : (
           <div className="absolute top-0 left-900 min-w-400">
-            <img src="/assets/sleeping.png" width="270px" className="mt-90" />
+            <img src="/assets/off.png" width="270px" className="mt-90" />
           </div>
         )}
 
