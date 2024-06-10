@@ -26,21 +26,15 @@ function VideoComp({
       });
 
       if (autoPlay === true) {
-        setIsVideoPlaying(1);
-        observedVideoElement.play();
+          setIsVideoPlaying(1);
+          observedVideoElement.play();
       }
     }
   };
 
-  useEffect(() => {
-    if (src && autoPlay === true) {
-      addTimeUpdate();
-    }
-  }, [src]);
 
   useEffect(() => {
     if (autoPlay) {
-      // addTimeUpdate();
       ref.current.currentTime = 0;
       ref.current.play();
     } else {
@@ -50,7 +44,9 @@ function VideoComp({
 
   useEffect(() => {
     if (src) {
+      setTimeout(() => {
       addTimeUpdate();
+      }, 1000);
     }
   }, [src]);
 
