@@ -26,7 +26,6 @@ function VideoComp({
       });
 
       if (autoPlay === true) {
-        console.log(autoPlay);
         setIsVideoPlaying(1);
         observedVideoElement.play();
       }
@@ -40,7 +39,6 @@ function VideoComp({
   }, [src]);
 
   useEffect(() => {
-    console.log(autoPlay === true);
     if (autoPlay) {
       // addTimeUpdate();
       ref.current.currentTime = 0;
