@@ -22,6 +22,7 @@ export const AIServicePageList = [
   "/password",
   "/transfer",
   "/deposit",
+  "/productMain"
 ];
 
 function MainApp() {
@@ -84,7 +85,7 @@ function MainApp() {
   return isDataLoaded ? (
     <VideoStateContext.Provider value={setSrc}>
       <VoiceServiceStateContext.Provider
-        value={{ result, setOptions, setType }}
+        value={{ result,setResult, setOptions, setType }}
       >
         <Routes>
           <Route path="/" element={<MainLayout />}>
@@ -142,7 +143,7 @@ function MainApp() {
           </>
         ) : (
           <div className="absolute top-0 left-900 min-w-400">
-            <img src="/assets/sleep.jpeg" width="270px" className="mt-90" />
+            <img src="/assets/sleeping.png" width="270px" className="mt-90" />
           </div>
         )}
 
