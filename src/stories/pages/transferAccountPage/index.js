@@ -21,6 +21,7 @@ const TransferAccountPage = () => {
       );
     }
   },[allAccount]);
+
   useEffect(() => {
     setSrc("/assets/selectAccount.mov");
     setType("text");
@@ -55,7 +56,8 @@ const TransferAccountPage = () => {
             <Link
               key={index}
               className="cursor-pointer"
-              to={"/accountHistory"}
+              to={"/transfer?accCode=" + data.accCode + "&prodName=" + data.prodName}
+
               state={{ accCode: data.accCode, prodName: data.prodName }}
             >
               <AccountItem
