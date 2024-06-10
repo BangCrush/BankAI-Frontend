@@ -25,29 +25,16 @@ function MainApp() {
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
 
-  // const [autoPlay, setAutoPlay] = useState(false); // autoPlayStatus
-  const [alignment, setAlignment] = useState(
-    localStorage.getItem("autoPlay") === true,
-  ); // autoPlayToggleStatus
-  console.log(alignment);
+  const [autoPlay, setAutoPlay] = useState(() => {
+    const savedAutoPlay = localStorage.getItem("autoPlay");
+    return savedAutoPlay === "true";
+  }); // autoPlayStatus
 
   // autoPlayToggleHandler
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    // setAutoPlay(alignment === "on");
-    localStorage.setItem("autoPlay", newAlignment);
+  const handleAutoPlay = (event, newAutoPlay) => {
+    setAutoPlay(newAutoPlay);
+    localStorage.setItem("autoPlay", newAutoPlay);
   };
-
-  useEffect(() => {
-    // const savedAlignment = ;
-    // if (savedAlignment) {
-    //   setAlignment(savedAlignment);
-    //   return;
-    // }
-    // setAlignment(false);
-    // localStorage.setItem("autoPlay", false);
-    // setAutoPlay(savedAlignment === "on");
-  }, []);
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(0);
 
@@ -119,14 +106,10 @@ function MainApp() {
           setIsVideoPlaying={setIsVideoPlaying}
           src={src}
           classes={"absolute top-0 left-900 min-w-400 "}
-          // autoPlay={autoPlay}
-          alignment={alignment}
+          autoPlay={autoPlay}
         />
-        <AutoPlayToggle
-          alignment={alignment}
-          handleAlignment={handleAlignment}
-        />
-        <VoicdServiceComp
+        <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
+        <VoiceServiceComp
           isVideoPlaying={isVideoPlaying}
           setResult={setResult}
           options={options}
