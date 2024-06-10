@@ -8,15 +8,17 @@ import BottomSheet from "stories/organisms/bottomSheet";
 import AlertModal from "stories/molecules/alertModal";
 import BottomSuccessPage from "../BottomSuccessPage";
 
-function TransferCheckPage({ name, accNum, amount, isValid }) {
+function TransferCheckPage({ name, accNum, amount, confirm }) {
   const accCode = new URL(window.location.href).searchParams.get("accCode");
   const [open, setOpen] = useState(false);
   const [err, setErr] = useState(false);
   const [text, setText] = useState("");
 
   useEffect(() => {
-    checkPwd();
-  }, [isValid]);
+    if (confirm) {
+      checkPwd();
+    }
+  }, [confirm]);
 
   const tryTransfer = useCallback(() => {
     transfer({
