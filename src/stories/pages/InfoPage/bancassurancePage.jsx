@@ -10,6 +10,7 @@ const BancassurancePage = () => {
     setTimeout(() => {
       setIsAnimated(true);
     }, 100);
+    document.scrollingElement.scrollTop = 0;
   }, []);
 
   return (
