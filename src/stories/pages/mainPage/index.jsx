@@ -18,6 +18,7 @@ const MainPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
   const navigate = useNavigate();
+  const [text, setText] = useState(""); // 음성으로 바뀔 text
 
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
@@ -30,14 +31,14 @@ const MainPage = () => {
     { name: "전체 계좌 페이지", data: "/account" },
     { name: "거래내역 조회 페이지", data: "/accountHistory" },
     { name: "계좌이체 페이지", data: "/transferAccount" },
-    { name: "오늘 송금 금액", data: "todayTransfer"}
+    { name: "오늘 송금 금액", data: "todayTransfer" },
   ];
 
   useEffect(() => {
-    setSrc("/assets/introduce.mov")
-    setOptions(mainAIList)
-    setType("text")
-  }, [])
+    setSrc("/assets/introduce.mov");
+    setOptions(mainAIList);
+    setType("text");
+  }, []);
 
   useEffect(() => {
     if (myInfo && allAccount) {
@@ -54,20 +55,31 @@ const MainPage = () => {
   useEffect(() => {
     if (result) {
       const findData = mainAIList.find((data) => result === data.name);
+
+      // 오늘 송금 금액 조회
       if (findData && findData.data === "todayTransfer") {
         todayTransfer().then((res) => {
+          setText("오늘 송금하신 금액은 " + res.data + "원 입니다.");
         });
-      }
-      else if (findData && sortedAccounts.length > 0) {
+      } else if (findData && sortedAccounts.length > 0) {
         if (findData.data === "/accountHistory") {
-          navigate(findData.data,{state:{accCode:sortedAccounts[0].accCode,prodName:sortedAccounts[0].prodName}});
-        }
-        else {
+          navigate(findData.data, {
+            state: {
+              accCode: sortedAccounts[0].accCode,
+              prodName: sortedAccounts[0].prodName,
+            },
+          });
+        } else {
           navigate(findData.data);
         }
       }
     }
   }, [result]);
+
+  useEffect(() => {
+    if (!text) return;
+    convertTextToSpeech();
+  }, [text]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -76,6 +88,26 @@ const MainPage = () => {
   if (error) {
     return <div>Error loading data</div>;
   }
+
+  // TTS 함수
+  const convertTextToSpeech = async () => {
+    try {
+      const response = await axios.post(
+        "/api/tts",
+        { text },
+        {
+          responseType: "blob",
+        },
+      );
+
+      const blob = response.data;
+      const audioUrl = URL.createObjectURL(blob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (error) {
+      console.error("TTS 요청 실패", error);
+    }
+  };
 
   return (
     <div className="pb-20">
