@@ -16,6 +16,14 @@ import { AutoPlayToggle } from "stories/organisms/autoPlayToggle";
 export const VoiceServiceStateContext = React.createContext();
 export const VideoStateContext = React.createContext();
 
+export const AIServicePageList = [
+  "/main",
+  "/transferAccount",
+  "/password",
+  "/transfer",
+  "/deposit",
+];
+
 function MainApp() {
   const location = useLocation();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -25,10 +33,11 @@ function MainApp() {
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
 
+  // autoPlayToggleStatus
   const [autoPlay, setAutoPlay] = useState(() => {
     const savedAutoPlay = localStorage.getItem("autoPlay");
     return savedAutoPlay === "true";
-  }); // autoPlayStatus
+  });
 
   // autoPlayToggleHandler
   const handleAutoPlay = (event, newAutoPlay) => {
@@ -37,6 +46,10 @@ function MainApp() {
   };
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(0);
+
+  const [isIncludeAIServicePage, setIsIncludeAIServicePage] = useState(() => {
+    return AIServicePageList.includes(location.pathname);
+  });
 
   useEffect(() => {
     const excludedPaths = [
@@ -58,6 +71,14 @@ function MainApp() {
     } else {
       setIsDataLoaded(true);
     }
+
+    // 현재 페이지의 AI 음성 서비스 포함 여부 갱신
+    setIsIncludeAIServicePage(() =>
+      AIServicePageList.includes(location.pathname),
+    );
+
+    // 현재 페이지가 AI 음성 서비스를 포함하지 않으면 video의 src을 초기화하여 영상 재생을 중지
+    if (!AIServicePageList.includes(location.pathname)) setSrc("");
   }, [location.pathname]);
 
   return isDataLoaded ? (
@@ -101,20 +122,31 @@ function MainApp() {
           </Route>
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
-        <VideoComp
-          isVideoPlaying={isVideoPlaying}
-          setIsVideoPlaying={setIsVideoPlaying}
-          src={src}
-          classes={"absolute top-0 left-900 min-w-400 "}
-          autoPlay={autoPlay}
-        />
+
+        {isIncludeAIServicePage ? (
+          <>
+            <VideoComp
+              isVideoPlaying={isVideoPlaying}
+              setIsVideoPlaying={setIsVideoPlaying}
+              src={src}
+              classes={"absolute top-0 left-900 min-w-400"}
+              autoPlay={autoPlay}
+            />
+
+            <VoiceServiceComp
+              isVideoPlaying={isVideoPlaying}
+              setResult={setResult}
+              options={options}
+              type={type}
+            />
+          </>
+        ) : (
+          <div className="absolute top-0 left-900 min-w-400">
+            <img src="/assets/sleep.jpeg" width="270px" className="mt-90" />
+          </div>
+        )}
+
         <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
-        <VoiceServiceComp
-          isVideoPlaying={isVideoPlaying}
-          setResult={setResult}
-          options={options}
-          type={type}
-        />
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;
