@@ -126,7 +126,7 @@ function MainApp() {
           alignment={alignment}
           handleAlignment={handleAlignment}
         />
-        <VoiceServiceComp
+        <VoicdServiceComp
           isVideoPlaying={isVideoPlaying}
           setResult={setResult}
           options={options}

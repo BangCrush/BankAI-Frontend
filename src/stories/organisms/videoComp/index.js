@@ -50,6 +50,25 @@ function VideoComp({
     }
   }, [alignment]);
 
+  // 동영상 시간 업데이트 함수
+  const addTimeUpdate = () => {
+    const observedVideoElement = ref && ref.current;
+    if (observedVideoElement) {
+      observedVideoElement.addEventListener("timeupdate", function () {
+        setCurrentTime(observedVideoElement.currentTime);
+      });
+      // 컴포넌트가 처음 마운트 될 때 동영상 시작 할지 말지 여부 (여기서는 시작되게 했음)
+      setIsVideoPlaying(1);
+      observedVideoElement.play();
+    }
+  };
+
+  useEffect(() => {
+    if (src) {
+      addTimeUpdate();
+    }
+  }, [src]);
+
   setInterval(() => {
     const observedVideoElement = ref && ref.current;
     if (observedVideoElement) {
@@ -102,7 +121,8 @@ function VideoComp({
         muted={false}
         ref={ref}
         playsInline={true}
-        width="400px"
+        width="270px"
+        className="mt-90"
         src={src}
         type="video/mp4"
       />

@@ -10,13 +10,13 @@ const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying }) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
-  const [show,setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-  useEffect(()=>{
-    if(isVideoPlaying === 2){
+  useEffect(() => {
+    if (isVideoPlaying === 2) {
       sttFromMic();
     }
-  },[isVideoPlaying])
+  }, [isVideoPlaying]);
 
   async function sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
@@ -74,10 +74,8 @@ const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying }) => {
   }, [displayText]);
 
   return (
-    <button className="absolute left-850 top-500" onClick={sttFromMic}>
-      {isRecording ? (
-      <VoiceWave show={show}/>
-      ) :null}
+    <button className="absolute left-800 top-500" onClick={sttFromMic}>
+      {isRecording ? <VoiceWave show={show} /> : null}
     </button>
   );
 };
