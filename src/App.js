@@ -52,7 +52,7 @@ function MainApp() {
         setRepeat(false);
       };
       if (autoPlay) {
-        audio.play();
+        if(src === "/assets/noVoice.mov")audio.play();
       }
     }
   }, [audio]);
@@ -70,7 +70,7 @@ function MainApp() {
         setRepeat(false);
       }
     } else {
-      if (audio) {
+      if (audio && src === "/assets/noVoice.mov") {
         audio.play();
       }
     }
@@ -202,7 +202,6 @@ function MainApp() {
                   autoPlay={autoPlay}
                   repeat={repeat}
                 />
-
                 <VoiceServiceComp
                   isVideoPlaying={isVideoPlaying}
                   setResult={setResult}
