@@ -12,6 +12,8 @@ import MainCarousel from "stories/molecules/mainCarousel";
 import TotalAcc from "stories/molecules/totalAcc";
 import ProdContainer from "stories/organisms/prodContainer";
 
+const exim_key = process.env.KOREAEXIM;
+
 const MainPage = () => {
   const { data: allAccount } = useGetAllAccount();
   const { data: sumAccount } = useGetSumAccount();
@@ -32,6 +34,7 @@ const MainPage = () => {
     { name: "거래내역 조회 페이지", data: "/accountHistory" },
     { name: "계좌이체 페이지", data: "/transferAccount" },
     { name: "오늘 송금 금액", data: "todayTransfer" },
+    { name : "오늘 환율 정보", data: "todayExchange"}
   ];
 
   useEffect(() => {
@@ -62,7 +65,23 @@ const MainPage = () => {
         todayTransfer().then((res) => {
           setText("오늘 송금하신 금액은 " + res.data + "원 입니다.");
         });
-      } else if (findData && sortedAccounts.length > 0) {
+      }else if (findData && findData.data === "todayExchange") {
+        axios.get(`/api/todayExchange`).then((res) => {
+          const data = res.data;
+          let jpn,usd,eur = 0;
+          for(let i = 0; i < data.length; i++){
+            if(data[i].cur_unit === "USD"){
+              usd = data[i].deal_bas_r;
+            }else if(data[i].cur_unit === "JPY"){
+              jpn = data[i].deal_bas_r;
+            }else if(data[i].cur_unit === "EUR"){
+              eur = data[i].deal_bas_r;
+            }
+          }
+          setText("오늘의 환율 정보는 달러 " + usd + "원, 엔화 " + jpn + "원, 유로 " + eur + "원 입니다.")
+        });
+      }
+       else if (findData && sortedAccounts.length > 0) {
         if (findData.data === "/accountHistory") {
           navigate(findData.data, {
             state: {
