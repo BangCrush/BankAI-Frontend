@@ -12,9 +12,11 @@ import { onSilentRefresh } from "api/userApi";
 import VideoComp from "stories/organisms/videoComp";
 import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 import { AutoPlayToggle } from "stories/organisms/autoPlayToggle";
+import axios from "axios";
 
 export const VoiceServiceStateContext = React.createContext();
 export const VideoStateContext = React.createContext();
+export const AudioStateContext = React.createContext();
 
 export const AIServicePageList = [
   "/main",
@@ -23,22 +25,56 @@ export const AIServicePageList = [
   "/transfer",
   "/deposit",
   "/productMain",
+  "/product"
 ];
 
 function MainApp() {
   const location = useLocation();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [src, setSrc] = useState(null);
-
+  const [text, setText] = useState("");
   const [result, setResult] = useState(null);
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
-
+  const [audio, setAudio] = useState(null);
+  const [repeat, setRepeat] = useState(false);
   // autoPlayToggleStatus
   const [autoPlay, setAutoPlay] = useState(() => {
     const savedAutoPlay = localStorage.getItem("autoPlay");
     return savedAutoPlay === "true";
   });
+
+  useEffect(()=>{
+    if(audio){
+      audio.onended = function() {
+        setRepeat(false)
+      };
+      if(autoPlay){
+      audio.play()
+      }
+    }
+  },[audio])
+
+  useEffect(()=>{
+    if(text==="") return;
+    convertTextToSpeech();
+  },[text])
+
+  
+
+  useEffect(()=>{
+    if(!autoPlay)
+      {
+        if(audio){
+          audio.pause()
+        }
+      }
+      else{
+        if(audio){
+          audio.play()
+        }
+      }
+  },[autoPlay])
 
   // autoPlayToggleHandler
   const handleAutoPlay = (event, newAutoPlay) => {
@@ -83,73 +119,95 @@ function MainApp() {
     if (!AIServicePageList.includes(location.pathname)) setSrc("");
   }, [location.pathname]);
 
+  // TTS 함수
+  const convertTextToSpeech = async () => {
+    try {
+      const response = await axios.post(
+        "/api/tts",
+        { text },
+        {
+          responseType: "blob",
+        },
+      );
+
+      const blob = response.data;
+      const audioUrl = URL.createObjectURL(blob);
+      setAudio(new Audio(audioUrl))
+    } catch (error) {
+      console.error("TTS 요청 실패", error);
+    }
+  };
+
   return isDataLoaded ? (
-    <VideoStateContext.Provider value={setSrc}>
+    <VideoStateContext.Provider value={{setSrc,setRepeat,setAutoPlay}}>
       <VoiceServiceStateContext.Provider
         value={{ result, setResult, setOptions, setType }}
       >
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/" element={<SubLayout />}>
-            {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/">
-            {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/accHistory" element={<AccHistoryPage />}></Route>
-        </Routes>
+        <AudioStateContext.Provider value={{setText}}>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
+                return (
+                  <Route
+                    key={route.name}
+                    path={route.path()}
+                    element={<route.component />}
+                  />
+                );
+              })}
+            </Route>
+            <Route path="/" element={<SubLayout />}>
+              {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
+                return (
+                  <Route
+                    key={route.name}
+                    path={route.path()}
+                    element={<route.component />}
+                  />
+                );
+              })}
+            </Route>
+            <Route path="/">
+              {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
+                return (
+                  <Route
+                    key={route.name}
+                    path={route.path()}
+                    element={<route.component />}
+                  />
+                );
+              })}
+            </Route>
+            <Route path="/accHistory" element={<AccHistoryPage />}></Route>
+          </Routes>
 
-      {isIncludeAIServicePage && autoPlay ? (
-          <>
-            <VideoComp
-              isVideoPlaying={isVideoPlaying}
-              setIsVideoPlaying={setIsVideoPlaying}
-              src={src}
-              classes={"absolute top-0 left-900 min-w-400"}
-              autoPlay={autoPlay}
-            />
+          {isIncludeAIServicePage && autoPlay ? (
+            <>
+              <VideoComp
+                isVideoPlaying={isVideoPlaying}
+                setIsVideoPlaying={setIsVideoPlaying}
+                src={src}
+                classes={"absolute top-0 left-900 min-w-400"}
+                autoPlay={autoPlay}
+                repeat={repeat}
+              />
 
-            <VoiceServiceComp
-              isVideoPlaying={isVideoPlaying}
-              setResult={setResult}
-              options={options}
-              type={type}
-              autoPlay={autoPlay}
-            />
-          </>
-        ) : (
-          <div className="absolute top-0 left-900 min-w-400">
-            <img src="/assets/off.png" width="270px" className="mt-90" />
-          </div>
-        )}
+              <VoiceServiceComp
+                isVideoPlaying={isVideoPlaying}
+                setResult={setResult}
+                options={options}
+                type={type}
+                autoPlay={autoPlay}
+              />
+            </>
+          ) : (
+            <div className="absolute top-0 left-900 min-w-400">
+              <img src="/assets/off.png" width="270px" className="mt-90" />
+            </div>
+          )}
 
-        <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
+          <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
+        </AudioStateContext.Provider>
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;

@@ -1,8 +1,8 @@
 import HeaderBar from "stories/molecules/headerBar";
 import ProdDetailItem from "stories/molecules/prodDetailItem";
 import ProdBenefit from "stories/organisms/prodBenefit";
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGetProductDetail } from "hooks/queries/productQueries";
 import { productTypeMapping } from "constants/products";
 import BottomStickyButton from "stories/molecules/bottomStickyButton";
@@ -12,14 +12,12 @@ import ProdBenefit4 from "stories/organisms/prodBenefit4";
 
 const ProdDetailPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const {
     data: productData,
     isLoading,
     error,
   } = useGetProductDetail(location.state.prodCode);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   const getLinkUrl = () => {
     switch (productData.prodType) {
@@ -35,6 +33,21 @@ const ProdDetailPage = () => {
         return "/";
     }
   };
+
+  useEffect(() => {
+    if (location.state.goToOpening && productData) {
+      {
+        navigate(getLinkUrl(),{state:{
+          prodCode: productData.prodCode,
+          prodName: productData.prodName,
+          prodMin: productData.prodMin,
+        }})
+      }
+    }
+  }, [productData])
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="w-640 font-sans pt-30">
