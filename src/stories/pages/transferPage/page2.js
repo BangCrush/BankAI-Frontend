@@ -14,6 +14,7 @@ const Page2 = ({
   setTransferForm,
   accInfo,
   result,
+  setResult,
   setOptions,
   setType,
   setSrc,
@@ -34,6 +35,7 @@ const Page2 = ({
   useEffect(() => {
     // 초기 로드시 amount를 빈 상태로 유지
     setAmount("");
+    setResult(null);
     setSrc("/assets/inputTransferAmount.mov");
     setType("number");
   }, []);

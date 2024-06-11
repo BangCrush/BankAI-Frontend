@@ -12,6 +12,7 @@ const Page1 = ({
   setTransferForm,
   setAccInfo,
   result,
+  setResult,
   setOptions,
   setType,
   setSrc,
@@ -20,6 +21,10 @@ const Page1 = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setResult(null);
+  }, [])
 
   useEffect(() => {
     if (progress === 0) {
