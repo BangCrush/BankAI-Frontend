@@ -20,7 +20,7 @@ const MainPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
   const navigate = useNavigate();
-  const {setText} = useContext(AudioStateContext);
+  const {setText,setAudio} = useContext(AudioStateContext);
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
@@ -38,6 +38,7 @@ const MainPage = () => {
   ];
 
   useEffect(() => {
+    setAudio(null);
     setSrc("/assets/introduce.mov");
     setOptions(mainAIList);
     setType("text");
@@ -67,9 +68,9 @@ const MainPage = () => {
         }
         else if (findData.data === "todayTransfer") {
           todayTransfer().then((res) => {
-            setText("오늘 송금하신 금액은 " + res.data + "원 입니다. 또 무엇을 도와드릴까요?");
             setSrc("/assets/noVoice.mov");
             setRepeat(true);
+            setText("오늘 송금하신 금액은 " + res.data + "원 입니다. 또 무엇을 도와드릴까요?");
             setResult(null);
           });
         }else if (findData.data === "todayExchange") {
@@ -85,9 +86,9 @@ const MainPage = () => {
                 eur = data[i].deal_bas_r;
               }
             }
-            setText("오늘의 환율 정보는 달러 " + usd + "원, 엔화 " + jpn + "원, 유로 " + eur + "원 입니다. 또 무엇을 도와 드릴까요?")
-            setRepeat(true);
             setSrc("/assets/noVoice.mov");
+            setRepeat(true);
+            setText("오늘의 환율 정보는 달러 " + usd + "원, 엔화 " + jpn + "원, 유로 " + eur + "원 입니다. 또 무엇을 도와 드릴까요?")
             setResult(null);
           });
         }
