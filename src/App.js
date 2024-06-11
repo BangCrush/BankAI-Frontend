@@ -57,6 +57,7 @@ function MainApp() {
 
   useEffect(()=>{
     if(text==="") return;
+    if(src!=="/assets/noVoice.mov") return
     convertTextToSpeech();
   },[text])
 
@@ -67,6 +68,7 @@ function MainApp() {
       {
         if(audio){
           audio.pause()
+          setRepeat(false)
         }
       }
       else{
@@ -139,11 +141,11 @@ function MainApp() {
   };
 
   return isDataLoaded ? (
-    <VideoStateContext.Provider value={{setSrc,setRepeat,setAutoPlay}}>
+    <VideoStateContext.Provider value={{setSrc,setRepeat,setAutoPlay,setIsVideoPlaying}}>
       <VoiceServiceStateContext.Provider
         value={{ result, setResult, setOptions, setType }}
       >
-        <AudioStateContext.Provider value={{setText}}>
+        <AudioStateContext.Provider value={{setText,setAudio}}>
           <Routes>
             <Route path="/" element={<MainLayout />}>
               {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {

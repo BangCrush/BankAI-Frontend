@@ -18,7 +18,6 @@ const PwdPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(result);
     if (result) {
       if (step === 1) {
         setPwd(result.result);

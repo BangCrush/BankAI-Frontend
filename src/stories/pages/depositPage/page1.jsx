@@ -11,12 +11,17 @@ const Page1 = ({
   prodMin,
   prodCode,
   result,
+  setResult,
   setOptions,
   setType,
   setSrc,
 }) => {
   const [error, setError] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setResult(null);
+  }, []);
 
   const handleProgress = () => {
     setProgress(progress + 1);
@@ -32,18 +37,17 @@ const Page1 = ({
         setDepositForm((draft) => {
           draft.amount = result.result;
         });
-
         handleProgress();
       }
     }
     if (progress === 1) {
-      console.log(result);
       if (result === "맞아") {
         setError(false);
+        setResult(null);
         moveNextPage();
       } else {
-        alert("마이크를 눌러 다시 말씀해주세요");
         setProgress(0);
+        setResult(null);
         setSrc("/assets/inputDepositAmount.mov");
         setType("number");
       }
@@ -60,7 +64,6 @@ const Page1 = ({
 
   const onMoneyChange = (e) => {
     const value = e.target.value;
-    console.log(value);
     setDepositForm((draft) => {
       draft.amount = value * 10000;
     });
