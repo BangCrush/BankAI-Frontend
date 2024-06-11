@@ -17,6 +17,7 @@ const Page2 = ({
   setSrc,
   setOptions,
   setType,
+  setResult,
 }) => {
   const [selectedAcc, setSelectedAcc] = useState(null);
   const [allDone, setAllDone] = useState(false);
@@ -36,30 +37,33 @@ const Page2 = ({
   }
 
   useEffect(() => {
+    setType("number");
     setSrc("assets/inputOutAcc.mov");
   }, []);
 
   useEffect(() => {
-    if (step === 0) {
-      checkingAccCodes.forEach((value) => {
-        if (value === accFormatter(String(result.result))) {
-          setSelectedAcc(value);
+    if (result) {
+      if (step === 0) {
+        checkingAccCodes.forEach((value) => {
+          if (value === accFormatter(String(result.result))) {
+            setSelectedAcc(value);
+          }
+          setResult(null);
+          handleStep();
+        });
+      }
+      else if (step === 1) {
+        if (result === "맞아") {
+          handleButtonClick();
+        } else {
+          setStep(0);
+          setSrc("assets/inputOutAcc.mov");
+          setType("number");
+          setResult(null);
         }
-        handleStep();
-      });
-    }
-    if (step === 1) {
-      if (result === "맞아") {
-        //팝업띄우는 로직
-        handleButtonClick();
-      } else {
-        alert("마이크을 눌러 다시 입력해주세요");
-        setStep(0);
-        setSrc("assets/inputOutAcc.mov");
-        setType("number");
       }
     }
-  }, [result]);
+  }, [result, step]);
 
   useEffect(() => {
     if (step === 1) {
@@ -99,6 +103,7 @@ const Page2 = ({
         setDepositForm((draft) => {
           draft.accountPwd = event.data.pwd;
         });
+        handleSend();
       }
       if (event.data.isMatched && event.data.pwd) {
         setAllDone(true);

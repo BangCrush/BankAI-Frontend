@@ -4,7 +4,7 @@ import { useImmer } from "use-immer";
 import Page2 from "./page2";
 import { useLocation } from "react-router-dom";
 import { productSubscription } from "constants/products";
-import { VideoStateContext, VoiceServiceStateContext } from "App";
+import { AudioStateContext, VideoStateContext, VoiceServiceStateContext } from "App";
 
 const DepositPage = () => {
   const [page, setPage] = useState(1);
@@ -14,7 +14,8 @@ const DepositPage = () => {
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc,setIsVideoPlaying} = useContext(VideoStateContext);
+  const {setText,setAudio} = useContext(AudioStateContext);
   const transferAIList = [
     { name: "메인 페이지", data: "/main" },
     { name: "계좌번호", data: result },
@@ -23,10 +24,12 @@ const DepositPage = () => {
   ];
 
   useEffect(() => {
+    setIsVideoPlaying(0);
+    setAudio(null);
     setOptions(transferAIList);
+    setResult(null);
     setType("number");
     setSrc("/assets/inputDepositAmount.mov");
-    setResult(null);
   }, []);
 
   const [depositForm, setDepositForm] = useImmer(productSubscription);
@@ -48,6 +51,7 @@ const DepositPage = () => {
           setOptions={setOptions}
           setType={setType}
           setSrc={setSrc}
+          setResult={setResult}
         />
       )}
 
@@ -59,6 +63,7 @@ const DepositPage = () => {
           setOptions={setOptions}
           setType={setType}
           setSrc={setSrc}
+          setResult={setResult}
         />
       )}
     </div>

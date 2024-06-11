@@ -3,6 +3,7 @@ const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
+const crypto = require("crypto");
 const https = require("https");
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(pino);
 app.use(bodyParser.json());
 
 const agent = new https.Agent({  
-  rejectUnauthorized: false
+  secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT
 });
 
 app.get("/api/get-speech-token", async (req, res, next) => {

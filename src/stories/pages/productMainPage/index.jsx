@@ -1,4 +1,4 @@
-import { VideoStateContext, VoiceServiceStateContext } from "App";
+import { AudioStateContext, VideoStateContext, VoiceServiceStateContext } from "App";
 import { useGetTop3Products } from "hooks/queries/productQueries";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,11 @@ const ProductMainPage = () => {
 
   const navigate = useNavigate();
 
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc,setRepeat} = useContext(VideoStateContext);
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
+  const {setText,setAudio} = useContext(AudioStateContext);
   const productAIList = [
     { name: "입출금 상품", data: 1 },
     { name: "예금 상품", data: 2 },
@@ -24,6 +25,8 @@ const ProductMainPage = () => {
   ];
 
   useEffect(() => {
+    setAudio(null);
+    setRepeat(false);
     setSrc("/assets/searchProductType.mov");
     setOptions(productAIList);
     setType("text");

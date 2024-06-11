@@ -7,6 +7,7 @@ function VideoComp({
   src,
   classes,
   autoPlay,
+  repeat
 }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [showControl, setShowControl] = useState(false);
@@ -16,6 +17,13 @@ function VideoComp({
   const videoElement = ref && ref.current;
 
   const startTime = Math.floor(currentTime);
+
+  useEffect(() => {
+    if(repeat!==null && !repeat){
+      ref.current.pause();
+      setIsVideoPlaying(2);
+    }
+  }, [repeat]);
 
   // 동영상 시간 업데이트 함수
   const addTimeUpdate = () => {
@@ -96,7 +104,7 @@ function VideoComp({
   return (
     <div className={classes}>
       <video
-        loop={false}
+        loop={repeat}
         muted={false}
         ref={ref}
         playsInline={true}

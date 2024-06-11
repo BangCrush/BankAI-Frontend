@@ -1,4 +1,4 @@
-import { VideoStateContext, VoiceServiceStateContext } from "App";
+import { AudioStateContext, VideoStateContext, VoiceServiceStateContext } from "App";
 import { todayTransfer } from "api/userApi";
 import axios from "axios";
 import {
@@ -20,12 +20,11 @@ const MainPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
   const [sortedAccounts, setSortedAccounts] = useState([]);
   const navigate = useNavigate();
-  const [text, setText] = useState(""); // 음성으로 바뀔 text
-
+  const {setText,setAudio} = useContext(AudioStateContext);
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc,setRepeat,setAutoPlay} = useContext(VideoStateContext);
 
   const mainAIList = [
     { name: "내 정보 페이지", data: "/myInfo" },
@@ -34,10 +33,12 @@ const MainPage = () => {
     { name: "거래내역 조회 페이지", data: "/accountHistory" },
     { name: "계좌이체 페이지", data: "/transferAccount" },
     { name: "오늘 송금 금액", data: "todayTransfer" },
-    { name : "오늘 환율 정보", data: "todayExchange"}
+    { name : "오늘 환율 정보", data: "todayExchange"},
+    { name : "음성인식 취소", data: "cancel"}
   ];
 
   useEffect(() => {
+    setAudio(null);
     setSrc("/assets/introduce.mov");
     setOptions(mainAIList);
     setType("text");
@@ -59,47 +60,57 @@ const MainPage = () => {
   useEffect(() => {
     if (result) {
       const findData = mainAIList.find((data) => result === data.name);
-
-      // 오늘 송금 금액 조회
-      if (findData && findData.data === "todayTransfer") {
-        todayTransfer().then((res) => {
-          setText("오늘 송금하신 금액은 " + res.data + "원 입니다.");
-        });
-      }else if (findData && findData.data === "todayExchange") {
-        axios.get(`/api/todayExchange`).then((res) => {
-          const data = res.data;
-          let jpn,usd,eur = 0;
-          for(let i = 0; i < data.length; i++){
-            if(data[i].cur_unit === "USD"){
-              usd = data[i].deal_bas_r;
-            }else if(data[i].cur_unit === "JPY"){
-              jpn = data[i].deal_bas_r;
-            }else if(data[i].cur_unit === "EUR"){
-              eur = data[i].deal_bas_r;
-            }
-          }
-          setText("오늘의 환율 정보는 달러 " + usd + "원, 엔화 " + jpn + "원, 유로 " + eur + "원 입니다.")
-        });
-      }
-       else if (findData && sortedAccounts.length > 0) {
-        if (findData.data === "/accountHistory") {
-          navigate(findData.data, {
-            state: {
-              accCode: sortedAccounts[0].accCode,
-              prodName: sortedAccounts[0].prodName,
-            },
+      if (findData){
+        if(findData.data === "cancel"){
+          setAutoPlay(false);
+          setResult(null);
+          setSrc("/assets/introduce.mov")
+        }
+        else if (findData.data === "todayTransfer") {
+          todayTransfer().then((res) => {
+            setSrc("/assets/noVoice.mov");
+            setRepeat(true);
+            setText("오늘 송금하신 금액은 " + res.data + "원 입니다. 또 무엇을 도와드릴까요?");
+            setResult(null);
           });
-        } else {
-          navigate(findData.data);
+        }else if (findData.data === "todayExchange") {
+          axios.get(`/api/todayExchange`).then((res) => {
+            const data = res.data;
+            let jpn,usd,eur = 0;
+            for(let i = 0; i < data.length; i++){
+              if(data[i].cur_unit === "USD"){
+                usd = data[i].deal_bas_r;
+              }else if(data[i].cur_unit === "JPY"){
+                jpn = data[i].deal_bas_r;
+              }else if(data[i].cur_unit === "EUR"){
+                eur = data[i].deal_bas_r;
+              }
+            }
+            setSrc("/assets/noVoice.mov");
+            setRepeat(true);
+            setText("오늘의 환율 정보는 달러 " + usd + "원, 엔화 " + jpn + "원, 유로 " + eur + "원 입니다. 또 무엇을 도와 드릴까요?")
+            setResult(null);
+          });
+        }
+         else if (sortedAccounts.length > 0) {
+          if (findData.data === "/accountHistory") {
+            navigate(findData.data, {
+              state: {
+                accCode: sortedAccounts[0].accCode,
+                prodName: sortedAccounts[0].prodName,
+              },
+            });
+          } else {
+            navigate(findData.data);
+          }
         }
       }
+
+      // 오늘 송금 금액 조회
+      
     }
   }, [result]);
 
-  useEffect(() => {
-    if (!text) return;
-    convertTextToSpeech();
-  }, [text]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -109,25 +120,6 @@ const MainPage = () => {
     return <div>Error loading data</div>;
   }
 
-  // TTS 함수
-  const convertTextToSpeech = async () => {
-    try {
-      const response = await axios.post(
-        "/api/tts",
-        { text },
-        {
-          responseType: "blob",
-        },
-      );
-
-      const blob = response.data;
-      const audioUrl = URL.createObjectURL(blob);
-      const audio = new Audio(audioUrl);
-      audio.play();
-    } catch (error) {
-      console.error("TTS 요청 실패", error);
-    }
-  };
 
   return (
     <div className="pb-20">

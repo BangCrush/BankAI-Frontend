@@ -68,7 +68,6 @@ const VoiceServiceComp = ({
   }
 
   const onSubmit = async () => {
-    console.log(options);
     try {
       if (!displayText) return;
       const response = await axios.post("http://121.163.20.238:35281/request", {

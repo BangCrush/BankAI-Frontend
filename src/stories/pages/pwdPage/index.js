@@ -9,7 +9,7 @@ const PwdPage = () => {
   const [finalPwd, setFinalPwd] = useState("");
   const [isMatched, setIsMatched] = useState(null);
   const [step, setStep] = useState(1);
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc} = useContext(VideoStateContext);
   const { result, setResult, setType } = useContext(VoiceServiceStateContext);
 
   useEffect(() => {
@@ -18,7 +18,6 @@ const PwdPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(result);
     if (result) {
       if (step === 1) {
         setPwd(result.result);

@@ -1,12 +1,13 @@
 import HeaderBar from "stories/molecules/headerBar";
 import LongButton from "stories/atoms/longButton";
 import BottomSheet from "stories/organisms/bottomSheet";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TransferCheckPage from "../bottomPages/transferCheckPage";
 import TransferWarningPage from "../bottomPages/transferWarningPage";
 import { accFormatter } from "globalFunc/formatter";
 import { useGetBalanceAccount } from "hooks/queries/accountQueries";
 import { checkLimit } from "api/accountApi";
+import { AudioStateContext } from "App";
 
 const Page2 = ({
   moveNextPage,
@@ -28,6 +29,7 @@ const Page2 = ({
   const { data: accountBalance } = useGetBalanceAccount(accFormatter(myAcc));
   const [progress, setProgress] = useState(0);
   const [confirm, setConfirm] = useState(false);
+  const {setText} = useContext(AudioStateContext);
 
   useEffect(() => {
     // 초기 로드시 amount를 빈 상태로 유지
@@ -66,6 +68,7 @@ const Page2 = ({
       setSrc("/assets/checkAmount.mov");
     }
   }, [progress]);
+
 
   const handleTransfer = () => {
     checkLimit({ accCode: accFormatter(myAcc), amount: amount }).then((res) => {

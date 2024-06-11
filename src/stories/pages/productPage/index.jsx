@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProdButtons from "stories/molecules/prodButtons";
 import SearchBar from "stories/molecules/searchBar";
 import ProductList from "stories/organisms/productList";
@@ -7,12 +7,19 @@ import {
   useGetSearchProducts,
   useGetSelectedProducts,
 } from "hooks/queries/productQueries";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HeaderBar from "stories/molecules/headerBar";
+import { AudioStateContext, VideoStateContext, VoiceServiceStateContext } from "App";
 
 const ProductPage = () => {
   const [clicked, setClicked] = useState(0);
   const [searchWord, setSearchWord] = useState("");
+  const prodType_ko = ["전체", "입출금", "예금", "적금", "대출", "검색"];
+  const {setSrc,setRepeat,setAutoPlay} = useContext(VideoStateContext);
+  const {result, setOptions,setType}=useContext(VoiceServiceStateContext);
+  const {setText} = useContext(AudioStateContext);
+
+  const navigate = useNavigate();
   const {
     data: allProducts,
     isLoading: isLoadingAll,
@@ -37,8 +44,32 @@ const ProductPage = () => {
     }
     if (location.state && location.state.index !== undefined) {
       setClicked(location.state.index);
+      setText(`${prodType_ko[location.state.index]} 상품들을 불러왔어요! 어떤 상품을 가입하시겠어요?`);
+      setSrc("/assets/noVoice.mov");
+      setRepeat(true);
     }
   }, [location.state]);
+
+  useEffect(()=>{
+    if(result && selectedProducts){
+      Object.values(selectedProducts)[0].map((product)=>{
+        if(product.prodName===result){
+          navigate(`/product/${product.prodCode}`,{state:{prodCode:product.prodCode, goToOpening:true}})
+        }
+      })
+    }
+  },[result])
+
+  useEffect(()=>{
+    if(selectedProducts){
+      let options = []
+      Object.values(selectedProducts)[0].map((product)=>{
+        options.push({name:product.prodName,data:product.prodCode})
+      })
+      setOptions(options)
+      setType("text")
+    }
+  },[selectedProducts])
 
   useEffect(() => {}, [allProducts, selectedProducts, searchedProducts]);
 
