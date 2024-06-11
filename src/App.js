@@ -26,7 +26,7 @@ export const AIServicePageList = [
   "/transfer",
   "/deposit",
   "/productMain",
-  "/product"
+  "/product",
 ];
 
 function MainApp() {
@@ -46,39 +46,35 @@ function MainApp() {
     return savedAutoPlay === "true";
   });
 
-  useEffect(()=>{
-    if(audio){
-      audio.onended = function() {
-        setRepeat(false)
+  useEffect(() => {
+    if (audio) {
+      audio.onended = function () {
+        setRepeat(false);
       };
-      if(autoPlay){
-      audio.play()
+      if (autoPlay) {
+        audio.play();
       }
     }
-  },[audio])
+  }, [audio]);
 
-  useEffect(()=>{
-    if(text==="") return;
-    if(src!=="/assets/noVoice.mov") return
+  useEffect(() => {
+    if (text === "") return;
+    if (src !== "/assets/noVoice.mov") return;
     convertTextToSpeech();
-  },[text])
+  }, [text]);
 
-  
-
-  useEffect(()=>{
-    if(!autoPlay)
-      {
-        if(audio){
-          audio.pause()
-          setRepeat(false)
-        }
+  useEffect(() => {
+    if (!autoPlay) {
+      if (audio) {
+        audio.pause();
+        setRepeat(false);
       }
-      else{
-        if(audio){
-          audio.play()
-        }
+    } else {
+      if (audio) {
+        audio.play();
       }
-  },[autoPlay])
+    }
+  }, [autoPlay]);
 
   // autoPlayToggleHandler
   const handleAutoPlay = (event, newAutoPlay) => {
@@ -142,65 +138,20 @@ function MainApp() {
 
       const blob = response.data;
       const audioUrl = URL.createObjectURL(blob);
-      setAudio(new Audio(audioUrl))
+      setAudio(new Audio(audioUrl));
     } catch (error) {
       console.error("TTS 요청 실패", error);
     }
   };
 
   return isDataLoaded ? (
-    <VideoStateContext.Provider value={{setSrc,setRepeat,setAutoPlay,setIsVideoPlaying}}>
+    <VideoStateContext.Provider
+      value={{ setSrc, setRepeat, setAutoPlay, setIsVideoPlaying }}
+    >
       <VoiceServiceStateContext.Provider
         value={{ result, setResult, setOptions, setType }}
       >
-// <<<<<<< main
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/" element={<SubLayout />}>
-            {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/">
-            {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
-              return (
-                <Route
-                  key={route.name}
-                  path={route.path()}
-                  element={<route.component />}
-                />
-              );
-            })}
-          </Route>
-          <Route path="/accHistory" element={<AccHistoryPage />}></Route>
-        </Routes>
-
-        <div className="absolute top-0 left-800 flex flex-col justify-center items-center min-w-400">
-          <div className="mt-90">
-            {/* <AutoPlayToggle
-              autoPlay={autoPlay}
-              handleAutoPlay={handleAutoPlay}
-            /> */}
-            <AutoPlaySwitch autoPlay={autoPlay} setAutoPlay={setAutoPlay} />
-          </div>
-// =======
-        <AudioStateContext.Provider value={{setText,setAudio}}>
+        <AudioStateContext.Provider value={{ setText, setAudio }}>
           <Routes>
             <Route path="/" element={<MainLayout />}>
               {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
@@ -237,47 +188,36 @@ function MainApp() {
             </Route>
             <Route path="/accHistory" element={<AccHistoryPage />}></Route>
           </Routes>
-// >>>>>>> main
-
-          {isIncludeAIServicePage && autoPlay ? (
-            <>
-              <VideoComp
-                isVideoPlaying={isVideoPlaying}
-                setIsVideoPlaying={setIsVideoPlaying}
-                src={src}
-// <<<<<<< main
-                autoPlay={autoPlay}
-// =======
-                classes={"absolute top-0 left-900 min-w-400"}
-                autoPlay={autoPlay}
-                repeat={repeat}
-// >>>>>>> main
-              />
-
-              <VoiceServiceComp
-                isVideoPlaying={isVideoPlaying}
-                setResult={setResult}
-                options={options}
-                type={type}
-                autoPlay={autoPlay}
-              />
-            </>
-          ) : (
-// <<<<<<< main
-            <div className="">
-              <img src="/assets/off.png" width="270px" className="mt-20" />
+          <div className="absolute top-0 left-800 flex flex-col justify-center items-center min-w-400">
+            <div className="mt-90">
+              <AutoPlaySwitch autoPlay={autoPlay} setAutoPlay={setAutoPlay} />
             </div>
-          )}
-        </div>
-// =======
-            <div className="absolute top-0 left-900 min-w-400">
-              <img src="/assets/off.png" width="270px" className="mt-90" />
-            </div>
-          )}
 
-          <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
+            {isIncludeAIServicePage && autoPlay ? (
+              <>
+                <VideoComp
+                  isVideoPlaying={isVideoPlaying}
+                  setIsVideoPlaying={setIsVideoPlaying}
+                  src={src}
+                  autoPlay={autoPlay}
+                  repeat={repeat}
+                />
+
+                <VoiceServiceComp
+                  isVideoPlaying={isVideoPlaying}
+                  setResult={setResult}
+                  options={options}
+                  type={type}
+                  autoPlay={autoPlay}
+                />
+              </>
+            ) : (
+              <div>
+                <img src="/assets/off.png" width="270px" className="mt-20" />
+              </div>
+            )}
+          </div>
         </AudioStateContext.Provider>
-// >>>>>>> main
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;
