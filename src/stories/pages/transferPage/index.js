@@ -11,7 +11,7 @@ const TransferPage = () => {
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc} = useContext(VideoStateContext);
 
   const transferAIList = [
     { name: "메인 페이지", data: "/main" },
