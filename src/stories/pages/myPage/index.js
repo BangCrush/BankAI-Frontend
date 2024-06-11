@@ -2,9 +2,14 @@ import { useGetMyInfo } from "hooks/queries/userQueries";
 import HeaderBar from "stories/molecules/headerBar";
 import MediumButton from "stories/atoms/mediumButton";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const MyPage = () => {
   const { data: myData, isLoading } = useGetMyInfo();
+
+  useEffect(()=>{
+    document.scrollingElement.scrollTop = 0;
+  },[])
 
   return (
     <div className="w-640 ">

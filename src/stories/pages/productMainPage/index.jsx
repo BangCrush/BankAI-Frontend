@@ -12,7 +12,7 @@ const ProductMainPage = () => {
 
   const navigate = useNavigate();
 
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc} = useContext(VideoStateContext);
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );

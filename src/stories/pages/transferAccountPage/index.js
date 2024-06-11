@@ -11,7 +11,7 @@ import { VideoStateContext, VoiceServiceStateContext } from "App";
 
 const TransferAccountPage = () => {
   const { data: myInfo, isLoading, error } = useGetMyInfo();
-  const setSrc = useContext(VideoStateContext);
+  const {setSrc} = useContext(VideoStateContext);
   const { result, setResult, setOptions, setType } = useContext(
     VoiceServiceStateContext,
   );
