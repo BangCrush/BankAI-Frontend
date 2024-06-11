@@ -12,6 +12,7 @@ import { onSilentRefresh } from "api/userApi";
 import VideoComp from "stories/organisms/videoComp";
 import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 import { AutoPlayToggle } from "stories/organisms/autoPlayToggle";
+import AutoPlaySwitch from "stories/organisms/autoPlaySwtich";
 
 export const VoiceServiceStateContext = React.createContext();
 export const VideoStateContext = React.createContext();
@@ -34,7 +35,6 @@ function MainApp() {
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
 
-  // autoPlayToggleStatus
   const [autoPlay, setAutoPlay] = useState(() => {
     const savedAutoPlay = localStorage.getItem("autoPlay");
     return savedAutoPlay === "true";
@@ -46,6 +46,12 @@ function MainApp() {
     setIsVideoPlaying(0);
     localStorage.setItem("autoPlay", newAutoPlay);
   };
+
+  useEffect(() => {
+    if (autoPlay) {
+      setIsVideoPlaying(0);
+    }
+  }, [autoPlay]);
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(0);
 
@@ -127,10 +133,11 @@ function MainApp() {
 
         <div className="absolute top-0 left-800 flex flex-col justify-center items-center min-w-400">
           <div className="mt-90">
-            <AutoPlayToggle
+            {/* <AutoPlayToggle
               autoPlay={autoPlay}
               handleAutoPlay={handleAutoPlay}
-            />
+            /> */}
+            <AutoPlaySwitch autoPlay={autoPlay} setAutoPlay={setAutoPlay} />
           </div>
 
           {isIncludeAIServicePage && autoPlay ? (
