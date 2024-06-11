@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import KeyboardVoiceOutlinedIcon from '@mui/icons-material/KeyboardVoiceOutlined';
-import MicNoneIcon from '@mui/icons-material/MicNone';
+import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
+import MicNoneIcon from "@mui/icons-material/MicNone";
 
-const VoiceWave = ({show}) => {
+const VoiceWave = ({ show }) => {
   const canvasRef = useRef(null);
   const [audioContext, setAudioContext] = useState(null);
   const [analyser, setAnalyser] = useState(null);
@@ -10,7 +10,7 @@ const VoiceWave = ({show}) => {
   const [isRunning, setIsRunning] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const WIDTH = 500;
+  const WIDTH = 400;
   const HEIGHT = 200;
 
   const opts = {
@@ -162,7 +162,9 @@ const VoiceWave = ({show}) => {
 
   return (
     <div>
-      <div className={`AiRecordButton transition delay-100 ${show ? "" : "invisible"}`}>
+      <div
+        className={`AiRecordButton transition delay-100 ${show ? "" : "invisible"}`}
+      >
         <canvas id="canvas" ref={canvasRef}></canvas>
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}

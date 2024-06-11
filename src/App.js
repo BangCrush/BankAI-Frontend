@@ -125,31 +125,37 @@ function MainApp() {
           <Route path="/accHistory" element={<AccHistoryPage />}></Route>
         </Routes>
 
-      {isIncludeAIServicePage && autoPlay ? (
-          <>
-            <VideoComp
-              isVideoPlaying={isVideoPlaying}
-              setIsVideoPlaying={setIsVideoPlaying}
-              src={src}
-              classes={"absolute top-0 left-900 min-w-400"}
+        <div className="absolute top-0 left-800 flex flex-col justify-center items-center min-w-400">
+          <div className="mt-90">
+            <AutoPlayToggle
               autoPlay={autoPlay}
+              handleAutoPlay={handleAutoPlay}
             />
-
-            <VoiceServiceComp
-              isVideoPlaying={isVideoPlaying}
-              setResult={setResult}
-              options={options}
-              type={type}
-              autoPlay={autoPlay}
-            />
-          </>
-        ) : (
-          <div className="absolute top-0 left-900 min-w-400">
-            <img src="/assets/off.png" width="270px" className="mt-90" />
           </div>
-        )}
 
-        <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
+          {isIncludeAIServicePage && autoPlay ? (
+            <>
+              <VideoComp
+                isVideoPlaying={isVideoPlaying}
+                setIsVideoPlaying={setIsVideoPlaying}
+                src={src}
+                autoPlay={autoPlay}
+              />
+
+              <VoiceServiceComp
+                isVideoPlaying={isVideoPlaying}
+                setResult={setResult}
+                options={options}
+                type={type}
+                autoPlay={autoPlay}
+              />
+            </>
+          ) : (
+            <div className="">
+              <img src="/assets/off.png" width="270px" className="mt-20" />
+            </div>
+          )}
+        </div>
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;

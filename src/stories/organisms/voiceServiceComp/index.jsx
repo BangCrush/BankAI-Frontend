@@ -7,7 +7,13 @@ import VoiceWave from "stories/atoms/voiceVisual";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying, autoPlay }) => {
+const VoiceServiceComp = ({
+  setResult,
+  options,
+  type,
+  isVideoPlaying,
+  autoPlay,
+}) => {
   const [displayText, setDisplayText] = useState();
   const [isRecording, setIsRecording] = useState(false);
   const [show, setShow] = useState(false);
@@ -19,11 +25,12 @@ const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying, autoPlay }
   }, [isVideoPlaying]);
 
   useEffect(() => {
-    if (!autoPlay){
+    if (!autoPlay) {
       setShow(false);
       setIsRecording(false);
       setDisplayText(null);
-    }},[autoPlay]);
+    }
+  }, [autoPlay]);
 
   async function sttFromMic() {
     const tokenObj = await getTokenOrRefresh();
@@ -81,7 +88,7 @@ const VoiceServiceComp = ({ setResult, options, type, isVideoPlaying, autoPlay }
   }, [displayText]);
 
   return (
-    <button className="absolute left-800 top-500" onClick={sttFromMic}>
+    <button className="top-500" onClick={sttFromMic}>
       {isRecording ? <VoiceWave show={show} /> : null}
     </button>
   );

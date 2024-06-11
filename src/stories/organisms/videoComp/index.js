@@ -26,8 +26,8 @@ function VideoComp({
       });
 
       if (autoPlay === true) {
-          setIsVideoPlaying(1);
-          observedVideoElement.play();
+        setIsVideoPlaying(1);
+        observedVideoElement.play();
       }
     }
   };
@@ -101,7 +101,7 @@ function VideoComp({
         ref={ref}
         playsInline={true}
         width="270px"
-        className="mt-90"
+        className="mt-20"
         src={src}
         type="video/mp4"
       />
