@@ -21,7 +21,7 @@ function VideoComp({
   useEffect(() => {
     if(repeat!==null && !repeat){
       ref.current.pause();
-      setIsVideoPlaying(2);
+      setIsVideoPlaying(1);
     }
   }, [repeat]);
 

@@ -40,6 +40,7 @@ function MainApp() {
 
   const [audio, setAudio] = useState(null);
   const [repeat, setRepeat] = useState(false);
+  const [callStack,setCallStack] = useState(0);
 
   const [autoPlay, setAutoPlay] = useState(() => {
     const savedAutoPlay = localStorage.getItem("autoPlay");
@@ -149,7 +150,7 @@ function MainApp() {
       value={{ setSrc, setRepeat, setAutoPlay, setIsVideoPlaying }}
     >
       <VoiceServiceStateContext.Provider
-        value={{ result, setResult, setOptions, setType }}
+        value={{ result, setResult,callStack,setCallStack, setOptions, setType }}
       >
         <AudioStateContext.Provider value={{ setText, setAudio }}>
           <Routes>
@@ -205,6 +206,8 @@ function MainApp() {
                 <VoiceServiceComp
                   isVideoPlaying={isVideoPlaying}
                   setResult={setResult}
+                  callStack={callStack}
+                  setCallStack={setCallStack}
                   options={options}
                   type={type}
                   autoPlay={autoPlay}

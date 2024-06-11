@@ -27,7 +27,6 @@ const Page2 = ({ moveNextPage, registForm, setRegistForm }) => {
         });
       }
       if (event.data.zonecode) {
-        console.log("zipcode", event.data.zonecode);
         setZipcode(event.data.zonecode);
       }
     };

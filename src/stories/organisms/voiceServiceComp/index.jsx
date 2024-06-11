@@ -9,6 +9,8 @@ const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 const VoiceServiceComp = ({
   setResult,
+  callStack,
+  setCallStack,
   options,
   type,
   isVideoPlaying,
@@ -57,6 +59,7 @@ const VoiceServiceComp = ({
       if (result.reason === ResultReason.RecognizedSpeech) {
         setShow(false);
         // 입력이 완료됐을 때 실행
+        setCallStack(callStack+1);
         setDisplayText(`${result.text}`);
         setIsRecording(false);
       } else {
@@ -70,12 +73,14 @@ const VoiceServiceComp = ({
   const onSubmit = async () => {
     try {
       if (!displayText) return;
-      const response = await axios.post("http://121.163.20.238:35281/request", {
+      axios.post("http://121.163.20.238:35281/request", {
         text: displayText,
         options: options,
         type: type,
-      });
-      setResult(response.data);
+      }).then((response)=>{
+        setResult(response.data);
+      })
+      
     } catch (error) {
       console.error("파일 전송 실패:", error);
     }
@@ -84,7 +89,7 @@ const VoiceServiceComp = ({
   useEffect(() => {
     if (!displayText) return;
     onSubmit();
-  }, [displayText]);
+  }, [callStack]);
 
   return (
     <button className="top-500" onClick={sttFromMic}>

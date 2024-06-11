@@ -44,7 +44,6 @@ const Page1 = ({ moveNextPage, registForm, setRegistForm }) => {
       ok
     ) {
       setRegistForm((draft) => {
-        console.log(draft.userInherentNumber);
         draft.userInherentNumber = draft.userInherentNumber.substring(0, 6) +"-"+ draft.userInherentNumber.substring(6, 7);
       });
       moveNextPage();

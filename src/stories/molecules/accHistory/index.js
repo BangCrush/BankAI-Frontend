@@ -4,7 +4,6 @@ const AccHistory = ({ data }) => {
   const date = new Date(data.hisDateTime);
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  console.log(data.hisType);
 
   return (
     <div className="border-gray-800 border-solid border-b-1 pb-19 py-20 px-20">

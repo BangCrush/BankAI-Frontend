@@ -30,7 +30,6 @@ const Page3 = ({ moveNextPage, jobForm, setJobForm }) => {
         });
       }
       if (event.data.zonecode) {
-        console.log("zipcode", event.data.zonecode);
         setZipcode(event.data.zonecode);
       }
     };

@@ -9,24 +9,31 @@ const PwdPage = () => {
   const [finalPwd, setFinalPwd] = useState("");
   const [isMatched, setIsMatched] = useState(null);
   const [step, setStep] = useState(1);
-  const {setSrc} = useContext(VideoStateContext);
-  const { result, setResult, setType } = useContext(VoiceServiceStateContext);
+  const {setSrc, setIsVideoPlaying} = useContext(VideoStateContext);
+  const { result, setResult, setType,callStack } = useContext(VoiceServiceStateContext);
+  const [second,setSecond] = useState(1);
 
   useEffect(() => {
     setType("number");
     setResult(null);
   }, []);
 
+  useEffect(()=>{
+    console.log('call',callStack);
+  },[callStack])
+
   useEffect(() => {
+    console.log(callStack);
     if (result) {
-      if (step === 1) {
+      console.log(result,step);
+      if (step === 1 ) {
         setPwd(result.result);
       }
-      if (step === 2) {
+      else if (step === 2 ) {
         setFinalPwd(result.result);
       }
     }
-  }, [result]);
+  }, [result,callStack]);
 
   useEffect(() => {
     if (step === 1) {
@@ -42,9 +49,11 @@ const PwdPage = () => {
       }
     } else if (step === 2) {
       setSrc("/assets/accountPasswordAgain.mov");
+      setIsVideoPlaying(2)
       if (finalPwd.length === 4) {
         if (pwd === finalPwd) {
           setIsMatched(true);
+          console.log(pwd);
           window.opener.postMessage({ pwd, isMatched: "true" }, "*");
           window.close();
         } else {

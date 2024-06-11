@@ -7,7 +7,7 @@ import TransferWarningPage from "../bottomPages/transferWarningPage";
 import { accFormatter } from "globalFunc/formatter";
 import { useGetBalanceAccount } from "hooks/queries/accountQueries";
 import { checkLimit } from "api/accountApi";
-import { AudioStateContext } from "App";
+import { AudioStateContext, VideoStateContext } from "App";
 
 const Page2 = ({
   moveNextPage,
@@ -31,12 +31,14 @@ const Page2 = ({
   const [progress, setProgress] = useState(0);
   const [confirm, setConfirm] = useState(false);
   const {setText} = useContext(AudioStateContext);
+  const {setRepeat} = useContext(VideoStateContext);
 
   useEffect(() => {
     // 초기 로드시 amount를 빈 상태로 유지
     setAmount("");
     setResult(null);
     setSrc("/assets/inputTransferAmount.mov");
+    setRepeat(false);
     setType("number");
   }, []);
 

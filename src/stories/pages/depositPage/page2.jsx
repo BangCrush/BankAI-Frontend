@@ -1,10 +1,11 @@
+import { VideoStateContext } from "App";
 import { PwdWindowOptions } from "constants/password";
 import { accFormatter } from "globalFunc/formatter";
 import {
   useGetAllAccount,
   usePostCreateAccount,
 } from "hooks/queries/accountQueries";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccSelectBox from "stories/atoms/accSelectBox";
 import LongButton from "stories/atoms/longButton";
 import Title from "stories/atoms/title";
@@ -25,6 +26,7 @@ const Page2 = ({
   const handleStep = () => {
     setStep(step + 1);
   };
+  const {setRepeat} = useContext(VideoStateContext)
 
   const { data: allAccount } = useGetAllAccount();
   const { mutate: createAccount, ok, msg } = usePostCreateAccount();
@@ -39,6 +41,7 @@ const Page2 = ({
   useEffect(() => {
     setType("number");
     setSrc("assets/inputOutAcc.mov");
+    setRepeat(false)
   }, []);
 
   useEffect(() => {

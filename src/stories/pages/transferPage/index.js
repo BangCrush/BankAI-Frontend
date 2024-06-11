@@ -54,6 +54,7 @@ const TransferPage = () => {
           accInfo={accInfo}
           setAccInfo={setAccInfo}
           result={result}
+          setResult={setResult}
           setOptions={setOptions}
           setType={setType}
           setSrc={setSrc}
@@ -67,6 +68,7 @@ const TransferPage = () => {
           accInfo={accInfo}
           setAccInfo={setAccInfo}
           result={result}
+          setResult={setResult}
           setOptions={setOptions}
           setType={setType}
           setSrc={setSrc}

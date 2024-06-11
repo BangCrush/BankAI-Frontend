@@ -35,7 +35,7 @@ function TransferCheckPage({ name, accNum, amount, confirm }) {
         setOpen(true);
         setTimeout(() => {
           window.location.href = "/main";
-        }, 5000);
+        }, 3500);
       } else {
         setAlert(res.message);
         setErr(true);
