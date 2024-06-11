@@ -3,6 +3,7 @@ const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
+const https = require("https");
 
 const app = express();
 const port = 3001;
@@ -10,6 +11,10 @@ const port = 3001;
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 app.use(bodyParser.json());
+
+const agent = new https.Agent({  
+  rejectUnauthorized: false
+});
 
 app.get("/api/get-speech-token", async (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
@@ -73,6 +78,25 @@ app.post("/api/tts", async (req, res) => {
   } catch (error) {
     console.error("TTS 요청 실패", error);
     res.status(500).send("TTS 요청 실패");
+  }
+});
+
+app.get("/api/todayExchange", async (req, res) => {
+  const exim_key = process.env.KOREAEXIM;
+  let today = new Date();
+  let url = ''
+  try {
+    let result = { data: [] };
+    while (result.data.length === 0) {
+      url = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${exim_key}&searchdate=${today.toISOString().substring(0, 10).replace(/-/g, '')}&data=AP01`;
+      result = await axios.get(url, { httpsAgent: agent });
+      today.setDate(today.getDate() - 1);
+    }
+    result.data = result.data.filter((item) => (item.cur_unit === "USD" || item.cur_unit=== "EUR" || item.cur_unit === "JPY(100)"));
+    res.send(result.data);
+  } catch (error) {
+    console.error("환율 정보 요청 실패", error);
+    res.status(201).send("환율 정보 요청 실패");
   }
 });
 
