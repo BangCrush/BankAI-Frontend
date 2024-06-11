@@ -12,6 +12,7 @@ import { onSilentRefresh } from "api/userApi";
 import VideoComp from "stories/organisms/videoComp";
 import VoiceServiceComp from "stories/organisms/voiceServiceComp";
 import { AutoPlayToggle } from "stories/organisms/autoPlayToggle";
+import AutoPlaySwitch from "stories/organisms/autoPlaySwtich";
 import axios from "axios";
 
 export const VoiceServiceStateContext = React.createContext();
@@ -36,9 +37,10 @@ function MainApp() {
   const [result, setResult] = useState(null);
   const [options, setOptions] = useState([]);
   const [type, setType] = useState("");
+
   const [audio, setAudio] = useState(null);
   const [repeat, setRepeat] = useState(false);
-  // autoPlayToggleStatus
+
   const [autoPlay, setAutoPlay] = useState(() => {
     const savedAutoPlay = localStorage.getItem("autoPlay");
     return savedAutoPlay === "true";
@@ -84,6 +86,12 @@ function MainApp() {
     setIsVideoPlaying(0);
     localStorage.setItem("autoPlay", newAutoPlay);
   };
+
+  useEffect(() => {
+    if (autoPlay) {
+      setIsVideoPlaying(0);
+    }
+  }, [autoPlay]);
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(0);
 
@@ -145,6 +153,53 @@ function MainApp() {
       <VoiceServiceStateContext.Provider
         value={{ result, setResult, setOptions, setType }}
       >
+// <<<<<<< main
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            {Object.values(MAIN_LAYOUT_ROUTES_URL).map((route) => {
+              return (
+                <Route
+                  key={route.name}
+                  path={route.path()}
+                  element={<route.component />}
+                />
+              );
+            })}
+          </Route>
+          <Route path="/" element={<SubLayout />}>
+            {Object.values(SUB_LAYOUT_ROUTES_URL).map((route) => {
+              return (
+                <Route
+                  key={route.name}
+                  path={route.path()}
+                  element={<route.component />}
+                />
+              );
+            })}
+          </Route>
+          <Route path="/">
+            {Object.values(NO_LAYOUT_ROUTES_URL).map((route) => {
+              return (
+                <Route
+                  key={route.name}
+                  path={route.path()}
+                  element={<route.component />}
+                />
+              );
+            })}
+          </Route>
+          <Route path="/accHistory" element={<AccHistoryPage />}></Route>
+        </Routes>
+
+        <div className="absolute top-0 left-800 flex flex-col justify-center items-center min-w-400">
+          <div className="mt-90">
+            {/* <AutoPlayToggle
+              autoPlay={autoPlay}
+              handleAutoPlay={handleAutoPlay}
+            /> */}
+            <AutoPlaySwitch autoPlay={autoPlay} setAutoPlay={setAutoPlay} />
+          </div>
+// =======
         <AudioStateContext.Provider value={{setText,setAudio}}>
           <Routes>
             <Route path="/" element={<MainLayout />}>
@@ -182,6 +237,7 @@ function MainApp() {
             </Route>
             <Route path="/accHistory" element={<AccHistoryPage />}></Route>
           </Routes>
+// >>>>>>> main
 
           {isIncludeAIServicePage && autoPlay ? (
             <>
@@ -189,9 +245,13 @@ function MainApp() {
                 isVideoPlaying={isVideoPlaying}
                 setIsVideoPlaying={setIsVideoPlaying}
                 src={src}
+// <<<<<<< main
+                autoPlay={autoPlay}
+// =======
                 classes={"absolute top-0 left-900 min-w-400"}
                 autoPlay={autoPlay}
                 repeat={repeat}
+// >>>>>>> main
               />
 
               <VoiceServiceComp
@@ -203,6 +263,13 @@ function MainApp() {
               />
             </>
           ) : (
+// <<<<<<< main
+            <div className="">
+              <img src="/assets/off.png" width="270px" className="mt-20" />
+            </div>
+          )}
+        </div>
+// =======
             <div className="absolute top-0 left-900 min-w-400">
               <img src="/assets/off.png" width="270px" className="mt-90" />
             </div>
@@ -210,6 +277,7 @@ function MainApp() {
 
           <AutoPlayToggle autoPlay={autoPlay} handleAutoPlay={handleAutoPlay} />
         </AudioStateContext.Provider>
+// >>>>>>> main
       </VoiceServiceStateContext.Provider>
     </VideoStateContext.Provider>
   ) : null;
