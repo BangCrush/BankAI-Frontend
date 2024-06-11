@@ -1,18 +1,21 @@
 import { checkPw, transfer } from "api/accountApi";
 import { PwdWindowOptions } from "constants/password";
 import { accFormatter } from "globalFunc/formatter";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import LongButton from "stories/atoms/longButton";
 import TransferInfo from "stories/molecules/transferInfo";
 import BottomSheet from "stories/organisms/bottomSheet";
 import AlertModal from "stories/molecules/alertModal";
 import BottomSuccessPage from "../BottomSuccessPage";
+import { AudioStateContext, VideoStateContext } from "App";
 
 function TransferCheckPage({ name, accNum, amount, confirm }) {
   const accCode = new URL(window.location.href).searchParams.get("accCode");
   const [open, setOpen] = useState(false);
   const [err, setErr] = useState(false);
-  const [text, setText] = useState("");
+  const [alert, setAlert] = useState("");
+  const {setText} = useContext(AudioStateContext);
+  const {setSrc} = useContext(VideoStateContext);
 
   useEffect(() => {
     if (confirm) {
@@ -27,9 +30,14 @@ function TransferCheckPage({ name, accNum, amount, confirm }) {
       amount: amount,
     }).then((res) => {
       if (res.status === 201) {
+        setSrc("/assets/noVoice.mov");
+        setText("계좌이체가 완료되었습니다.");
         setOpen(true);
+        setTimeout(() => {
+          window.location.href = "/main";
+        }, 5000);
       } else {
-        setText(res.message);
+        setAlert(res.message);
         setErr(true);
       }
     });
@@ -42,7 +50,7 @@ function TransferCheckPage({ name, accNum, amount, confirm }) {
             window.close();
             tryTransfer();
           } else {
-            setText("비밀번호가 일치하지 않습니다.");
+            setAlert("비밀번호가 일치하지 않습니다.");
             setErr(true);
             window.close();
           }
@@ -80,7 +88,7 @@ function TransferCheckPage({ name, accNum, amount, confirm }) {
         severity={"error"}
         open={err}
         setOpen={setErr}
-        content={text}
+        content={alert}
         handleClose={() => {
           setErr(false);
         }}
