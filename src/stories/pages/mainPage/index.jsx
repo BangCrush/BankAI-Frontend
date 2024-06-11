@@ -80,7 +80,7 @@ const MainPage = () => {
             for(let i = 0; i < data.length; i++){
               if(data[i].cur_unit === "USD"){
                 usd = data[i].deal_bas_r;
-              }else if(data[i].cur_unit === "JPY"){
+              }else if(data[i].cur_unit === "JPY(100)"){
                 jpn = data[i].deal_bas_r;
               }else if(data[i].cur_unit === "EUR"){
                 eur = data[i].deal_bas_r;
