@@ -103,6 +103,7 @@ const Page2 = ({
         setDepositForm((draft) => {
           draft.accountPwd = event.data.pwd;
         });
+        handleSend();
       }
       if (event.data.isMatched && event.data.pwd) {
         setAllDone(true);
