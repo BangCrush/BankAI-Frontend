@@ -50,6 +50,7 @@ function MainApp() {
   useEffect(() => {
     if (audio) {
       audio.onended = function () {
+        console.log('????');
         setRepeat(false);
       };
       if (autoPlay) {
@@ -59,6 +60,7 @@ function MainApp() {
   }, [audio]);
 
   useEffect(() => {
+    console.log(text);
     if (text === "") return;
     if (src !== "/assets/noVoice.mov") return;
     convertTextToSpeech();

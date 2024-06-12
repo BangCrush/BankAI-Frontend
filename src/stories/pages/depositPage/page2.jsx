@@ -42,6 +42,7 @@ const Page2 = ({
     setType("number");
     setSrc("assets/inputOutAcc.mov");
     setRepeat(false)
+    console.log(depositForm);
   }, []);
 
   useEffect(() => {
@@ -86,8 +87,11 @@ const Page2 = ({
   // }, [result]);
 
   const handleSend = () => {
+    console.log();
     createAccount(depositForm);
-    window.location.href = "/main";
+    setTimeout(()=>{
+      window.location.href = "/main";
+    },1000)
   };
 
   useEffect(() => {
@@ -104,9 +108,9 @@ const Page2 = ({
     const handleMessage = (event) => {
       if (event.data.pwd) {
         setDepositForm((draft) => {
+          console.log(event.data.pwd);
           draft.accountPwd = event.data.pwd;
         });
-        handleSend();
       }
       if (event.data.isMatched && event.data.pwd) {
         setAllDone(true);
@@ -119,6 +123,12 @@ const Page2 = ({
       window.removeEventListener("message", handleMessage);
     };
   }, [setDepositForm]);
+
+  useEffect(()=>{
+    if(depositForm.accountPwd){
+      handleSend()
+    }
+  },[depositForm])
 
   const handleButtonClick = () => {
     if (!allDone) {

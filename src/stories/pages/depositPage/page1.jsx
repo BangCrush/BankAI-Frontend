@@ -35,7 +35,10 @@ const Page1 = ({
           return;
         }
         setDepositForm((draft) => {
+          console.log(result.result);
           draft.amount = result.result;
+          draft.prodCode = prodCode;
+          draft.period = 12;
         });
         handleProgress();
       }

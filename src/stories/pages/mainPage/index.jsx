@@ -43,6 +43,7 @@ const MainPage = () => {
     setOptions(mainAIList);
     setType("text");
     setResult(null);
+    setRepeat(false)
   }, []);
 
   useEffect(() => {

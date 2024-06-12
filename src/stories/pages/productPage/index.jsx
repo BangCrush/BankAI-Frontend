@@ -15,7 +15,7 @@ const ProductPage = () => {
   const [clicked, setClicked] = useState(0);
   const [searchWord, setSearchWord] = useState("");
   const prodType_ko = ["전체", "입출금", "예금", "적금", "대출", "검색"];
-  const {setSrc,setRepeat,setAutoPlay} = useContext(VideoStateContext);
+  const {setSrc,setRepeat,setAutoPlay,setIsVideoPlaying} = useContext(VideoStateContext);
   const {result, setOptions,setType}=useContext(VoiceServiceStateContext);
   const {setText} = useContext(AudioStateContext);
 
@@ -42,11 +42,12 @@ const ProductPage = () => {
     if (!location.state) {
       setClicked(0);
     }
+    console.log(location);
     if (location.state && location.state.index !== undefined) {
       setClicked(location.state.index);
-      setText(`${prodType_ko[location.state.index]} 상품들을 불러왔어요! 어떤 상품을 가입하시겠어요?`);
       setSrc("/assets/noVoice.mov");
       setRepeat(true);
+      setText(`${prodType_ko[location.state.index]} 상품들을 불러왔어요! 어떤 상품을 가입하시겠어요?`);
     }
   }, [location.state]);
 
@@ -70,7 +71,9 @@ const ProductPage = () => {
       setType("text")
     }
   },[selectedProducts])
-
+  useEffect(()=>{
+    setIsVideoPlaying(1)
+  },[])
   useEffect(() => {}, [allProducts, selectedProducts, searchedProducts]);
 
   if (isLoadingAll || isLoadingSelected || isLoadingSearched) {
